@@ -4,7 +4,7 @@ module com.starbucksproject.starbucksposproject {
     requires javafx.web;
 
     requires org.controlsfx.controls;
-    requires validatorfx;
+    requires net.synedra.validatorfx;
     requires org.kordamp.ikonli.javafx;
     requires eu.hansolo.tilesfx;
 
