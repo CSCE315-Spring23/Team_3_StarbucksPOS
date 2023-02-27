@@ -3,7 +3,7 @@ package com.starbucksproject.starbucksposproject;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 
-public class HelloController {
+public class PointOfSaleController {
     @FXML
     private Label welcomeText;
 
