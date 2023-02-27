@@ -4,11 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b7fbcb6d-e86d-43cd-845f-473c7a4f2588" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+    <list default="true" id="b7fbcb6d-e86d-43cd-845f-473c7a4f2588" name="Changes" comment="Fixed initial dependencies">
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/4e336dad-9c34-4d90-a083-23935e4c7204.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/4e336dad-9c34-4d90-a083-23935e4c7204.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/module-info.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -67,8 +66,16 @@
       <workItem from="1677076844027" duration="654000" />
       <workItem from="1677083806281" duration="1209000" />
       <workItem from="1677507653314" duration="2261000" />
-      <workItem from="1677536231920" duration="189000" />
+      <workItem from="1677536231920" duration="394000" />
     </task>
+    <task id="LOCAL-00001" summary="Fixed initial dependencies">
+      <created>1677536495706</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1677536495706</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -84,5 +91,9 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Fixed initial dependencies" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fixed initial dependencies" />
   </component>
 </project>
