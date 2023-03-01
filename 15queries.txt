@@ -1,0 +1,28 @@
+SELECT * FROM menu_items LIMIT 10; //First 10 menu items
+
+SELECT AVG(sales) FROM sales; //Average sales from each day
+
+SELECT SUM(total) FROM transactions; //Sum of transactions
+
+SELECT COUNT(employee_name) FROM employees; //Number of employees
+
+SELECT MAX(total) FROM transactions; //Largest transaction
+
+SELECT MIN(total) FROM transactions; //Smallest transaction
+
+SELECT delivery_id FROM delivery ORDER BY delivery_id DESC LIMIT 10; //10 most rececnt delivery orders
+
+SELECT * FROM employees ORDER BY employee_name ASC; //Sorts employees alphabetically
+
+SELECT * FROM inventory ORDER BY inventory_name DESC LIMIT 10; //Sorts 10 menu items alphabetically from z-a.
+
+INSERT INTO employees (employee_id, employee_name, role, access_mgmt) VALUES ('1003', 'Sam', 'manager', '1'); //Adds a new manager to employees named Sam
+
+INSERT INTO delivery (delivery_id, inventory_id, amount, date_arrived) VALUES (51, 1071, 50, 230731) UPDATE inventory SET quantity = quantity + 28 WHERE inventory_id = 1082; //Adds delivery, updates inventory
+
+DELETE FROM employees WHERE employee_name = 'Sam'; //Deletes the employee "Sam"
+
+
+INSERT INTO transaction (transaction_id, date, num_of_items, order_list, employee, total) VALUES ('231231166', '231231', '2', '{101001, 201009}', 'Bethany', '6.40') UPDATE inventory SET quantity = quantity - 1 WHERE inventory_id = 1062 UPDATE inventory SET quantity = quantity - 1 WHERE inventory_id = 1027; //Transaction for 1x coffee-tall and 1x cinn-roll
+
+INSERT INTO employees (employee_id, employee_name, role, access_mgmt) VALUES ('2025', 'Carter', 'barista', '0'); //Adds a barista named Carter
