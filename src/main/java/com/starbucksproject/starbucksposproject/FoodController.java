@@ -5,7 +5,4 @@ import javafx.fxml.FXML;
 
 public class FoodController {
 
-	@FXML
-	private void coffee_hot_iced(ActionEvent actionEvent) {
-	}
 }
