@@ -39,6 +39,13 @@ public class PointOfSaleController {
         stage.setScene(scene);
         stage.show();
     }
+    public void switchToAlternatives(ActionEvent event) throws IOException {
+        root = FXMLLoader.load(getClass().getResource("coffee-alternative.fxml"));
+        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
 
     @FXML
     private TextField employeeID;
