@@ -102,7 +102,7 @@ public class PointOfSaleController {
     private Button button9;
 
     @FXML
-    protected void attemptLogin() throws NoSuchAlgorithmException {
+    protected void attemptLogin(ActionEvent event) throws NoSuchAlgorithmException {
         //Grab employeeID and pin and match with what's in database
         int id = Integer.parseInt(employeeID.getText());
         String pin = employeePIN.getText();
@@ -138,6 +138,7 @@ public class PointOfSaleController {
                 }
                 currentUserID = id;
                 currentUserName = result.getString("employee_name");
+                switchToCoffee(event);
 
 
             } else {
