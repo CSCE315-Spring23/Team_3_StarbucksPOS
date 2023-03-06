@@ -1,16 +1,102 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.layout.VBox?>
-
 <?import javafx.scene.control.Button?>
-<VBox alignment="CENTER" spacing="20.0" xmlns:fx="http://javafx.com/fxml"
-      fx:controller="com.starbucksproject.starbucksposproject.PointOfSaleController">
-    <padding>
-        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
-    </padding>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-    <Label fx:id="welcomeText"/>
-    <Button text="Hello!" onAction="#onHelloButtonClick"/>
-</VBox>
+
+<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="456.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.starbucksproject.starbucksposproject.PointOfSaleController">
+   <children>
+      <VBox alignment="CENTER" prefHeight="400.0" prefWidth="300.0" spacing="20.0">
+         <children>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Starbucks Point of Sale" textAlignment="CENTER" wrappingWidth="245.97396850585938">
+               <font>
+                  <Font size="32.0" />
+               </font>
+            </Text>
+            <TextField fx:id="employeeID" maxWidth="200.0" onMouseClicked="#setIdHighlight" prefHeight="25.0" prefWidth="181.0" promptText="Employee ID" />
+            <TextField fx:id="employeePIN" maxWidth="200.0" onMouseClicked="#setPinHighlight" promptText="PIN" />
+            <Button fx:id="leftLogIn" mnemonicParsing="false" onAction="#attemptLogin" text="Log In">
+               <font>
+                  <Font size="19.0" />
+               </font>
+            </Button>
+         </children>
+      </VBox>
+      <VBox alignment="CENTER_RIGHT" prefHeight="456.0" prefWidth="115.0">
+         <children>
+            <Button fx:id="button1" mnemonicParsing="false" onAction="#clickButton1" prefHeight="100.0" prefWidth="100.0" text="1">
+               <font>
+                  <Font size="32.0" />
+               </font>
+            </Button>
+            <Button fx:id="button4" mnemonicParsing="false" onAction="#clickButton4" prefHeight="100.0" prefWidth="100.0" text="4">
+               <font>
+                  <Font size="32.0" />
+               </font>
+            </Button>
+            <Button fx:id="button7" mnemonicParsing="false" onAction="#clickButton7" prefHeight="100.0" prefWidth="100.0" text="7">
+               <font>
+                  <Font size="32.0" />
+               </font>
+            </Button>
+            <Button fx:id="buttonClr" mnemonicParsing="false" onAction="#clickButtonClear" prefHeight="100.0" prefWidth="100.0" text="CLR">
+               <font>
+                  <Font size="32.0" />
+               </font>
+            </Button>
+         </children>
+      </VBox>
+      <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
+         <children>
+            <Button fx:id="button2" mnemonicParsing="false" onAction="#clickButton2" prefHeight="100.0" prefWidth="100.0" text="2">
+               <font>
+                  <Font size="32.0" />
+               </font>
+            </Button>
+            <Button fx:id="button5" mnemonicParsing="false" onAction="#clickButton5" prefHeight="100.0" prefWidth="100.0" text="5">
+               <font>
+                  <Font size="32.0" />
+               </font>
+            </Button>
+            <Button fx:id="button8" mnemonicParsing="false" onAction="#clickButton8" prefHeight="100.0" prefWidth="100.0" text="8">
+               <font>
+                  <Font size="32.0" />
+               </font>
+            </Button>
+            <Button fx:id="button0" mnemonicParsing="false" onAction="#clickButton0" prefHeight="100.0" prefWidth="100.0" text="0">
+               <font>
+                  <Font size="32.0" />
+               </font>
+            </Button>
+         </children>
+      </VBox>
+      <VBox alignment="CENTER_LEFT" prefHeight="456.0" prefWidth="130.0">
+         <children>
+            <Button fx:id="button3" mnemonicParsing="false" onAction="#clickButton3" prefHeight="100.0" prefWidth="100.0" text="3">
+               <font>
+                  <Font size="32.0" />
+               </font>
+            </Button>
+            <Button fx:id="button6" mnemonicParsing="false" onAction="#clickButton6" prefHeight="100.0" prefWidth="100.0" text="6">
+               <font>
+                  <Font size="32.0" />
+               </font>
+            </Button>
+            <Button fx:id="button9" mnemonicParsing="false" onAction="#clickButton9" prefHeight="100.0" prefWidth="100.0" text="9">
+               <font>
+                  <Font size="32.0" />
+               </font>
+            </Button>
+            <Button fx:id="rightLogIn" mnemonicParsing="false" onAction="#clickButtonEnter" prefHeight="100.0" prefWidth="100.0" text="ENT">
+               <font>
+                  <Font size="32.0" />
+               </font>
+            </Button>
+         </children>
+      </VBox>
+   </children>
+</HBox>
