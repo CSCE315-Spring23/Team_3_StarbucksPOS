@@ -4,7 +4,13 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+
+import java.security.NoSuchAlgorithmException;
 import java.sql.*;
+import java.security.MessageDigest;
+import java.util.Arrays;
+import java.util.HexFormat;
+
 public class PointOfSaleController {
     Connection conn = null;
 
@@ -31,6 +37,8 @@ public class PointOfSaleController {
     private TextField employeePIN;
 
     private boolean isManager = false;
+    private int currentUserID = -1;
+    private String currentUserName = null;
     @FXML
     private Button leftLogin;
     @FXML
@@ -55,10 +63,12 @@ public class PointOfSaleController {
     private Button button9;
 
     @FXML
-    protected void attemptLogin() {
+    protected void attemptLogin() throws NoSuchAlgorithmException {
         //Grab employeeID and pin and match with what's in database
-        String id = employeeID.getText();
+        int id = Integer.parseInt(employeeID.getText());
         String pin = employeePIN.getText();
+        MessageDigest md5 = MessageDigest.getInstance("MD5");
+        byte[] hashedPIN = md5.digest(pin.getBytes());
         if (conn == null) {
             db_login();
         }
@@ -66,22 +76,31 @@ public class PointOfSaleController {
             //create a statement object
             Statement stmt = conn.createStatement();
             //Running a query
-            String sqlMatchID = "SELECT employee_id FROM employees WHERE employee_id=" + id;
-            String sqlMatchPIN = "SELECT employee_pin FROM employees WHERE employee_id=" + id;
+            String sqlMatch = "SELECT * FROM employees WHERE employee_id=" + id;
+
             //send statement to DBMS
             //This executeQuery command is useful for data retrieval
-            ResultSet resultID = stmt.executeQuery(sqlMatchID);
-            ResultSet resultPIN = stmt.executeQuery(sqlMatchPIN);
+            ResultSet result = stmt.executeQuery(sqlMatch);
+            result.next();
             //If statement checking if the ID and pins are a match. Upon successful log-in attempt-..
             // check ID to see if manager or barista.
-            if (resultID.getString("employee_id") == id && resultPIN.getString("employee_pin") == pin) {
-                if (resultID.getString("employee_id").charAt(0) == '1') {
+//            String strHashed = Arrays.toString(hashedPIN);
+            String strHashed = HexFormat.of().formatHex(hashedPIN);
+//            byte[] grabbedBytes = result.getBytes("employee_pin");
+//            System.out.println(Arrays.compare(grabbedBytes, hashedPIN));
+            String grabbedPIN = result.getString("employee_pin");
+            if (result.getInt("employee_id") == id && grabbedPIN.equals(strHashed)) {
+                if (result.getBoolean("access_mgmt")) {
                     isManager = true;
                     System.out.println("Log-in Success! Access Permission: Manager");
                 } else {
                     isManager = false;
                     System.out.println("Log-in Success! Access Permission: Barista");
                 }
+                currentUserID = id;
+                currentUserName = result.getString("employee_name");
+
+
             } else {
                 System.out.println("Could not find user. Check username or PIN.");
             }
