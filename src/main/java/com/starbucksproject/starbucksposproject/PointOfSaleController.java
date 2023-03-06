@@ -46,7 +46,7 @@ public class PointOfSaleController {
         stage.show();
     }
     public void switchToAlternatives(ActionEvent event) throws IOException {
-        root = FXMLLoader.load(getClass().getResource("coffee-alternative.fxml"));
+        root = FXMLLoader.load(getClass().getResource("coffee-alternative-gui.fxml"));
         stage = (Stage)((Node)event.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
