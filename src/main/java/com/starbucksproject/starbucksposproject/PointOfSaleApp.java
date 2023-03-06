@@ -10,7 +10,7 @@ import java.io.IOException;
 public class PointOfSaleApp extends Application {
 	@Override
 	public void start(Stage stage) throws IOException {
-		FXMLLoader fxmlLoader = new FXMLLoader(PointOfSaleApp.class.getResource("pos-view.fxml"));
+		FXMLLoader fxmlLoader = new FXMLLoader(PointOfSaleApp.class.getResource("coffee-gui.fxml"));
 		Scene scene = new Scene(fxmlLoader.load(), 320, 240);
 		stage.setTitle("Hello!");
 		stage.setScene(scene);
