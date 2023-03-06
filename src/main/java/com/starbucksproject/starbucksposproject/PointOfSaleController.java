@@ -1,11 +1,45 @@
 package com.starbucksproject.starbucksposproject;
 
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
+
+import java.awt.event.ActionEvent;
+import java.io.IOException;
 
 public class PointOfSaleController {
+    private Stage stage;
+    private Scene scene;
+    private Parent root;
+
+    public void switchToCoffee(ActionEvent event) throws IOException {
+        root = FXMLLoader.load(getClass().getResource("coffee-gui.fxml"));
+        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
+    public void switchToEspresso(ActionEvent event) throws IOException {
+        root = FXMLLoader.load(getClass().getResource("espresso-gui.fxml"));
+        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
+    public void switchToFood(ActionEvent event) throws IOException {
+        root = FXMLLoader.load(getClass().getResource("food-gui.fxml"));
+        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
+
     @FXML
     private TextField employeeID;
     @FXML
