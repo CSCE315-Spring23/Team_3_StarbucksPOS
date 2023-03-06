@@ -1,56 +1,44 @@
 package com.starbucksproject.starbucksposproject;
 
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.stage.Stage;
 
-import java.awt.event.ActionEvent;
-import java.io.IOException;
+import java.security.NoSuchAlgorithmException;
+import java.sql.*;
+import java.security.MessageDigest;
+import java.util.Arrays;
+import java.util.HexFormat;
 
 public class PointOfSaleController {
-    private Stage stage;
-    private Scene scene;
-    private Parent root;
+    Connection conn = null;
 
-    public void switchToCoffee(ActionEvent event) throws IOException {
-        root = FXMLLoader.load(getClass().getResource("coffee-gui.fxml"));
-        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-        scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
-    }
-    public void switchToEspresso(ActionEvent event) throws IOException {
-        root = FXMLLoader.load(getClass().getResource("espresso-gui.fxml"));
-        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-        scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
-    }
-    public void switchToFood(ActionEvent event) throws IOException {
-        root = FXMLLoader.load(getClass().getResource("food-gui.fxml"));
-        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-        scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
-    }
-    public void switchToAlternatives(ActionEvent event) throws IOException {
-        root = FXMLLoader.load(getClass().getResource("coffee-alternative.fxml"));
-        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-        scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
-    }
+    private void db_login(){
+        String teamNumber = "team_3";
+        String dbName = "csce315331_" + teamNumber;
+        String dbConnectionString = "jdbc:postgresql://csce-315-db.engr.tamu.edu/" + dbName;
+        // dbSetup myCredentials = new dbSetup();
 
+        //Connecting to the database
+        try {
+            conn = DriverManager.getConnection(dbConnectionString, DatabaseCredentials.user, DatabaseCredentials.pswd);
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.err.println(e.getClass().getName()+": "+e.getMessage());
+            System.exit(0);
+        }
+
+        System.out.println("INFO: Opened database successfully");
+    }
     @FXML
     private TextField employeeID;
     @FXML
     private TextField employeePIN;
+
+    private boolean isManager = false;
+    private int currentUserID = -1;
+    private String currentUserName = null;
     @FXML
     private Button leftLogin;
     @FXML
@@ -75,9 +63,56 @@ public class PointOfSaleController {
     private Button button9;
 
     @FXML
-    protected void attemptLogin(){
+    protected void attemptLogin() throws NoSuchAlgorithmException {
+        //Grab employeeID and pin and match with what's in database
+        int id = Integer.parseInt(employeeID.getText());
+        String pin = employeePIN.getText();
+        MessageDigest md5 = MessageDigest.getInstance("MD5");
+        byte[] hashedPIN = md5.digest(pin.getBytes());
+        if (conn == null) {
+            db_login();
+        }
+        try {
+            //create a statement object
+            Statement stmt = conn.createStatement();
+            //Running a query
+            String sqlMatch = "SELECT * FROM employees WHERE employee_id=" + id;
 
+            //send statement to DBMS
+            //This executeQuery command is useful for data retrieval
+            ResultSet result = stmt.executeQuery(sqlMatch);
+            result.next();
+            //If statement checking if the ID and pins are a match. Upon successful log-in attempt-..
+            // check ID to see if manager or barista.
+//            String strHashed = Arrays.toString(hashedPIN);
+            String strHashed = HexFormat.of().formatHex(hashedPIN);
+//            byte[] grabbedBytes = result.getBytes("employee_pin");
+//            System.out.println(Arrays.compare(grabbedBytes, hashedPIN));
+            String grabbedPIN = result.getString("employee_pin");
+            if (result.getInt("employee_id") == id && grabbedPIN.equals(strHashed)) {
+                if (result.getBoolean("access_mgmt")) {
+                    isManager = true;
+                    System.out.println("Log-in Success! Access Permission: Manager");
+                } else {
+                    isManager = false;
+                    System.out.println("Log-in Success! Access Permission: Barista");
+                }
+                currentUserID = id;
+                currentUserName = result.getString("employee_name");
+
+
+            } else {
+                System.out.println("Could not find user. Check username or PIN.");
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.err.println(e.getClass().getName() + ": " + e.getMessage());
+            System.exit(0);
+        }
     }
+
+
     @FXML
     protected void setIdHighlight(){
 
