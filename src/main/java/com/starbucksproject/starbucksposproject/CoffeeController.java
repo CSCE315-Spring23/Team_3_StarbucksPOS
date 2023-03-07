@@ -83,4 +83,12 @@ public class CoffeeController {
     protected void clickCafeLait() {
 
     }
+    @FXML
+    protected void clickColdBrew() {
+
+    }
+    @FXML
+    protected void clickCoffeeRefill() {
+
+    }
 }
