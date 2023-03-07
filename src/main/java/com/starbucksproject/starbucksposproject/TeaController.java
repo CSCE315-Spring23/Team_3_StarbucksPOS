@@ -66,4 +66,64 @@ public class TeaController {
     protected void clickPay() {
 
     }
+    @FXML
+    protected void clickHotTea() {
+
+    }
+    @FXML
+    protected void clickBrewedTea() {
+
+    }
+    @FXML
+    protected void clickGreenTea() {
+
+    }
+    @FXML
+    protected void clickHoChiMinhTea() {
+
+    }
+    @FXML
+    protected void clickTazoChaiTea() {
+
+    }
+    @FXML
+    protected void clickIcedTeaLemonade() {
+
+    }
+    @FXML
+    protected void clickTavalonBlackTea() {
+
+    }
+    @FXML
+    protected void clickTavalonGreenTea() {
+
+    }
+    @FXML
+    protected void clickStrawberryRefresher() {
+
+    }
+    @FXML
+    protected void clickStrawberryLemonadeRefresher() {
+
+    }
+    @FXML
+    protected void clickPinkDrink() {
+
+    }
+    @FXML
+    protected void clickMangoRefresher() {
+
+    }
+    @FXML
+    protected void clickMangoLemonadeRefresher() {
+
+    }
+    @FXML
+    protected void clickDragonDrink() {
+
+    }
+    @FXML
+    protected void clickHibiscusRefresher() {
+
+    }
 }
