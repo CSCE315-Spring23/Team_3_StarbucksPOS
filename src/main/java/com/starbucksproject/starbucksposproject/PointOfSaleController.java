@@ -9,6 +9,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -17,6 +18,7 @@ import java.sql.*;
 import java.security.MessageDigest;
 import java.util.Arrays;
 import java.util.HexFormat;
+import javafx.scene.input.KeyEvent;
 
 public class PointOfSaleController {
     Connection conn = null;
@@ -114,7 +116,7 @@ public class PointOfSaleController {
         try {
             //create a statement object
             Statement stmt = conn.createStatement();
-            //Running a query
+            //Running a query looks for a entered id in the employee table
             String sqlMatch = "SELECT * FROM employees WHERE employee_id=" + id;
 
             //send statement to DBMS
@@ -152,62 +154,137 @@ public class PointOfSaleController {
         }
     }
 
-
+    //The textFieldInFocus functions indicate which textField is currently being written in.
+    protected String textFieldInFocus(TextField employeeID, TextField employeePIN) {
+        Node focusNode = employeeID.getScene().getFocusOwner();
+        if (focusNode == employeeID) {
+            return "employeeID";
+        } else if (focusNode == employeePIN) {
+            return "employeePIN";
+        } else {
+            return "none";
+        }
+    }
     @FXML
     protected void setIdHighlight(){
-
+        //I think this function is meant to choose the textField so user can enter numbers?
+        //If that's the case, here is the code
+        employeeID.requestFocus();
     }
     @FXML
     protected void setPinHighlight(){
-
+        employeePIN.requestFocus();
     }
+
     @FXML
     protected void clickButton0(){
+        if(textFieldInFocus(employeeID, employeePIN).equals(employeeID)){
+            button0.setOnAction(actionEvent -> employeeID.appendText("0"));
+        }
+        else if(textFieldInFocus(employeeID,employeePIN).equals(employeePIN)){
+            button0.setOnAction(actionEvent -> employeePIN.appendText("0"));
+        }
 
     }
     @FXML
     protected void clickButton1(){
-
+        if(textFieldInFocus(employeeID, employeePIN).equals(employeeID)){
+            button0.setOnAction(event -> employeeID.appendText("1"));
+        }
+        else if(textFieldInFocus(employeeID,employeePIN).equals(employeePIN)){
+            button0.setOnAction(event -> employeePIN.appendText("1"));
+        }
     }
     @FXML
     protected void clickButton2(){
-
+        if(textFieldInFocus(employeeID, employeePIN).equals(employeeID)){
+            button0.setOnAction(event -> employeeID.appendText("2"));
+        }
+        else if(textFieldInFocus(employeeID,employeePIN).equals(employeePIN)){
+            button0.setOnAction(event -> employeePIN.appendText("2"));
+        }
     }
     @FXML
     protected void clickButton3(){
-
+        if(textFieldInFocus(employeeID, employeePIN).equals(employeeID)){
+            button0.setOnAction(event -> employeeID.appendText("3"));
+        }
+        else if(textFieldInFocus(employeeID,employeePIN).equals(employeePIN)){
+            button0.setOnAction(event -> employeePIN.appendText("3"));
+        }
     }
     @FXML
     protected void clickButton4(){
-
+        if(textFieldInFocus(employeeID, employeePIN).equals(employeeID)){
+            button0.setOnAction(event -> employeeID.appendText("4"));
+        }
+        else if(textFieldInFocus(employeeID,employeePIN).equals(employeePIN)){
+            button0.setOnAction(event -> employeePIN.appendText("4"));
+        }
     }
     @FXML
     protected void clickButton5(){
-
+        if(textFieldInFocus(employeeID, employeePIN).equals(employeeID)){
+            button0.setOnAction(event -> employeeID.appendText("5"));
+        }
+        else if(textFieldInFocus(employeeID,employeePIN).equals(employeePIN)){
+            button0.setOnAction(event -> employeePIN.appendText("5"));
+        }
     }
     @FXML
     protected void clickButton6(){
-
+        if(textFieldInFocus(employeeID, employeePIN).equals(employeeID)){
+            button0.setOnAction(event -> employeeID.appendText("6"));
+        }
+        else if(textFieldInFocus(employeeID,employeePIN).equals(employeePIN)){
+            button0.setOnAction(event -> employeePIN.appendText("6"));
+        }
     }
     @FXML
     protected void clickButton7(){
-
+        if(textFieldInFocus(employeeID, employeePIN).equals(employeeID)){
+            button0.setOnAction(event -> employeeID.appendText("7"));
+        }
+        else if(textFieldInFocus(employeeID,employeePIN).equals(employeePIN)){
+            button0.setOnAction(event -> employeePIN.appendText("7"));
+        }
     }
     @FXML
     protected void clickButton8(){
-
+        if(textFieldInFocus(employeeID, employeePIN).equals(employeeID)){
+            button0.setOnAction(event -> employeeID.appendText("8"));
+        }
+        else if(textFieldInFocus(employeeID,employeePIN).equals(employeePIN)){
+            button0.setOnAction(event -> employeePIN.appendText("8"));
+        }
     }
     @FXML
     protected void clickButton9(){
-
+        if(textFieldInFocus(employeeID, employeePIN).equals(employeeID)){
+            button0.setOnAction(event -> employeeID.appendText("9"));
+        }
+        else if(textFieldInFocus(employeeID,employeePIN).equals(employeePIN)){
+            button0.setOnAction(event -> employeePIN.appendText("9"));
+        }
     }
     @FXML
-    protected void clickButtonClear(){
+    protected void clickButtonClear(ActionEvent event){
+        //Will clear whichever text field is in focus. If neither in focus, clear both.
+        if(textFieldInFocus(employeeID, employeePIN).equals(employeeID)){
+            employeeID.setText(null);
+        }
+        else if(textFieldInFocus(employeeID,employeePIN).equals(employeePIN)){
+            employeePIN.setText(null);
+        }
+        else{
+            employeeID.setText(null);
+            employeePIN.setText(null);
+        }
 
     }
-
     @FXML
     protected void clickButtonEnter(){
+        //leftLogin.setOnAction(event -> attemptLogin());
 
     }
 }
