@@ -18,11 +18,13 @@ public class PointOfSaleController {
         String teamNumber = "team_3";
         String dbName = "csce315331_" + teamNumber;
         String dbConnectionString = "jdbc:postgresql://csce-315-db.engr.tamu.edu/" + dbName;
+        String userName = "csce315331_team_3_master";
+        String dbPassword = "gammateam3gamma";
         // dbSetup myCredentials = new dbSetup();
 
         //Connecting to the database
         try {
-            conn = DriverManager.getConnection(dbConnectionString, DatabaseCredentials.user, DatabaseCredentials.pswd);
+            conn = DriverManager.getConnection(dbConnectionString, userName, dbPassword);
         } catch (Exception e) {
             e.printStackTrace();
             System.err.println(e.getClass().getName()+": "+e.getMessage());
