@@ -179,10 +179,10 @@ public class PointOfSaleController {
     @FXML
     protected void clickButton0(){
         if(textFieldInFocus(employeeID, employeePIN).equals(employeeID)){
-            button0.setOnAction(actionEvent -> employeeID.appendText("0"));
+            button0.setOnAction(event -> employeeID.appendText("0"));
         }
         else if(textFieldInFocus(employeeID,employeePIN).equals(employeePIN)){
-            button0.setOnAction(actionEvent -> employeePIN.appendText("0"));
+            button0.setOnAction(event -> employeePIN.appendText("0"));
         }
 
     }
