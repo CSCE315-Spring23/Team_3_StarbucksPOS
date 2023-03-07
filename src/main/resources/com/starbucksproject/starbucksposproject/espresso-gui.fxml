@@ -13,7 +13,7 @@
          <children>
             <HBox alignment="CENTER" prefHeight="58.0" prefWidth="100.0">
                <children>
-                  <Button fx:id="sizeTall" mnemonicParsing="false" prefHeight="37.0" prefWidth="100.0" text="Tall">
+                  <Button fx:id="sizeTall" mnemonicParsing="false" onAction="#clickTall" prefHeight="37.0" prefWidth="100.0" text="Tall">
                      <padding>
                         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                      </padding>
@@ -22,7 +22,7 @@
             </HBox>
             <HBox alignment="CENTER" prefHeight="58.0" prefWidth="100.0">
                <children>
-                  <Button fx:id="sizeGrande" mnemonicParsing="false" prefHeight="37.0" prefWidth="100.0" text="Grande">
+                  <Button fx:id="sizeGrande" mnemonicParsing="false" onAction="#clickGrande" prefHeight="37.0" prefWidth="100.0" text="Grande">
                      <padding>
                         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                      </padding>
@@ -31,7 +31,7 @@
             </HBox>
             <HBox alignment="CENTER" prefHeight="58.0" prefWidth="200.0">
                <children>
-                  <Button fx:id="sizeVenti" mnemonicParsing="false" prefHeight="37.0" prefWidth="100.0" text="Venti">
+                  <Button fx:id="sizeVenti" mnemonicParsing="false" onAction="#clickVenti" prefHeight="37.0" prefWidth="100.0" text="Venti">
                      <padding>
                         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                      </padding>
@@ -40,7 +40,7 @@
             </HBox>
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <Button fx:id="addOnsMenu" mnemonicParsing="false" prefWidth="100.0" text="Add-ons">
+                  <Button fx:id="addOnsMenu" mnemonicParsing="false" onAction="#clickAddons" prefWidth="100.0" text="Add-ons">
                      <padding>
                         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                      </padding>
@@ -49,7 +49,7 @@
             </HBox>
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <Button fx:id="nextDrink" mnemonicParsing="false" prefHeight="37.0" prefWidth="100.0" text="Next Drink">
+                  <Button fx:id="nextDrink" mnemonicParsing="false" onAction="#clickNext" prefHeight="37.0" prefWidth="100.0" text="Next Drink">
                      <padding>
                         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                      </padding>
@@ -63,27 +63,27 @@
       </VBox>
       <HBox alignment="CENTER" layoutX="297.0" layoutY="32.0" prefHeight="62.0" prefWidth="805.0" spacing="25.0">
          <children>
-            <Button fx:id="managerMenu" mnemonicParsing="false" prefHeight="37.0" prefWidth="108.0" text="Manager Menu">
+            <Button fx:id="managerMenu" mnemonicParsing="false" onAction="#clickManagerMenu" prefHeight="37.0" prefWidth="108.0" text="Manager Menu">
                <padding>
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </padding>
             </Button>
-            <Button fx:id="coffeeMenu" mnemonicParsing="false" prefHeight="37.0" prefWidth="68.0" text="Coffee">
+            <Button fx:id="coffeeMenu" mnemonicParsing="false" onAction="#clickCoffeeMenu" prefHeight="37.0" prefWidth="68.0" text="Coffee">
                <padding>
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </padding>
             </Button>
-            <Button fx:id="espressoMenu" mnemonicParsing="false" text="Espresso">
+            <Button fx:id="espressoMenu" mnemonicParsing="false" onAction="#clickEspressoMenu" text="Espresso">
                <padding>
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </padding>
             </Button>
-            <Button fx:id="blendedMenu" mnemonicParsing="false" text="Blended">
+            <Button fx:id="blendedMenu" mnemonicParsing="false" onAction="#clickBlendedMenu" text="Blended">
                <padding>
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </padding>
             </Button>
-            <Button fx:id="teaMenu" mnemonicParsing="false" text="Teas">
+            <Button fx:id="teaMenu" mnemonicParsing="false" onAction="#clickTeasMenu" text="Teas">
                <padding>
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </padding>
@@ -93,12 +93,12 @@
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </padding>
             </Button>
-            <Button fx:id="foodMenu" mnemonicParsing="false" text="Food">
+            <Button fx:id="foodMenu" mnemonicParsing="false" onAction="#clickFoodMenu" text="Food">
                <padding>
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </padding>
             </Button>
-            <Button fx:id="backButton" mnemonicParsing="false" text="Back">
+            <Button fx:id="backButton" mnemonicParsing="false" onAction="#clickBack" text="Back">
                <padding>
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </padding>
@@ -111,46 +111,56 @@
          </children></VBox>
       <HBox layoutX="102.0" layoutY="664.0" prefHeight="156.0" prefWidth="200.0">
          <children>
-            <Button fx:id="editCustomerName" mnemonicParsing="false" text="Edit Customer Name">
-               <HBox.margin>
-                  <Insets />
-               </HBox.margin>
-               <padding>
-                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-               </padding>
-            </Button>
-            <Button fx:id="payButton" mnemonicParsing="false" text="Pay">
-               <padding>
-                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-               </padding>
-            </Button>
+            <VBox prefHeight="200.0" prefWidth="153.0">
+               <children>
+                  <Button fx:id="editCustomerName" mnemonicParsing="false" onAction="#clickEditCustomerName" prefWidth="132.0" text="Edit Customer Name">
+                     <padding>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </padding>
+                  </Button>
+                  <Button fx:id="voidLastItem" mnemonicParsing="false" onAction="#clickVoidLastItem" prefWidth="132.0" text="Void Last Item">
+                     <padding>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </padding>
+                  </Button>
+               </children>
+            </VBox>
+            <VBox prefHeight="200.0" prefWidth="46.0">
+               <children>
+                  <Button fx:id="payButton" mnemonicParsing="false" onAction="#clickPay" text="Pay">
+                     <padding>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </padding>
+                  </Button>
+               </children>
+            </VBox>
          </children>
       </HBox>
       <HBox layoutX="299.0" layoutY="94.0" prefHeight="594.0" prefWidth="727.0">
          <children>
             <VBox prefHeight="540.0" prefWidth="127.0">
                <children>
-                  <Button fx:id="menuItemAmericano" mnemonicParsing="false" prefHeight="37.0" prefWidth="125.0" text="Americano">
+                  <Button fx:id="menuItemAmericano" mnemonicParsing="false" onAction="#clickAmericano" prefHeight="37.0" prefWidth="125.0" text="Americano">
                      <padding>
                         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                      </padding>
                   </Button>
-                  <Button fx:id="menuItemMocha" mnemonicParsing="false" prefHeight="37.0" prefWidth="125.0" text="Cafe Mocha">
+                  <Button fx:id="menuItemMocha" mnemonicParsing="false" onAction="#clickMocha" prefHeight="37.0" prefWidth="125.0" text="Cafe Mocha">
                      <padding>
                         <Insets bottom="10.0" right="10.0" top="10.0" />
                      </padding>
                   </Button>
-                  <Button fx:id="menuItemWhiteMocha" mnemonicParsing="false" prefHeight="37.0" prefWidth="125.0" text="White Chocolate Mocha">
+                  <Button fx:id="menuItemWhiteMocha" mnemonicParsing="false" onAction="#clickWhiteMocha" prefHeight="37.0" prefWidth="125.0" text="White Chocolate Mocha">
                      <padding>
                         <Insets bottom="10.0" right="10.0" top="10.0" />
                      </padding>
                   </Button>
-                  <Button fx:id="menuItemCoconutMocha" mnemonicParsing="false" prefHeight="37.0" prefWidth="125.0" text="Coconut Mocha">
+                  <Button fx:id="menuItemCoconutMocha" mnemonicParsing="false" onAction="#clickCoconutMocha" prefHeight="37.0" prefWidth="125.0" text="Coconut Mocha">
                      <padding>
                         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                      </padding>
                   </Button>
-                  <Button fx:id="menuItemBlackAndWhiteMocha" mnemonicParsing="false" prefHeight="37.0" prefWidth="125.0" text="Black and White Mocha">
+                  <Button fx:id="menuItemBlackAndWhiteMocha" mnemonicParsing="false" onAction="#clickBlackWhiteMocha" prefHeight="37.0" prefWidth="125.0" text="Black and White Mocha">
                      <padding>
                         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                      </padding>
@@ -159,7 +169,7 @@
             </VBox>
             <VBox prefHeight="200.0" prefWidth="100.0">
                <children>
-                  <Button fx:id="menuItemIcedAmericano" mnemonicParsing="false" prefHeight="37.0" prefWidth="125.0" text="Iced Americano">
+                  <Button fx:id="menuItemIcedAmericano" mnemonicParsing="false" onAction="#clickIcedAmericano" prefHeight="37.0" prefWidth="125.0" text="Iced Americano">
                      <VBox.margin>
                         <Insets />
                      </VBox.margin>
@@ -167,51 +177,22 @@
                         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                      </padding>
                   </Button>
-                  <Button fx:id="menuItemIcedMocha" mnemonicParsing="false" prefHeight="37.0" prefWidth="125.0" text="Iced Mocha">
+                  <Button fx:id="menuItemIcedMocha" mnemonicParsing="false" onAction="#clickIcedMocha" prefHeight="37.0" prefWidth="125.0" text="Iced Mocha">
                      <padding>
                         <Insets bottom="10.0" right="10.0" top="10.0" />
                      </padding>
                   </Button>
-                  <Button fx:id="menuItemIcedWhiteMocha" mnemonicParsing="false" prefHeight="37.0" prefWidth="125.0" text="Iced White Chocolate Mocha">
+                  <Button fx:id="menuItemIcedWhiteMocha" mnemonicParsing="false" onAction="#clickIcedWhiteMocha" prefHeight="37.0" prefWidth="125.0" text="Iced White Chocolate Mocha">
                      <padding>
                         <Insets bottom="10.0" right="10.0" top="10.0" />
                      </padding>
                   </Button>
-                  <Button fx:id="menuItemIcedCoconutMocha" mnemonicParsing="false" prefHeight="37.0" prefWidth="125.0" text="Iced Coconut Mocha">
+                  <Button fx:id="menuItemIcedCoconutMocha" mnemonicParsing="false" onAction="#clickIcedCoconutMocha" prefHeight="37.0" prefWidth="125.0" text="Iced Coconut Mocha">
                      <padding>
                         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                      </padding>
                   </Button>
-                  <Button fx:id="menuItemIcedBlackAndWhiteMocha" mnemonicParsing="false" prefHeight="37.0" prefWidth="125.0" text="Iced Black and White Mocha">
-                     <padding>
-                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                     </padding>
-                  </Button>
-               </children>
-            </VBox>
-            <VBox prefHeight="200.0" prefWidth="100.0">
-               <children>
-                  <Button fx:id="menuItemCappuccino" mnemonicParsing="false" prefHeight="37.0" prefWidth="125.0" text="Cappuccino">
-                     <padding>
-                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                     </padding>
-                  </Button>
-                  <Button fx:id="menuItemSoloEspresso" mnemonicParsing="false" prefHeight="37.0" prefWidth="125.0" text="Solo">
-                     <padding>
-                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                     </padding>
-                  </Button>
-                  <Button fx:id="menuItemDoubleEspresso" mnemonicParsing="false" prefHeight="37.0" prefWidth="125.0" text="Double">
-                     <padding>
-                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                     </padding>
-                  </Button>
-                  <Button fx:id="menuItemTripleEspresso" mnemonicParsing="false" prefHeight="37.0" prefWidth="125.0" text="Triple">
-                     <padding>
-                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                     </padding>
-                  </Button>
-                  <Button fx:id="menuItemQuadEspresso" mnemonicParsing="false" prefHeight="37.0" prefWidth="125.0" text="Quad">
+                  <Button fx:id="menuItemIcedBlackAndWhiteMocha" mnemonicParsing="false" onAction="#clickIcedBlackWhiteMocha" prefHeight="37.0" prefWidth="125.0" text="Iced Black and White Mocha">
                      <padding>
                         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                      </padding>
@@ -220,40 +201,27 @@
             </VBox>
             <VBox prefHeight="200.0" prefWidth="100.0">
                <children>
-                  <Button fx:id="menuItemLatte" mnemonicParsing="false" prefHeight="37.0" prefWidth="125.0" text="Cafe Latte">
+                  <Button fx:id="menuItemCappuccino" mnemonicParsing="false" onAction="#clickCappuccino" prefHeight="37.0" prefWidth="125.0" text="Cappuccino">
                      <padding>
                         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                      </padding>
                   </Button>
-                  <Button fx:id="menuItemCinnamonDolceLatte" mnemonicParsing="false" prefHeight="37.0" prefWidth="125.0" text="Cinnamon Dolce Latte">
+                  <Button fx:id="menuItemSoloEspresso" mnemonicParsing="false" onAction="#clickSolo" prefHeight="37.0" prefWidth="125.0" text="Solo">
                      <padding>
                         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                      </padding>
                   </Button>
-               </children>
-            </VBox>
-            <VBox prefHeight="200.0" prefWidth="100.0">
-               <children>
-                  <Button fx:id="menuItemIcedLatte" mnemonicParsing="false" prefHeight="37.0" prefWidth="125.0" text="Iced Latte">
+                  <Button fx:id="menuItemDoubleEspresso" mnemonicParsing="false" onAction="#clickDouble" prefHeight="37.0" prefWidth="125.0" text="Double">
                      <padding>
                         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                      </padding>
                   </Button>
-                  <Button fx:id="menuItemIcedCinnamonDolceLatte1" mnemonicParsing="false" prefHeight="37.0" prefWidth="125.0" text="Iced Cinnamon Dolce Latte">
+                  <Button fx:id="menuItemTripleEspresso" mnemonicParsing="false" onAction="#clickTriple" prefHeight="37.0" prefWidth="125.0" text="Triple">
                      <padding>
                         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                      </padding>
                   </Button>
-               </children>
-            </VBox>
-            <VBox prefHeight="200.0" prefWidth="100.0">
-               <children>
-                  <Button fx:id="menuItemCaramelMacchiato" mnemonicParsing="false" prefHeight="37.0" prefWidth="125.0" text="Caramel Macchiato">
-                     <padding>
-                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                     </padding>
-                  </Button>
-                  <Button fx:id="menuItemCoconutMacchiato" mnemonicParsing="false" prefHeight="37.0" prefWidth="125.0" text="Coconut Macchiato">
+                  <Button fx:id="menuItemQuadEspresso" mnemonicParsing="false" onAction="#clickQuad" prefHeight="37.0" prefWidth="125.0" text="Quad">
                      <padding>
                         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                      </padding>
@@ -262,12 +230,54 @@
             </VBox>
             <VBox prefHeight="200.0" prefWidth="100.0">
                <children>
-                  <Button fx:id="menuItemIcedCaramelMacchiato" mnemonicParsing="false" prefHeight="37.0" prefWidth="125.0" text="Iced Caramel Macchiato">
+                  <Button fx:id="menuItemLatte" mnemonicParsing="false" onAction="#clickLatte" prefHeight="37.0" prefWidth="125.0" text="Cafe Latte">
                      <padding>
                         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                      </padding>
                   </Button>
-                  <Button fx:id="menuItemIcedCoconutMacchiato" mnemonicParsing="false" prefHeight="37.0" prefWidth="125.0" text="Iced Coconut Macchiato">
+                  <Button fx:id="menuItemCinnamonDolceLatte" mnemonicParsing="false" onAction="#clickCinnamonDolceLatte" prefHeight="37.0" prefWidth="125.0" text="Cinnamon Dolce Latte">
+                     <padding>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </padding>
+                  </Button>
+               </children>
+            </VBox>
+            <VBox prefHeight="200.0" prefWidth="100.0">
+               <children>
+                  <Button fx:id="menuItemIcedLatte" mnemonicParsing="false" onAction="#clickIcedLatte" prefHeight="37.0" prefWidth="125.0" text="Iced Latte">
+                     <padding>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </padding>
+                  </Button>
+                  <Button fx:id="menuItemIcedCinnamonDolceLatte1" mnemonicParsing="false" onAction="#clickIcedCinnamonDolceLatte" prefHeight="37.0" prefWidth="125.0" text="Iced Cinnamon Dolce Latte">
+                     <padding>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </padding>
+                  </Button>
+               </children>
+            </VBox>
+            <VBox prefHeight="200.0" prefWidth="100.0">
+               <children>
+                  <Button fx:id="menuItemCaramelMacchiato" mnemonicParsing="false" onAction="#clickCaramelMacchiato" prefHeight="37.0" prefWidth="125.0" text="Caramel Macchiato">
+                     <padding>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </padding>
+                  </Button>
+                  <Button fx:id="menuItemCoconutMacchiato" mnemonicParsing="false" onAction="#clickCoconutMacchiato" prefHeight="37.0" prefWidth="125.0" text="Coconut Macchiato">
+                     <padding>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </padding>
+                  </Button>
+               </children>
+            </VBox>
+            <VBox prefHeight="200.0" prefWidth="100.0">
+               <children>
+                  <Button fx:id="menuItemIcedCaramelMacchiato" mnemonicParsing="false" onAction="#clickIcedCaramelMacchiato" prefHeight="37.0" prefWidth="125.0" text="Iced Caramel Macchiato">
+                     <padding>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </padding>
+                  </Button>
+                  <Button fx:id="menuItemIcedCoconutMacchiato" mnemonicParsing="false" onAction="#clickIcedCoconutMacchiato" prefHeight="37.0" prefWidth="125.0" text="Iced Coconut Macchiato">
                      <padding>
                         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                      </padding>
