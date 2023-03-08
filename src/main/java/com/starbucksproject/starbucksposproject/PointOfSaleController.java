@@ -145,6 +145,8 @@ public class PointOfSaleController {
 
             } else {
                 System.out.println("Could not find user. Check username or PIN.");
+                employeeID.setText(null);
+                employeePIN.setText(null);
             }
 
         } catch (Exception e) {
