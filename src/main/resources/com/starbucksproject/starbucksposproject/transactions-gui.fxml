@@ -53,7 +53,7 @@
          <children>
             <VBox prefHeight="363.0" prefWidth="726.0">
                <children>
-                  <TableView prefHeight="398.0" prefWidth="726.0">
+                  <TableView fx:id="transactionsTable" prefHeight="398.0" prefWidth="726.0">
                     <columns>
                       <TableColumn prefWidth="121.0" text="Transaction ID" />
                       <TableColumn prefWidth="100.0" text="Date" />
