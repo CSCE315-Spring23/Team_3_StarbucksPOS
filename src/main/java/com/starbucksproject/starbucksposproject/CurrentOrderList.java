@@ -74,16 +74,53 @@ public class CurrentOrderList {
 			String currDate = formatter.format(date);
 
 			// get latest transaction date
+			String getLatestTrans = "SELECT MAX(transaction_id) FROM transactions";
+			ResultSet result = stmt.executeQuery(getLatestTrans);
+			result.next();
+			String latestDate = result.getString("transaction_date");
 
 			// if latest transaction date == current date
+			String transDate = "";
+			if (latestDate == currDate) {
 				// transaction: starts at date + 001
-			// else,
+				transDate = currDate + "001";
+			} else {
+				// else,
 				// latest transaction_id + 1
+				transDate = Integer.toString(Integer.parseInt(latestDate) + 1);
+			}
 			// get the number of items in list
-			//
+			int listSize = currentOrder.size();
+
 			// for every item in list:
+			for (int i=0; i < listSize; i++) {
 				// get the price
-				// add to TotalPrice
+				String getPrice = "SELECT * FROM menu_items WHERE item_id=" + currentOrder.get(i);
+				ResultSet priceResult = stmt.executeQuery(getPrice);
+				priceResult.next();
+				float itemPrice = Float.parseFloat(priceResult.getString("price"));
+				TotalPrice += itemPrice;
+			}
+			String priceStr = Float.toString(TotalPrice);
+
+			String orderStr = "{";
+			for (int i=0; i < listSize; i++) {
+				orderStr = orderStr + currentOrder.get(i) + ",";
+			}
+			orderStr = orderStr.substring(0, orderStr.length()-1);
+			orderStr = orderStr + "}";
+
+			// submit the query:
+			String submitTrans = "INSERT INTO transactions (transaction_id, transaction_date, num_of_items, order_list, employee, total) VALUES ("
+					+ transDate + ','
+					+ currDate + ','
+					+ listSize + ','
+					+ orderStr + ','
+					+ CurrentEmployee + ','
+					+ priceStr + ")";
+
+			stmt.executeQuery(submitTrans);
+
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.err.println(e.getClass().getName() + ": " + e.getMessage());
