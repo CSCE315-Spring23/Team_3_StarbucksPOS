@@ -107,7 +107,7 @@
       </HBox>
       <VBox layoutX="102.0" layoutY="94.0" prefHeight="570.0" prefWidth="195.0">
          <children>
-            <TextArea prefHeight="570.0" prefWidth="195.0" promptText="customer name and order list" />
+            <TextArea fx:id="orderList" prefHeight="570.0" prefWidth="195.0" promptText="customer name and order list" />
          </children></VBox>
       <HBox layoutX="102.0" layoutY="664.0" prefHeight="156.0" prefWidth="200.0">
          <children>

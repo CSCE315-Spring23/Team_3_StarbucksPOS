@@ -9,6 +9,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -17,6 +18,7 @@ import java.sql.*;
 import java.security.MessageDigest;
 import java.util.Arrays;
 import java.util.HexFormat;
+import javafx.scene.input.KeyEvent;
 
 public class PointOfSaleController {
     Connection conn = null;
@@ -47,6 +49,13 @@ public class PointOfSaleController {
     }
     public void switchToAlternatives(ActionEvent event) throws IOException {
         root = FXMLLoader.load(getClass().getResource("coffee-alternative-gui.fxml"));
+        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
+    public void switchToManager(ActionEvent event) throws IOException {
+        root = FXMLLoader.load(getClass().getResource("manager-view.fxml"));
         stage = (Stage)((Node)event.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
@@ -114,7 +123,7 @@ public class PointOfSaleController {
         try {
             //create a statement object
             Statement stmt = conn.createStatement();
-            //Running a query
+            //Running a query looks for a entered id in the employee table
             String sqlMatch = "SELECT * FROM employees WHERE employee_id=" + id;
 
             //send statement to DBMS
@@ -138,11 +147,19 @@ public class PointOfSaleController {
                 }
                 currentUserID = id;
                 currentUserName = result.getString("employee_name");
-                switchToCoffee(event);
+                if(isManager == true){
+                    switchToManager(event);
+                }
+                else{
+                    switchToCoffee(event);
+                }
+
 
 
             } else {
                 System.out.println("Could not find user. Check username or PIN.");
+                employeeID.setText(null);
+                employeePIN.setText(null);
             }
 
         } catch (Exception e) {
@@ -152,62 +169,142 @@ public class PointOfSaleController {
         }
     }
 
-
+    //The textFieldInFocus functions indicate which textField is currently being written in.
+    boolean currentFocus = false;
+    int enterClicked = 0;
+    protected void textFieldInFocus() {
+        Node focusNode = employeeID.getScene().getFocusOwner();
+        if (focusNode == employeeID) {
+            currentFocus = false;
+        } else if (focusNode == employeePIN) {
+            currentFocus = true;
+        }
+    }
     @FXML
     protected void setIdHighlight(){
-
+        //I think this function is meant to choose the textField so user can enter numbers?
+        //If that's the case, here is the code
+        employeeID.requestFocus();
+        currentFocus = false;
     }
     @FXML
     protected void setPinHighlight(){
-
+        employeePIN.requestFocus();
+        currentFocus = true;
     }
+
     @FXML
     protected void clickButton0(){
-
+        if(currentFocus == false){
+            employeeID.appendText("0");
+        }
+        else {
+            employeePIN.appendText("0");
+        }
     }
     @FXML
     protected void clickButton1(){
-
+        if(currentFocus == false){
+            employeeID.appendText("1");
+        }
+        else {
+            employeePIN.appendText("1");
+        }
     }
     @FXML
     protected void clickButton2(){
-
+        if(currentFocus == false){
+            employeeID.appendText("2");
+        }
+        else {
+            employeePIN.appendText("2");
+        }
     }
     @FXML
     protected void clickButton3(){
-
+        if(currentFocus == false){
+            employeeID.appendText("3");
+        }
+        else {
+            employeePIN.appendText("3");
+        }
     }
     @FXML
     protected void clickButton4(){
-
+        if(currentFocus == false){
+            employeeID.appendText("4");
+        }
+        else {
+            employeePIN.appendText("4");
+        }
     }
     @FXML
     protected void clickButton5(){
-
+        if(currentFocus == false){
+            employeeID.appendText("5");
+        }
+        else {
+            employeePIN.appendText("5");
+        }
     }
     @FXML
     protected void clickButton6(){
-
+        if(currentFocus == false){
+            employeeID.appendText("6");
+        }
+        else {
+            employeePIN.appendText("6");
+        }
     }
     @FXML
     protected void clickButton7(){
-
+        if(currentFocus == false){
+            employeeID.appendText("7");
+        }
+        else {
+            employeePIN.appendText("7");
+        }
     }
     @FXML
     protected void clickButton8(){
-
+        if(currentFocus == false){
+            employeeID.appendText("8");
+        }
+        else {
+            employeePIN.appendText("8");
+        }
     }
     @FXML
     protected void clickButton9(){
+        if(currentFocus == false){
+            employeeID.appendText("9");
+        }
+        else {
+            employeePIN.appendText("9");
+        }
+    }
+    @FXML
+    protected void clickButtonClear(ActionEvent event){
+        //Will clear whichever text field is in focus. If neither in focus, clear both.
+        if (currentFocus == false){
+            employeeID.setText(null);
+        }
+        else {
+            employeePIN.setText(null);
+        }
 
     }
     @FXML
-    protected void clickButtonClear(){
-
-    }
-
-    @FXML
-    protected void clickButtonEnter(){
+    protected void clickButtonEnter(ActionEvent event){
+        //leftLogin.setOnAction(event -> attemptLogin());
+        currentFocus = true;
+        if (enterClicked == 2) {
+            try {
+                attemptLogin(event);
+            } catch (Exception e){
+                System.out.println("failed login");
+            }
+        }
 
     }
 }
