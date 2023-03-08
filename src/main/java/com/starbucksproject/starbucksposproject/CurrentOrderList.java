@@ -10,6 +10,9 @@ import java.util.Arrays;
 import java.util.HexFormat;
 import javafx.scene.input.KeyEvent;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import java.time.LocalDate;
 
 //Use this class as a shared list between controllers. Load and save to it when swapping
@@ -17,7 +20,9 @@ public class CurrentOrderList {
 	private static CurrentOrderList instance;
 	private ArrayList<String> currentOrder;
 
-	private String CurrentEmployee;
+	private String CurrentEmployee = "";
+
+	private float TotalPrice = 0.0F;
 
 	private CurrentOrderList(){
 		currentOrder = new ArrayList<String>();
@@ -38,8 +43,21 @@ public class CurrentOrderList {
 		return CurrentEmployee;
 	}
 
-	public void setCurrentEmployee(String employee_name) {
-		CurrentEmployee = employee_name;
+	public void setCurrentEmployee(int employeeID) {
+		Connection currConn = DBConnection.getInstance().getConnection();
+		try {
+			Statement stmt = currConn.createStatement();
+			String sqlQuery = "SELECT * FROM employees WHERE employee_id=" + employeeID;
+			ResultSet result = stmt.executeQuery(sqlQuery);
+			result.next();
+
+			String employeeName = result.getString("employee_name");
+			CurrentEmployee = employeeName;
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.err.println(e.getClass().getName() + ": " + e.getMessage());
+			System.exit(0);
+		}
 	}
 
 	public void resetOrder(){
@@ -49,11 +67,23 @@ public class CurrentOrderList {
 	public void completeTransaction() {
 		Connection currConn = DBConnection.getInstance().getConnection();
 		try {
+			// get current time
 			Statement stmt = currConn.createStatement();
-			String sqlQuery = "";
-			ResultSet result = stmt.executeQuery(sqlQuery);
-			result.next();
+			SimpleDateFormat formatter = new SimpleDateFormat("yyMMdd");
+			Date date = new Date();
+			String currDate = formatter.format(date);
 
+			// get latest transaction date
+
+			// if latest transaction date == current date
+				// transaction: starts at date + 001
+			// else,
+				// latest transaction_id + 1
+			// get the number of items in list
+			//
+			// for every item in list:
+				// get the price
+				// add to TotalPrice
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.err.println(e.getClass().getName() + ": " + e.getMessage());
