@@ -178,11 +178,17 @@ public class PointOfSaleController {
 
     @FXML
     protected void clickButton0(){
+
+        button0.setOnAction(event -> {
+            employeeID.setText(employeeID.getText() + "0");
+        });
         if(textFieldInFocus(employeeID, employeePIN).equals(employeeID)){
-            button0.setOnAction(event -> employeeID.appendText("0"));
+
         }
         else if(textFieldInFocus(employeeID,employeePIN).equals(employeePIN)){
-            button0.setOnAction(event -> employeePIN.appendText("0"));
+            button0.setOnAction(event -> {
+                employeePIN.setText(employeePIN.getText() + "0");
+            });
         }
 
     }
@@ -283,8 +289,8 @@ public class PointOfSaleController {
 
     }
     @FXML
-    protected void clickButtonEnter(){
-        //leftLogin.setOnAction(event -> attemptLogin());
+    protected void clickButtonEnter(ActionEvent event){
+        //leftLogin.);
 
     }
 }
