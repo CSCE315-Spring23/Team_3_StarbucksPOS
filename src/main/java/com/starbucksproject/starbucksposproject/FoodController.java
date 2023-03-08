@@ -104,7 +104,8 @@ public class FoodController {
     }
     @FXML
     protected void clickBagel() {
-
+        CurrentOrderList.getInstance().getCurrentOrder().add("201003");
+        System.out.println(CurrentOrderList.getInstance().getCurrentOrder());
     }
     @FXML
     protected void clickMultigrainBagel() {

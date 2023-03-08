@@ -27,20 +27,21 @@ public class CoffeeController {
     private Scene scene;
     private Parent root;
 
+    int currentSize = 0;
 
     @FXML
     protected void clickTall() {
-
+        currentSize = 0;
     }
 
     @FXML
     protected void clickGrande() {
-
+        currentSize = 1;
     }
 
     @FXML
     protected void clickVenti() {
-
+        currentSize = 2;
     }
 
     @FXML
@@ -144,7 +145,16 @@ public class CoffeeController {
 
     @FXML
     protected void clickCoffee() {
-
+        if (currentSize == 0) {
+            CurrentOrderList.getInstance().getCurrentOrder().add("101001");
+            System.out.println(CurrentOrderList.getInstance().getCurrentOrder());
+        } else if (currentSize == 1) {
+            CurrentOrderList.getInstance().getCurrentOrder().add("101002");
+            System.out.println(CurrentOrderList.getInstance().getCurrentOrder());
+        } else {
+            CurrentOrderList.getInstance().getCurrentOrder().add("101003");
+            System.out.println(CurrentOrderList.getInstance().getCurrentOrder());
+        }
     }
 
     @FXML
