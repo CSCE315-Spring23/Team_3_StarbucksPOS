@@ -17,6 +17,10 @@ import java.time.LocalDate;
 
 //Use this class as a shared list between controllers. Load and save to it when swapping
 public class CurrentOrderList {
+	/**
+	 * @Author: Devon Kelly
+	 * @Param:
+	 */
 	private static CurrentOrderList instance;
 	private ArrayList<String> currentOrder;
 
@@ -36,14 +40,37 @@ public class CurrentOrderList {
 		return instance;
 	}
 
+	/**
+	 * @Author: David Liu
+	 * @Param: N/A
+	 * @return: N/A
+	 * @throws: N/A
+	 * The function returns the CurrentOrderList as a string array.
+	 */
 	public ArrayList<String> getCurrentOrder(){
 		return currentOrder;
 	}
 
+	/**
+	 * @Author: David Liu
+	 * @Param: N/A
+	 * @return: CurrentEmployee
+	 * @throws: N/A
+	 * The function returns the CurrentEmployee as a string.
+	 */
 	public String getCurrentEmployee() {
 		return CurrentEmployee;
 	}
 
+	/**
+	 /**
+	 * @Author: David Liu
+	 * @param employeeID
+	 * @return: N/A
+	 * @throws: N/A
+	 * The function takes in an employee ID, translates it to the employee name,
+	 * and then stores the employee name within the code.
+	 */
 	public void setCurrentEmployee(int employeeID) {
 		Connection currConn = DBConnection.getInstance().getConnection();
 		try {
@@ -61,6 +88,14 @@ public class CurrentOrderList {
 		}
 	}
 
+	/**
+	 * @author Devon Kelly
+	 * @param currentEmployee
+	 * @return N/A
+	 * @throws N/A
+	 *
+	 * The function sets the CurrentEmployee object within the class to the parameter value currentEmployee.
+	 */
 	public void setCurrentEmployee(String currentEmployee){
 		this.CurrentEmployee = currentEmployee;
 	}
@@ -69,6 +104,16 @@ public class CurrentOrderList {
 		currentOrder.clear();
 	}
 
+	/**
+	 * @Author: David Liu
+	 * @Param: N/A
+	 * @Return: N/A
+	 * @Throws: N/A
+	 * The function takes all the orders within the CurrentOrder Array, and
+	 * updates them to the transaction table listed within the SQL.
+	 * Process: Gets the date of the transaction, gets the employee name,
+	 * gets the total price of every item, submits the query.
+	 */
 	public void completeTransaction() {
 		Connection currConn = DBConnection.getInstance().getConnection();
 		try {
@@ -149,10 +194,19 @@ public class CurrentOrderList {
 		}
 	}
 
+	/**
+	 * @author: Devon Kelly
+	 * @return a boolean of whether the current employee is a manager or not.
+	 */
 	public boolean isManager() {
 		return isManager;
 	}
 
+	/**
+	 * @author: Devon Kelly
+	 * @return N/A
+	 * The function sets the manager status of CurrentEmployee.
+	 */
 	public void setManager(boolean manager) {
 		isManager = manager;
 	}
