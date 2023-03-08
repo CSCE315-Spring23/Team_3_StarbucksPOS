@@ -67,8 +67,12 @@ public class SalesController implements Initializable {
         stage.show();
     }
     @FXML
-    protected void clickBack() {
-
+    protected void clickBack(ActionEvent event) throws IOException{
+        root = FXMLLoader.load(getClass().getResource("pos-view.fxml"));
+        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
     }
 
     /**
@@ -84,7 +88,7 @@ public class SalesController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         conn = DBConnection.getInstance().getConnection();
         try {
-            final String query = "SELECT * FROM inventory";
+            final String query = "SELECT * FROM sales ORDER BY date DESC";
             PreparedStatement tableQuery = conn.prepareStatement(query);
             ResultSet response = tableQuery.executeQuery();
             ObservableList<SalesItem> items = FXCollections.observableArrayList();

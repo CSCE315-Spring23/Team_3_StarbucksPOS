@@ -67,15 +67,19 @@ public class EmployeesController implements Initializable {
         stage.show();
     }
     @FXML
-    protected void clickBack() {
-
+    protected void clickBack(ActionEvent event) throws IOException {
+        root = FXMLLoader.load(getClass().getResource("pos-view.fxml"));
+        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
     }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         conn = DBConnection.getInstance().getConnection();
         try {
-            final String query = "SELECT employee_id,employee_name,employee_role,access_mgmt FROM employees";
+            final String query = "SELECT employee_id,employee_name,employee_role,access_mgmt FROM employees ORDER BY employee_id";
             PreparedStatement tableQuery = conn.prepareStatement(query);
             ResultSet response = tableQuery.executeQuery();
             ObservableList<EmployeesItem> items = FXCollections.observableArrayList();

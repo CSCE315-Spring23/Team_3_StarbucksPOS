@@ -30,11 +30,20 @@ public class FoodController {
     }
     @FXML
     public void clickManagerMenu(ActionEvent event) throws IOException {
-        root = FXMLLoader.load(getClass().getResource("manager-view.fxml"));
-        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-        scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
+        if(CurrentOrderList.getInstance().isManager()) {
+            root = FXMLLoader.load(getClass().getResource("manager-view.fxml"));
+            stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+        }
+        else{
+            root = FXMLLoader.load(getClass().getResource("pos-view.fxml"));
+            stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+        }
     }
     @FXML
     public void clickCoffeeMenu(ActionEvent event) throws IOException {
@@ -87,8 +96,12 @@ public class FoodController {
         stage.show();
     }
     @FXML
-    protected void clickLogout() {
-
+    protected void clickLogout(ActionEvent event) throws IOException {
+        root = FXMLLoader.load(getClass().getResource("pos-view.fxml"));
+        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
     }
     @FXML
     protected void clickEditCustomerName() {
@@ -96,10 +109,12 @@ public class FoodController {
     }
     @FXML
     protected void clickVoidLastItem() {
-
+        if (CurrentOrderList.getInstance().getCurrentOrder().size() > 0)
+            CurrentOrderList.getInstance().getCurrentOrder().remove(CurrentOrderList.getInstance().getCurrentOrder().size()-1);
     }
     @FXML
     protected void clickPay() {
+        CurrentOrderList.getInstance().completeTransaction();
 
     }
     @FXML

@@ -21,6 +21,7 @@ public class CurrentOrderList {
 	private ArrayList<String> currentOrder;
 
 	private String CurrentEmployee = "";
+	private boolean isManager = false;
 
 	private float TotalPrice = 0.0F;
 
@@ -60,6 +61,10 @@ public class CurrentOrderList {
 		}
 	}
 
+	public void setCurrentEmployee(String currentEmployee){
+		this.CurrentEmployee = currentEmployee;
+	}
+
 	public void resetOrder(){
 		currentOrder.clear();
 	}
@@ -71,23 +76,30 @@ public class CurrentOrderList {
 			Statement stmt = currConn.createStatement();
 			SimpleDateFormat formatter = new SimpleDateFormat("yyMMdd");
 			Date date = new Date();
-			String currDate = formatter.format(date);
+			String currDate = "1" + formatter.format(date);
 
 			// get latest transaction date
-			String getLatestTrans = "SELECT MAX(transaction_id) FROM transactions";
+			String getLatestTrans = "SELECT * FROM transactions WHERE transaction_id = (SELECT MAX(transaction_id) FROM transactions)";
 			ResultSet result = stmt.executeQuery(getLatestTrans);
-			result.next();
-			String latestDate = result.getString("transaction_date");
-
-			// if latest transaction date == current date
 			String transDate = "";
-			if (latestDate == currDate) {
-				// transaction: starts at date + 001
-				transDate = currDate + "001";
-			} else {
-				// else,
-				// latest transaction_id + 1
-				transDate = Integer.toString(Integer.parseInt(latestDate) + 1);
+			try {
+				result.next();
+				String latestDate = result.getString("transaction_date");
+
+				// if latest transaction date == current date
+				if (!latestDate.equals(currDate)) {
+					// transaction: starts at date + 001
+					System.out.println(latestDate);
+					System.out.println(currDate);
+					transDate = currDate + "001";
+				} else {
+					// else,
+					// latest transaction_id + 1
+					transDate = Integer.toString(Integer.parseInt(result.getString("transaction_id")) + 1);
+				}
+			}
+			catch (Exception e){
+				transDate = "1" + currDate + "001";
 			}
 			// get the number of items in list
 			int listSize = currentOrder.size();
@@ -111,20 +123,37 @@ public class CurrentOrderList {
 			orderStr = orderStr + "}";
 
 			// submit the query:
-			String submitTrans = "INSERT INTO transactions (transaction_id, transaction_date, num_of_items, order_list, employee, total) VALUES ("
-					+ transDate + ','
-					+ currDate + ','
-					+ listSize + ','
-					+ orderStr + ','
-					+ CurrentEmployee + ','
-					+ priceStr + ")";
+//			String submitTrans = "INSERT INTO transactions (transaction_id, transaction_date, num_of_items, order_list, employee, total) VALUES ("
+//					+ transDate + ','
+//					+ currDate + ','
+//					+ listSize + ','
+//					+ orderStr + ','
+//					+ CurrentEmployee + ','
+//					+ priceStr + ")";
+			String submitTrans = "INSERT INTO transactions (transaction_id, transaction_date, num_of_items, order_list, employee, total) VALUES ('"
+					+ transDate + "','"
+					+ currDate + "',"
+					+ listSize + ",'"
+					+ orderStr + "','"
+					+ CurrentEmployee + "',"
+					+ TotalPrice + ")";
 
-			stmt.executeQuery(submitTrans);
+			System.out.println("submitting to db: " + submitTrans);
+			stmt.executeUpdate(submitTrans);
+			CurrentOrderList.getInstance().resetOrder();
 
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.err.println(e.getClass().getName() + ": " + e.getMessage());
 			System.exit(0);
 		}
+	}
+
+	public boolean isManager() {
+		return isManager;
+	}
+
+	public void setManager(boolean manager) {
+		isManager = manager;
 	}
 }
