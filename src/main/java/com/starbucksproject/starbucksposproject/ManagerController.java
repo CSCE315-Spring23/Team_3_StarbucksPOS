@@ -19,7 +19,11 @@ public class ManagerController {
     private Parent root;
 
     @FXML
-    protected void clickBack() {
+    protected void clickLogout() {
+
+    }
+    @FXML
+    protected void clickPOS() {
 
     }
     @FXML
