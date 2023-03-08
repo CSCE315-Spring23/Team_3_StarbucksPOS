@@ -61,7 +61,7 @@
          <children>
             <VBox prefHeight="363.0" prefWidth="726.0">
                <children>
-                  <TableView prefHeight="398.0" prefWidth="726.0">
+                  <TableView fx:id="inventoryTable" prefHeight="398.0" prefWidth="726.0">
                     <columns>
                       <TableColumn prefWidth="121.0" text="Inventory ID" />
                       <TableColumn prefWidth="338.0" text="Inventory Name" />

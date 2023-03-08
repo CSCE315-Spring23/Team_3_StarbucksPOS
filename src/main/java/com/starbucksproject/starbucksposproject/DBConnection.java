@@ -1,11 +1,16 @@
 package com.starbucksproject.starbucksposproject;
 
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.DriverManager;
+import java.sql.*;
 
 public class DBConnection {
-    Connection conn = null;
+    private static DBConnection instance;
+    private Connection conn = null;
+
+    private DBConnection() {
+        db_login();
+    }
+
     private void db_login(){
         String teamNumber = "team_3";
         String dbName = "csce315331_" + teamNumber;
@@ -22,6 +27,17 @@ public class DBConnection {
         }
 
         System.out.println("INFO: Opened database successfully");
+    }
+
+    public static DBConnection getInstance() {
+        if (instance == null) {
+            instance = new DBConnection();
+        }
+        return instance;
+    }
+
+    public Connection getConnection(){
+        return conn;
     }
 
 }

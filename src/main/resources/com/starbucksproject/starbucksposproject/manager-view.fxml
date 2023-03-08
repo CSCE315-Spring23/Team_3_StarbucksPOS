@@ -8,9 +8,9 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.starbucksproject.starbucksposproject.ManagerController">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.starbucksproject.starbucksposproject.ManagerController">
    <children>
-      <HBox layoutX="14.0" layoutY="14.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="579.0" prefWidth="757.0">
+      <HBox layoutX="14.0" layoutY="14.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="973.0">
          <children>
             <VBox alignment="TOP_CENTER" prefHeight="400.0" prefWidth="300.0" spacing="20.0">
                <children>
@@ -33,7 +33,7 @@
                   </Button>
                </children>
             </VBox>
-            <VBox alignment="CENTER" prefHeight="200.0" prefWidth="125.0">
+            <VBox alignment="CENTER" prefHeight="579.0" prefWidth="145.0">
                <children>
                   <Button fx:id="salesButton" mnemonicParsing="false" onAction="#clickSales" prefWidth="125.0" text="Show Sales">
                      <padding>
@@ -60,16 +60,16 @@
                   </Button>
                </children>
             </VBox>
+            <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0">
+               <children>
+                  <Button fx:id="backButton" mnemonicParsing="false" onAction="#clickBack" prefWidth="125.0" text="Back">
+                     <padding>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </padding>
+                  </Button>
+               </children>
+            </VBox>
          </children>
       </HBox>
-      <VBox alignment="TOP_CENTER" layoutX="1193.0" layoutY="33.0" prefHeight="200.0" prefWidth="100.0">
-         <children>
-            <Button fx:id="backButton" mnemonicParsing="false" onAction="#clickBack" prefWidth="125.0" text="Back">
-               <padding>
-                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-               </padding>
-            </Button>
-         </children>
-      </VBox>
    </children>
 </Pane>
