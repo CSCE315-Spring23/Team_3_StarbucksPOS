@@ -156,6 +156,7 @@ public class PointOfSaleController {
 
     //The textFieldInFocus functions indicate which textField is currently being written in.
     boolean currentFocus = false;
+    int enterClicked = 0;
     protected void textFieldInFocus() {
         Node focusNode = employeeID.getScene().getFocusOwner();
         if (focusNode == employeeID) {
@@ -279,9 +280,16 @@ public class PointOfSaleController {
 
     }
     @FXML
-    protected void clickButtonEnter(){
+    protected void clickButtonEnter(ActionEvent event){
         //leftLogin.setOnAction(event -> attemptLogin());
         currentFocus = true;
+        if (enterClicked == 2) {
+            try {
+                attemptLogin(event);
+            } catch (Exception e){
+                System.out.println("failed login");
+            }
+        }
 
     }
 }
