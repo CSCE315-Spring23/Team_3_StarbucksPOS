@@ -12,7 +12,6 @@ import javafx.scene.input.KeyEvent;
 
 //Use this class as a shared list between controllers. Load and save to it when swapping
 public class CurrentOrderList {
-	Connection conn = null;
 	private static CurrentOrderList instance;
 	private ArrayList<String> currentOrder;
 
@@ -36,6 +35,13 @@ public class CurrentOrderList {
 	}
 
 	public void completeTransaction() {
-		//
+		Connection currConn = DBConnection.getInstance().getConnection();
+		try {
+			Statement stmt = currConn.createStatement();
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.err.println(e.getClass().getName() + ": " + e.getMessage());
+			System.exit(0);
+		}
 	}
 }
