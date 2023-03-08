@@ -25,7 +25,7 @@ public class AddonsController {
         stage.show();
     }
     @FXML
-    protected void clickNext() {
+    protected void clickNextDrink() {
 
     }
     @FXML
@@ -87,7 +87,7 @@ public class AddonsController {
         stage.show();
     }
     @FXML
-    protected void clickBack() {
+    protected void clickLogout() {
 
     }
     @FXML
