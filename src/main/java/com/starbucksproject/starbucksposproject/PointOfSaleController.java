@@ -21,7 +21,7 @@ import java.util.HexFormat;
 import javafx.scene.input.KeyEvent;
 
 public class PointOfSaleController {
-    Connection conn = null;
+//    Connection conn = null;
     private Stage stage;
     private Scene scene;
     private Parent root;
@@ -62,23 +62,23 @@ public class PointOfSaleController {
         stage.show();
     }
 
-    private void db_login(){
-        String teamNumber = "team_3";
-        String dbName = "csce315331_" + teamNumber;
-        String dbConnectionString = "jdbc:postgresql://csce-315-db.engr.tamu.edu/" + dbName;
-        // dbSetup myCredentials = new dbSetup();
-
-        //Connecting to the database
-        try {
-            conn = DriverManager.getConnection(dbConnectionString, DatabaseCredentials.user, DatabaseCredentials.pswd);
-        } catch (Exception e) {
-            e.printStackTrace();
-            System.err.println(e.getClass().getName()+": "+e.getMessage());
-            System.exit(0);
-        }
-
-        System.out.println("INFO: Opened database successfully");
-    }
+//    private void db_login(){
+//        String teamNumber = "team_3";
+//        String dbName = "csce315331_" + teamNumber;
+//        String dbConnectionString = "jdbc:postgresql://csce-315-db.engr.tamu.edu/" + dbName;
+//        // dbSetup myCredentials = new dbSetup();
+//
+//        //Connecting to the database
+//        try {
+//            conn = DriverManager.getConnection(dbConnectionString, DatabaseCredentials.user, DatabaseCredentials.pswd);
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            System.err.println(e.getClass().getName()+": "+e.getMessage());
+//            System.exit(0);
+//        }
+//
+//        System.out.println("INFO: Opened database successfully");
+//    }
     @FXML
     private TextField employeeID;
     @FXML
@@ -117,9 +117,10 @@ public class PointOfSaleController {
         String pin = employeePIN.getText();
         MessageDigest md5 = MessageDigest.getInstance("MD5");
         byte[] hashedPIN = md5.digest(pin.getBytes());
-        if (conn == null) {
-            db_login();
-        }
+//        if (conn == null) {
+//            db_login();
+//        }
+        Connection conn = DBConnection.getInstance().getConnection();
         try {
             //create a statement object
             Statement stmt = conn.createStatement();
@@ -165,7 +166,7 @@ public class PointOfSaleController {
         } catch (Exception e) {
             e.printStackTrace();
             System.err.println(e.getClass().getName() + ": " + e.getMessage());
-            System.exit(0);
+//            System.exit(0);
         }
     }
 
