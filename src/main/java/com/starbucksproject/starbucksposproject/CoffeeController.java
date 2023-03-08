@@ -56,7 +56,7 @@ public class CoffeeController {
     }
 
     @FXML
-    protected void clickNext() {
+    protected void clickNextDrink() {
 
     }
 
@@ -126,7 +126,7 @@ public class CoffeeController {
     }
 
     @FXML
-    protected void clickBack() {
+    protected void clickLogout() {
 
     }
 
