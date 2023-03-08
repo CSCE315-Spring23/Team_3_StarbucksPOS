@@ -163,26 +163,50 @@ public class CoffeeController {
 
     @FXML
     protected void clickCoffeeTraveller() {
-
+        CurrentOrderList.getInstance().getCurrentOrder().add("101014");
+        System.out.println(CurrentOrderList.getInstance().getCurrentOrder());
     }
 
     @FXML
     protected void clickIcedCoffee() {
-
+        if (drinkSize == 0) {
+            CurrentOrderList.getInstance().getCurrentOrder().add("101004");
+        } else if (drinkSize == 1) {
+            CurrentOrderList.getInstance().getCurrentOrder().add("101005");
+        } else {
+            CurrentOrderList.getInstance().getCurrentOrder().add("101006");
+        }
+        System.out.println(CurrentOrderList.getInstance().getCurrentOrder());
     }
 
     @FXML
     protected void clickCafeLait() {
-
+        if (drinkSize == 0) {
+            CurrentOrderList.getInstance().getCurrentOrder().add("101007");
+        } else if (drinkSize == 1) {
+            CurrentOrderList.getInstance().getCurrentOrder().add("101008");
+        } else {
+            CurrentOrderList.getInstance().getCurrentOrder().add("101009");
+        }
+        System.out.println(CurrentOrderList.getInstance().getCurrentOrder());
     }
 
     @FXML
     protected void clickColdBrew() {
-
+        if (drinkSize == 0) {
+            CurrentOrderList.getInstance().getCurrentOrder().add("101010");
+        } else if (drinkSize == 1) {
+            CurrentOrderList.getInstance().getCurrentOrder().add("101011");
+        } else {
+            CurrentOrderList.getInstance().getCurrentOrder().add("101012");
+        }
+        System.out.println(CurrentOrderList.getInstance().getCurrentOrder());
     }
 
     @FXML
     protected void clickCoffeeRefill() {
+        CurrentOrderList.getInstance().getCurrentOrder().add("101013");
+        System.out.println(CurrentOrderList.getInstance().getCurrentOrder());
 
     }
 }

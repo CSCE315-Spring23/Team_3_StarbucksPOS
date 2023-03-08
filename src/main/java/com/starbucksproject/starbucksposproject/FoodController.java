@@ -109,7 +109,8 @@ public class FoodController {
     }
     @FXML
     protected void clickMultigrainBagel() {
-
+        CurrentOrderList.getInstance().getCurrentOrder().add("201002");
+        System.out.println(CurrentOrderList.getInstance().getCurrentOrder());
     }
     @FXML
     protected void clickEverythingBagel() {
@@ -125,7 +126,6 @@ public class FoodController {
     }
     @FXML
     protected void clickAppleFritter() {
-
     }
     @FXML
     protected void clickSaltedCaramelCookie() {
@@ -133,7 +133,6 @@ public class FoodController {
     }
     @FXML
     protected void clickCinnamonRoll() {
-
     }
     @FXML
     protected void clickBlueberryMuffin() {
