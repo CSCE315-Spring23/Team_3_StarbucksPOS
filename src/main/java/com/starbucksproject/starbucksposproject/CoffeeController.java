@@ -33,17 +33,17 @@ public class CoffeeController {
 
     @FXML
     protected void clickTall() {
-        currentSize = 0;
+        drinkSize = 0;
     }
 
     @FXML
     protected void clickGrande() {
-        currentSize = 1;
+        drinkSize = 1;
     }
 
     @FXML
     protected void clickVenti() {
-        currentSize = 2;
+        drinkSize = 2;
     }
 
     @FXML
