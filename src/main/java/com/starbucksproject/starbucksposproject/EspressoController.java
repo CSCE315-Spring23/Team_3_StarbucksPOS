@@ -35,7 +35,7 @@ public class EspressoController {
     protected void clickAddons() {
 
     }@FXML
-    protected void clickNext() {
+    protected void clickNextDrink() {
 
     }
     @FXML
@@ -97,7 +97,7 @@ public class EspressoController {
         stage.show();
     }
     @FXML
-    protected void clickBack() {
+    protected void clickLogout() {
 
     }
     @FXML
