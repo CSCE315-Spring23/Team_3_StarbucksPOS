@@ -54,6 +54,13 @@ public class PointOfSaleController {
         stage.setScene(scene);
         stage.show();
     }
+    public void switchToManager(ActionEvent event) throws IOException {
+        root = FXMLLoader.load(getClass().getResource("manager-view.fxml"));
+        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
 
     private void db_login(){
         String teamNumber = "team_3";
@@ -140,7 +147,13 @@ public class PointOfSaleController {
                 }
                 currentUserID = id;
                 currentUserName = result.getString("employee_name");
-                switchToCoffee(event);
+                if(isManager == true){
+                    switchToManager(event);
+                }
+                else{
+                    switchToCoffee(event);
+                }
+
 
 
             } else {
