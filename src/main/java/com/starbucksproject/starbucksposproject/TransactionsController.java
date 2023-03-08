@@ -64,8 +64,12 @@ public class TransactionsController implements Initializable {
         stage.show();
     }
     @FXML
-    protected void clickBack() {
-
+    protected void clickBack(ActionEvent event) throws IOException {
+        root = FXMLLoader.load(getClass().getResource("pos-view.fxml"));
+        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
     }
 
     /**
@@ -81,7 +85,7 @@ public class TransactionsController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         conn = DBConnection.getInstance().getConnection();
         try {
-            final String query = "SELECT * FROM inventory";
+            final String query = "SELECT * FROM transactions ORDER BY transaction_id DESC";
             PreparedStatement tableQuery = conn.prepareStatement(query);
             ResultSet response = tableQuery.executeQuery();
             ObservableList<TransactionsItem> items = FXCollections.observableArrayList();
@@ -98,7 +102,7 @@ public class TransactionsController implements Initializable {
                 int transaction_id = response.getInt("transaction_id");
                 int transaction_date = response.getInt("transaction_date");
                 int num_of_items = response.getInt("num_of_items");
-                Array order_list = response.getArray("order_list");
+                String order_list = response.getString("order_list");
                 String employee = response.getString("employee");
                 double total = response.getDouble("total");
 

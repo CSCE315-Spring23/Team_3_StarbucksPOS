@@ -17,51 +17,51 @@ public class SalesItem {
 		this.sales = sales;
 	}
 
-	private int getDay() {
+	public int getDay() {
 		return day;
 	}
 
-	private void setDay(int day) {
+	public void setDay(int day) {
 		this.day = day;
 	}
 
-	private int getDate() {
+	public int getDate() {
 		return date;
 	}
 
-	private void setDate(int date) {
+	public void setDate(int date) {
 		this.date = date;
 	}
 
-	private int getWeek() {
+	public int getWeek() {
 		return week;
 	}
 
-	private void setWeek(int week) {
+	public void setWeek(int week) {
 		this.week = week;
 	}
 
-	private int getYear() {
+	public int getYear() {
 		return year;
 	}
 
-	private void setYear(int year) {
+	public void setYear(int year) {
 		this.year = year;
 	}
 
-	private boolean isGame_day() {
+	public boolean isGame_day() {
 		return game_day;
 	}
 
-	private void setGame_day(boolean game_day) {
+	public void setGame_day(boolean game_day) {
 		this.game_day = game_day;
 	}
 
-	private double getSales() {
+	public double getSales() {
 		return sales;
 	}
 
-	private void setSales(double sales) {
+	public void setSales(double sales) {
 		this.sales = sales;
 	}
 }

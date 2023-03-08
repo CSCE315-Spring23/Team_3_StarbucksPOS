@@ -19,12 +19,20 @@ public class ManagerController {
     private Parent root;
 
     @FXML
-    protected void clickLogout() {
-
+    protected void clickLogout(ActionEvent event) throws IOException {
+        root = FXMLLoader.load(getClass().getResource("pos-view.fxml"));
+        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
     }
     @FXML
-    protected void clickPOS() {
-
+    protected void clickPOS(ActionEvent event) throws IOException {
+        root = FXMLLoader.load(getClass().getResource("coffee-gui.fxml"));
+        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
     }
     @FXML
     protected void clickInventory(ActionEvent event) throws IOException {

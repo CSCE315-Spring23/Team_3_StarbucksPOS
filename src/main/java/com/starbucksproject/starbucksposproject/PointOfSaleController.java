@@ -33,27 +33,27 @@ public class PointOfSaleController {
         stage.setScene(scene);
         stage.show();
     }
-    public void switchToEspresso(ActionEvent event) throws IOException {
-        root = FXMLLoader.load(getClass().getResource("espresso-gui.fxml"));
-        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-        scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
-    }
-    public void switchToFood(ActionEvent event) throws IOException {
-        root = FXMLLoader.load(getClass().getResource("food-gui.fxml"));
-        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-        scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
-    }
-    public void switchToAlternatives(ActionEvent event) throws IOException {
-        root = FXMLLoader.load(getClass().getResource("coffee-alternative-gui.fxml"));
-        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-        scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
-    }
+//    public void switchToEspresso(ActionEvent event) throws IOException {
+//        root = FXMLLoader.load(getClass().getResource("espresso-gui.fxml"));
+//        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+//        scene = new Scene(root);
+//        stage.setScene(scene);
+//        stage.show();
+//    }
+//    public void switchToFood(ActionEvent event) throws IOException {
+//        root = FXMLLoader.load(getClass().getResource("food-gui.fxml"));
+//        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+//        scene = new Scene(root);
+//        stage.setScene(scene);
+//        stage.show();
+//    }
+//    public void switchToAlternatives(ActionEvent event) throws IOException {
+//        root = FXMLLoader.load(getClass().getResource("coffee-alternative-gui.fxml"));
+//        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+//        scene = new Scene(root);
+//        stage.setScene(scene);
+//        stage.show();
+//    }
     public void switchToManager(ActionEvent event) throws IOException {
         root = FXMLLoader.load(getClass().getResource("manager-view.fxml"));
         stage = (Stage)((Node)event.getSource()).getScene().getWindow();
@@ -148,7 +148,11 @@ public class PointOfSaleController {
                 }
                 currentUserID = id;
                 currentUserName = result.getString("employee_name");
-                if (isManager == true) {
+                CurrentOrderList currentOrderList = CurrentOrderList.getInstance();
+                currentOrderList.setCurrentEmployee(currentUserName);
+                currentOrderList.setManager(isManager);
+
+                if(isManager){
                     switchToManager(event);
                 }
                 else {
@@ -182,21 +186,21 @@ public class PointOfSaleController {
         }
     }
     @FXML
-    protected void setIdHighlight() {
+    protected void setIdHighlight(){
         //I think this function is meant to choose the textField so user can enter numbers?
         //If that's the case, here is the code
         employeeID.requestFocus();
         currentFocus = false;
     }
     @FXML
-    protected void setPinHighlight() {
+    protected void setPinHighlight(){
         employeePIN.requestFocus();
         currentFocus = true;
     }
 
     @FXML
-    protected void clickButton0() {
-        if (currentFocus == false) {
+    protected void clickButton0(){
+        if(currentFocus == false){
             employeeID.appendText("0");
         }
         else {
@@ -204,8 +208,8 @@ public class PointOfSaleController {
         }
     }
     @FXML
-    protected void clickButton1() {
-        if (currentFocus == false) {
+    protected void clickButton1(){
+        if(currentFocus == false){
             employeeID.appendText("1");
         }
         else {
@@ -213,8 +217,8 @@ public class PointOfSaleController {
         }
     }
     @FXML
-    protected void clickButton2() {
-        if (currentFocus == false) {
+    protected void clickButton2(){
+        if(currentFocus == false){
             employeeID.appendText("2");
         }
         else {
@@ -222,8 +226,8 @@ public class PointOfSaleController {
         }
     }
     @FXML
-    protected void clickButton3() {
-        if (currentFocus == false) {
+    protected void clickButton3(){
+        if(currentFocus == false){
             employeeID.appendText("3");
         }
         else {
@@ -231,8 +235,8 @@ public class PointOfSaleController {
         }
     }
     @FXML
-    protected void clickButton4() {
-        if (currentFocus == false) {
+    protected void clickButton4(){
+        if(currentFocus == false){
             employeeID.appendText("4");
         }
         else {
@@ -240,8 +244,8 @@ public class PointOfSaleController {
         }
     }
     @FXML
-    protected void clickButton5() {
-        if (currentFocus == false) {
+    protected void clickButton5(){
+        if(currentFocus == false){
             employeeID.appendText("5");
         }
         else {
@@ -249,8 +253,8 @@ public class PointOfSaleController {
         }
     }
     @FXML
-    protected void clickButton6() {
-        if (currentFocus == false) {
+    protected void clickButton6(){
+        if(currentFocus == false){
             employeeID.appendText("6");
         }
         else {
@@ -258,8 +262,8 @@ public class PointOfSaleController {
         }
     }
     @FXML
-    protected void clickButton7() {
-        if (currentFocus == false) {
+    protected void clickButton7(){
+        if(currentFocus == false){
             employeeID.appendText("7");
         }
         else {
@@ -268,7 +272,7 @@ public class PointOfSaleController {
     }
     @FXML
     protected void clickButton8(){
-        if (currentFocus == false) {
+        if(currentFocus == false){
             employeeID.appendText("8");
         }
         else {
@@ -276,8 +280,8 @@ public class PointOfSaleController {
         }
     }
     @FXML
-    protected void clickButton9() {
-        if (currentFocus == false) {
+    protected void clickButton9(){
+        if(currentFocus == false){
             employeeID.appendText("9");
         }
         else {
@@ -285,9 +289,9 @@ public class PointOfSaleController {
         }
     }
     @FXML
-    protected void clickButtonClear(ActionEvent event) {
+    protected void clickButtonClear(ActionEvent event){
         //Will clear whichever text field is in focus. If neither in focus, clear both.
-        if (currentFocus == false) {
+        if (currentFocus == false){
             employeeID.setText(null);
         }
         else {
@@ -296,13 +300,13 @@ public class PointOfSaleController {
 
     }
     @FXML
-    protected void clickButtonEnter(ActionEvent event) {
+    protected void clickButtonEnter(ActionEvent event){
         //leftLogin.setOnAction(event -> attemptLogin());
         currentFocus = true;
         if (enterClicked == 2) {
             try {
                 attemptLogin(event);
-            } catch (Exception e) {
+            } catch (Exception e){
                 System.out.println("failed login");
             }
         }

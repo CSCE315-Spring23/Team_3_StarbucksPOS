@@ -62,11 +62,20 @@ public class CoffeeController {
 
     @FXML
     public void clickManagerMenu(ActionEvent event) throws IOException {
-        root = FXMLLoader.load(getClass().getResource("manager-view.fxml"));
-        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
+        if(CurrentOrderList.getInstance().isManager()) {
+            root = FXMLLoader.load(getClass().getResource("manager-view.fxml"));
+            stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+        }
+        else{
+            root = FXMLLoader.load(getClass().getResource("pos-view.fxml"));
+            stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+        }
     }
 
     @FXML
@@ -126,8 +135,12 @@ public class CoffeeController {
     }
 
     @FXML
-    protected void clickLogout() {
-
+    protected void clickLogout(ActionEvent event) throws IOException {
+        root = FXMLLoader.load(getClass().getResource("pos-view.fxml"));
+        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
     }
 
     @FXML
@@ -137,16 +150,17 @@ public class CoffeeController {
 
     @FXML
     protected void clickVoidLastItem() {
-
+        if (CurrentOrderList.getInstance().getCurrentOrder().size() > 0)
+            CurrentOrderList.getInstance().getCurrentOrder().remove(CurrentOrderList.getInstance().getCurrentOrder().size()-1);
     }
 
     @FXML
     protected void clickPay() {
 //        DateTime dateTime = new DateTime(); // current date and time
-        LocalDateTime dateTime = LocalDateTime.now();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyMMdd");
-        String dateStr = dateTime.format(DateTimeFormatter.ofPattern("yyMMdd"));
-
+//        LocalDateTime dateTime = LocalDateTime.now();
+//        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyMMdd");
+//        String dateStr = dateTime.format(DateTimeFormatter.ofPattern("yyMMdd"));
+        CurrentOrderList.getInstance().completeTransaction();
     }
 
     @FXML
