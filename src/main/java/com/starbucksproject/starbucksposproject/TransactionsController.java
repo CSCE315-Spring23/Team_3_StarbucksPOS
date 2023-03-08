@@ -1,21 +1,32 @@
 package com.starbucksproject.starbucksposproject;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.sql.Connection;
+import java.net.URL;
+import java.sql.*;
+import java.util.ResourceBundle;
 
-public class TransactionsController {
+public class TransactionsController implements Initializable {
     Connection conn = null;
     private Stage stage;
     private Scene scene;
     private Parent root;
+
+    @FXML
+    private TableView transactionsTable;
     @FXML
     protected void clickServer() {
 
@@ -54,6 +65,56 @@ public class TransactionsController {
     }
     @FXML
     protected void clickBack() {
+
+    }
+
+    /**
+     * Called to initialize a controller after its root element has been
+     * completely processed.
+     *
+     * @param location  The location used to resolve relative paths for the root object, or
+     *                  {@code null} if the location is not known.
+     * @param resources The resources used to localize the root object, or {@code null} if
+     *                  the root object was not localized.
+     */
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        conn = DBConnection.getInstance().getConnection();
+        try {
+            final String query = "SELECT * FROM inventory";
+            PreparedStatement tableQuery = conn.prepareStatement(query);
+            ResultSet response = tableQuery.executeQuery();
+            ObservableList<TransactionsItem> items = FXCollections.observableArrayList();
+
+            ObservableList<TableColumn> columns = transactionsTable.getColumns();
+            columns.get(0).setCellValueFactory(new PropertyValueFactory<>("transaction_id"));
+            columns.get(1).setCellValueFactory(new PropertyValueFactory<>("transaction_date"));
+            columns.get(2).setCellValueFactory(new PropertyValueFactory<>("num_of_items"));
+            columns.get(3).setCellValueFactory(new PropertyValueFactory<>("order_list"));
+            columns.get(4).setCellValueFactory(new PropertyValueFactory<>("employee"));
+            columns.get(5).setCellValueFactory(new PropertyValueFactory<>("total"));
+
+            while (response.next()) {
+                int transaction_id = response.getInt("transaction_id");
+                int transaction_date = response.getInt("transaction_date");
+                int num_of_items = response.getInt("num_of_items");
+                Array order_list = response.getArray("order_list");
+                String employee = response.getString("employee");
+                double total = response.getDouble("total");
+
+                TransactionsItem item = new TransactionsItem(transaction_id, transaction_date, num_of_items, order_list, employee, total);
+                items.add(item);
+            }
+
+            transactionsTable.setItems(items);
+
+
+        }
+        catch(SQLException e){
+            e.printStackTrace();
+            System.err.println(e.getClass().getName() + ": " + e.getMessage());
+//            System.exit(0);
+        }
 
     }
 }
