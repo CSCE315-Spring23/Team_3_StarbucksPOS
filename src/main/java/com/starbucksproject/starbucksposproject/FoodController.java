@@ -114,72 +114,92 @@ public class FoodController {
     }
     @FXML
     protected void clickEverythingBagel() {
-
+        CurrentOrderList.getInstance().getCurrentOrder().add("201001");
+        System.out.println(CurrentOrderList.getInstance().getCurrentOrder());
     }
     @FXML
     protected void clickCreamCheese() {
-
+        CurrentOrderList.getInstance().getCurrentOrder().add("201004");
+        System.out.println(CurrentOrderList.getInstance().getCurrentOrder());
     }
     @FXML
     protected void clickCheeseDanish() {
-
+        CurrentOrderList.getInstance().getCurrentOrder().add("201006");
+        System.out.println(CurrentOrderList.getInstance().getCurrentOrder());
     }
     @FXML
     protected void clickAppleFritter() {
+        CurrentOrderList.getInstance().getCurrentOrder().add("201007");
+        System.out.println(CurrentOrderList.getInstance().getCurrentOrder());
     }
     @FXML
     protected void clickSaltedCaramelCookie() {
-
+        CurrentOrderList.getInstance().getCurrentOrder().add("201008");
+        System.out.println(CurrentOrderList.getInstance().getCurrentOrder());
     }
     @FXML
     protected void clickCinnamonRoll() {
+        CurrentOrderList.getInstance().getCurrentOrder().add("201009");
+        System.out.println(CurrentOrderList.getInstance().getCurrentOrder());
     }
     @FXML
     protected void clickBlueberryMuffin() {
-
+        CurrentOrderList.getInstance().getCurrentOrder().add("201010");
+        System.out.println(CurrentOrderList.getInstance().getCurrentOrder());
     }
     @FXML
     protected void clickTuxedoMuffin() {
-
+        CurrentOrderList.getInstance().getCurrentOrder().add("201011");
+        System.out.println(CurrentOrderList.getInstance().getCurrentOrder());
     }
     @FXML
     protected void clickBananaMuffin() {
-
+        CurrentOrderList.getInstance().getCurrentOrder().add("201012");
+        System.out.println(CurrentOrderList.getInstance().getCurrentOrder());
     }
     @FXML
     protected void clickSweetCroissant() {
-
+        CurrentOrderList.getInstance().getCurrentOrder().add("201014");
+        System.out.println(CurrentOrderList.getInstance().getCurrentOrder());
     }
     @FXML
     protected void clickToffeeBar() {
-
+        CurrentOrderList.getInstance().getCurrentOrder().add("201017");
+        System.out.println(CurrentOrderList.getInstance().getCurrentOrder());
     }
     @FXML
     protected void clickBrownie() {
-
+        CurrentOrderList.getInstance().getCurrentOrder().add("201019");
+        System.out.println(CurrentOrderList.getInstance().getCurrentOrder());
     }
     @FXML
     protected void clickChocolateChipCookie() {
-
+        CurrentOrderList.getInstance().getCurrentOrder().add("201018");
+        System.out.println(CurrentOrderList.getInstance().getCurrentOrder());
     }
     @FXML
     protected void clickSweetChocolateChipCookie() {
-
+        CurrentOrderList.getInstance().getCurrentOrder().add("201015");
+        System.out.println(CurrentOrderList.getInstance().getCurrentOrder());
     }
     @FXML
     protected void clickBakedChocolateChipCookie() {
-
+        CurrentOrderList.getInstance().getCurrentOrder().add("201016");
+        System.out.println(CurrentOrderList.getInstance().getCurrentOrder());
     }
     @FXML
     protected void clickZoesCookie() {
-
+        CurrentOrderList.getInstance().getCurrentOrder().add("201020");
+        System.out.println(CurrentOrderList.getInstance().getCurrentOrder());
     }
     @FXML
     protected void clickCheesecake() {
-
+        CurrentOrderList.getInstance().getCurrentOrder().add("201021");
+        System.out.println(CurrentOrderList.getInstance().getCurrentOrder());
     }
     @FXML
     protected void clickReesesBar() {
-
+        CurrentOrderList.getInstance().getCurrentOrder().add("201022");
+        System.out.println(CurrentOrderList.getInstance().getCurrentOrder());
     }
 }
