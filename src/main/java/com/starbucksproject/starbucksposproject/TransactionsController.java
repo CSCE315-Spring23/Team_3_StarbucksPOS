@@ -11,7 +11,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.sql.Connection;
 
-public class InventoryController {
+public class TransactionsController {
     Connection conn = null;
     private Stage stage;
     private Scene scene;
@@ -20,7 +20,6 @@ public class InventoryController {
     protected void clickServer() {
 
     }
-
     @FXML
     protected void clickInventory(ActionEvent event) throws IOException {
         root = FXMLLoader.load(getClass().getResource("inventory-gui.fxml"));
@@ -55,11 +54,6 @@ public class InventoryController {
     }
     @FXML
     protected void clickBack() {
-
-    }
-
-    @FXML
-    protected void clickChangeInventory() {
 
     }
 }
