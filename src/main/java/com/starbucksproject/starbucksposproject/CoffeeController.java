@@ -153,7 +153,7 @@ public class CoffeeController {
     protected void clickCoffee() {
         if (drinkSize == 0) {
             CurrentOrderList.getInstance().getCurrentOrder().add("101001");
-        } else if (drinktSize == 1) {
+        } else if (drinkSize == 1) {
             CurrentOrderList.getInstance().getCurrentOrder().add("101002");
         } else {
             CurrentOrderList.getInstance().getCurrentOrder().add("101003");
