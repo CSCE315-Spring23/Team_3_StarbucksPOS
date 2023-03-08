@@ -11,11 +11,13 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
-
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
 import java.sql.*;
 import java.security.MessageDigest;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 import java.util.HexFormat;
 import javafx.scene.input.KeyEvent;
@@ -27,21 +29,21 @@ public class CoffeeController {
     private Scene scene;
     private Parent root;
 
-    int currentSize = 0;
+    int drinkSize = 0;
 
     @FXML
     protected void clickTall() {
-        currentSize = 0;
+        drinkSize = 0;
     }
 
     @FXML
     protected void clickGrande() {
-        currentSize = 1;
+        drinkSize = 1;
     }
 
     @FXML
     protected void clickVenti() {
-        currentSize = 2;
+        drinkSize = 2;
     }
 
     @FXML
@@ -140,14 +142,18 @@ public class CoffeeController {
 
     @FXML
     protected void clickPay() {
+//        DateTime dateTime = new DateTime(); // current date and time
+        LocalDateTime dateTime = LocalDateTime.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyMMdd");
+        String dateStr = dateTime.format(DateTimeFormatter.ofPattern("yyMMdd"));
 
     }
 
     @FXML
     protected void clickCoffee() {
-        if (currentSize == 0) {
+        if (drinkSize == 0) {
             CurrentOrderList.getInstance().getCurrentOrder().add("101001");
-        } else if (currentSize == 1) {
+        } else if (drinkSize == 1) {
             CurrentOrderList.getInstance().getCurrentOrder().add("101002");
         } else {
             CurrentOrderList.getInstance().getCurrentOrder().add("101003");
