@@ -161,7 +161,9 @@ public class PointOfSaleController {
 
 
 
-            } else {
+            }
+            //invalid login
+            else {
                 System.out.println("Could not find user. Check username or PIN.");
                 employeeID.setText(null);
                 employeePIN.setText(null);
@@ -290,7 +292,7 @@ public class PointOfSaleController {
     }
     @FXML
     protected void clickButtonClear(ActionEvent event){
-        //Will clear whichever text field is in focus. If neither in focus, clear both.
+        //Will clear whichever text field is in focus.
         if (currentFocus == false){
             employeeID.setText(null);
         }
@@ -301,14 +303,15 @@ public class PointOfSaleController {
     }
     @FXML
     protected void clickButtonEnter(ActionEvent event){
-        //leftLogin.setOnAction(event -> attemptLogin());
-        currentFocus = true;
-        if (enterClicked == 2) {
+        if (currentFocus) {
             try {
                 attemptLogin(event);
             } catch (Exception e){
                 System.out.println("failed login");
             }
+        }
+        else{
+            currentFocus = true;
         }
 
     }

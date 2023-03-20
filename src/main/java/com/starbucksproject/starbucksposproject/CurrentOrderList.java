@@ -16,7 +16,7 @@ import java.util.Date;
 import java.time.LocalDate;
 
 //Use this class as a shared list between controllers. Load and save to it when swapping
-public class CurrentOrderList {
+public final class CurrentOrderList {
 	private static CurrentOrderList instance;
 	private ArrayList<String> currentOrder;
 
@@ -28,6 +28,7 @@ public class CurrentOrderList {
 	private CurrentOrderList(){
 		currentOrder = new ArrayList<String>();
 	}
+	//Menu item button click -> Add menu item to array list
 
 	public static CurrentOrderList getInstance(){
 		if (instance == null){
@@ -64,7 +65,9 @@ public class CurrentOrderList {
 	public void setCurrentEmployee(String currentEmployee){
 		this.CurrentEmployee = currentEmployee;
 	}
-
+	public void setCurrentOrder(ArrayList<String> currentOrder){
+		this.currentOrder = currentOrder;
+	}
 	public void resetOrder(){
 		currentOrder.clear();
 	}
