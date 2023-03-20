@@ -35,6 +35,14 @@ public class ManagerController {
         stage.show();
     }
     @FXML
+    protected void clickMenu(ActionEvent event) throws IOException {
+        root = FXMLLoader.load(getClass().getResource("menu-items-gui.fxml"));
+        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
+    @FXML
     protected void clickInventory(ActionEvent event) throws IOException {
         root = FXMLLoader.load(getClass().getResource("inventory-gui.fxml"));
         stage = (Stage)((Node)event.getSource()).getScene().getWindow();
