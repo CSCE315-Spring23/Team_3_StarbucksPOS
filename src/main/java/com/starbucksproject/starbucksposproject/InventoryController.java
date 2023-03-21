@@ -54,6 +54,14 @@ public class InventoryController implements Initializable {
         stage.show();
     }
     @FXML
+    protected void clickLowStockItems(ActionEvent event) throws IOException {
+        root = FXMLLoader.load(getClass().getResource("low-stock-gui.fxml"));
+        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
+    @FXML
     protected void clickSales(ActionEvent event) throws IOException {
         root = FXMLLoader.load(getClass().getResource("sales-gui.fxml"));
         stage = (Stage)((Node)event.getSource()).getScene().getWindow();
