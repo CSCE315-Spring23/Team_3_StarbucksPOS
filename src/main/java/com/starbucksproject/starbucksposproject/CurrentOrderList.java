@@ -2,18 +2,10 @@ package com.starbucksproject.starbucksposproject;
 
 import java.util.ArrayList;
 
-import java.io.IOException;
-import java.security.NoSuchAlgorithmException;
 import java.sql.*;
-import java.security.MessageDigest;
-import java.util.Arrays;
-import java.util.HexFormat;
-import javafx.scene.input.KeyEvent;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
-
-import java.time.LocalDate;
 
 //Use this class as a shared list between controllers. Load and save to it when swapping
 public class CurrentOrderList {
@@ -32,6 +24,57 @@ public class CurrentOrderList {
 	private CurrentOrderList(){
 		currentOrder = new ArrayList<String>();
 	}
+
+
+	/**
+	 *
+	 * @param conn
+	 * @param ingredients_list
+	 * @param ingredients_amt
+	 *
+	 * Takes all the
+	 */
+	private void UpdateDBForInventory(Connection conn, String[] ingredients_list, String[] ingredients_amt) {
+		for (int i=0; i < ingredients_list.length && i < ingredients_amt.length; i++) {
+			try (Statement statement = conn.createStatement()) {
+				String sql = "UPDATE inventory SET quantity = quantity - " + Float.parseFloat(ingredients_amt[i]) + " WHERE inventory_name = " + ingredients_list[i];
+				statement.executeUpdate(sql);
+			} catch (Exception e) {
+				e.printStackTrace();
+				System.err.println(e.getClass().getName() + ": " + e.getMessage());
+				System.exit(0);
+			}
+		}
+	}
+
+	private String[] GetList(Connection connection, String columnName, int id) throws SQLException {
+		String query = "SELECT " + columnName + " FROM menu_items WHERE item_id = " + id;
+		try (Statement statement = connection.createStatement()) {
+			ResultSet resultSet = statement.executeQuery(query);
+			ArrayList<String> strings = new ArrayList<>();
+			while (resultSet.next()) {
+				strings.add(resultSet.getString(columnName));
+			}
+			return strings.toArray(new String[strings.size()]);
+		}
+	}
+
+	private void UpdateInventory(Connection connection) {
+		try {
+			for (String order : currentOrder) {
+				String ingredients = "ingredients";
+				String amounts = "amounts";
+				String[] ingredientsList = GetList(connection, ingredients, Integer.parseInt(order));
+				String[] amountsList = GetList(connection, amounts, Integer.parseInt(order));
+				UpdateDBForInventory(connection, ingredientsList, amountsList);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.err.println(e.getClass().getName() + ": " + e.getMessage());
+			System.exit(0);
+		}
+	}
+
 
 	public static CurrentOrderList getInstance(){
 		if (instance == null){
@@ -168,13 +211,6 @@ public class CurrentOrderList {
 			orderStr = orderStr + "}";
 
 			// submit the query:
-//			String submitTrans = "INSERT INTO transactions (transaction_id, transaction_date, num_of_items, order_list, employee, total) VALUES ("
-//					+ transDate + ','
-//					+ currDate + ','
-//					+ listSize + ','
-//					+ orderStr + ','
-//					+ CurrentEmployee + ','
-//					+ priceStr + ")";
 			String submitTrans = "INSERT INTO transactions (transaction_id, transaction_date, num_of_items, order_list, employee, total) VALUES ('"
 					+ transDate + "','"
 					+ currDate + "',"
@@ -186,6 +222,9 @@ public class CurrentOrderList {
 			System.out.println("submitting to db: " + submitTrans);
 			stmt.executeUpdate(submitTrans);
 			CurrentOrderList.getInstance().resetOrder();
+
+			UpdateInventory(currConn);
+
 
 		} catch (Exception e) {
 			e.printStackTrace();
