@@ -139,7 +139,7 @@ public class AlternativeController {
         else if(drinkSize == 1){
 
                 CurrentOrderList.getInstance().getCurrentOrder().add("106014");
-            } else{
+        } else{
                 CurrentOrderList.getInstance().getCurrentOrder().add("106015");
         }
         System.out.println(CurrentOrderList.getInstance().getCurrentOrder());

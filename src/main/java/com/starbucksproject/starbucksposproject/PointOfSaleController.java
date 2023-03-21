@@ -33,8 +33,6 @@ public class PointOfSaleController {
         stage.setScene(scene);
         stage.show();
     }
-
-
 //    public void switchToEspresso(ActionEvent event) throws IOException {
 //        root = FXMLLoader.load(getClass().getResource("espresso-gui.fxml"));
 //        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
@@ -117,8 +115,17 @@ public class PointOfSaleController {
     private Button button9;
 
     /**
+     * @author Sam Hirvilampi, Devon Kelly
+     * @returns n/a
      * @param event
      * @throws NoSuchAlgorithmException
+     *
+     * The function attempts to login with the employee ID and employee Pin provided within the class.
+     * Processes: Creates the connection, then queries the database for the existing Employee ID and matching
+     * employee Pin.
+     *
+     * If both matches, check whether the employee is a manager or server, based on this criteria, different
+     * screens will be displayed.
      */
     @FXML
     protected void attemptLogin(ActionEvent event) throws NoSuchAlgorithmException {
