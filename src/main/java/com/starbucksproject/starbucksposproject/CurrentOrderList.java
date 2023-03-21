@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.sql.*;
 
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Date;
 
 //Use this class as a shared list between controllers. Load and save to it when swapping
@@ -37,7 +38,9 @@ public class CurrentOrderList {
 	private void UpdateDBForInventory(Connection conn, String[] ingredients_list, String[] ingredients_amt) {
 		for (int i=0; i < ingredients_list.length && i < ingredients_amt.length; i++) {
 			try (Statement statement = conn.createStatement()) {
-				String sql = "UPDATE inventory SET quantity = quantity - " + Float.parseFloat(ingredients_amt[i]) + " WHERE inventory_name = " + ingredients_list[i];
+				System.out.println("calling the sql to update the DBInventory");
+				String sql = "UPDATE inventory SET quantity = quantity - " + Float.parseFloat(ingredients_amt[i]) + " WHERE inventory_name = " + '\'' + ingredients_list[i] + '\'';
+				System.out.println(sql);
 				statement.executeUpdate(sql);
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -52,20 +55,32 @@ public class CurrentOrderList {
 		try (Statement statement = connection.createStatement()) {
 			ResultSet resultSet = statement.executeQuery(query);
 			ArrayList<String> strings = new ArrayList<>();
-			while (resultSet.next()) {
-				strings.add(resultSet.getString(columnName));
-			}
-			return strings.toArray(new String[strings.size()]);
+			resultSet.next();
+			strings.add(resultSet.getString(columnName));
+			String[] returnStr = PreprocessItemsInList(strings);
+			return returnStr;
 		}
+	}
+
+	private String[] PreprocessItemsInList(ArrayList<String> oldList) {
+		for(int i=0; i<oldList.size(); i++) {
+			String element = oldList.get(i);
+			element = element.replace("{", "");
+			element = element.replace("}", "");
+			oldList.set(i, element);
+		}
+		return oldList.toArray(new String[oldList.size()]);
 	}
 
 	private void UpdateInventory(Connection connection) {
 		try {
 			for (String order : currentOrder) {
-				String ingredients = "ingredients";
-				String amounts = "amounts";
-				String[] ingredientsList = GetList(connection, ingredients, Integer.parseInt(order));
-				String[] amountsList = GetList(connection, amounts, Integer.parseInt(order));
+				String[] ingredientsList = GetList(connection, "ingredients", Integer.parseInt(order));
+				String[] amountsList = GetList(connection, "amounts", Integer.parseInt(order));
+				System.out.println("ingredients list:");
+				System.out.println(Arrays.toString(ingredientsList));
+				System.out.println("Amounts list:");
+				System.out.println(Arrays.toString(amountsList));
 				UpdateDBForInventory(connection, ingredientsList, amountsList);
 			}
 		} catch (Exception e) {
@@ -73,6 +88,7 @@ public class CurrentOrderList {
 			System.err.println(e.getClass().getName() + ": " + e.getMessage());
 			System.exit(0);
 		}
+		System.out.println("Updated inventory");
 	}
 
 
@@ -158,79 +174,84 @@ public class CurrentOrderList {
 	 * gets the total price of every item, submits the query.
 	 */
 	public void completeTransaction() {
-		Connection currConn = DBConnection.getInstance().getConnection();
-		try {
-			// get current time
-			Statement stmt = currConn.createStatement();
-			SimpleDateFormat formatter = new SimpleDateFormat("yyMMdd");
-			Date date = new Date();
-			String currDate = "1" + formatter.format(date);
-
-			// get latest transaction date
-			String getLatestTrans = "SELECT * FROM transactions WHERE transaction_id = (SELECT MAX(transaction_id) FROM transactions)";
-			ResultSet result = stmt.executeQuery(getLatestTrans);
-			String transDate = "";
+		if (currentOrder.size() != 0) {
+			Connection currConn = DBConnection.getInstance().getConnection();
 			try {
-				result.next();
-				String latestDate = result.getString("transaction_date");
+				// get current time
+				Statement stmt = currConn.createStatement();
+				SimpleDateFormat formatter = new SimpleDateFormat("yyMMdd");
+				Date date = new Date();
+				String currDate = "1" + formatter.format(date);
 
-				// if latest transaction date == current date
-				if (!latestDate.equals(currDate)) {
-					// transaction: starts at date + 001
-					System.out.println(latestDate);
-					System.out.println(currDate);
-					transDate = currDate + "001";
-				} else {
-					// else,
-					// latest transaction_id + 1
-					transDate = Integer.toString(Integer.parseInt(result.getString("transaction_id")) + 1);
+				// get latest transaction date
+				String getLatestTrans = "SELECT * FROM transactions WHERE transaction_id = (SELECT MAX(transaction_id) FROM transactions)";
+				ResultSet result = stmt.executeQuery(getLatestTrans);
+				String transDate = "";
+				try {
+					result.next();
+					String latestDate = result.getString("transaction_date");
+
+					// if latest transaction date == current date
+					if (!latestDate.equals(currDate)) {
+						// transaction: starts at date + 001
+						System.out.println(latestDate);
+						System.out.println(currDate);
+						transDate = currDate + "001";
+					} else {
+						// else,
+						// latest transaction_id + 1
+						transDate = Integer.toString(Integer.parseInt(result.getString("transaction_id")) + 1);
+					}
 				}
+				catch (Exception e){
+					transDate = "1" + currDate + "001";
+				}
+				// get the number of items in list
+				int listSize = currentOrder.size();
+
+				// for every item in list:
+				for (int i=0; i < listSize; i++) {
+					// get the price
+					String getPrice = "SELECT * FROM menu_items WHERE item_id=" + currentOrder.get(i);
+					ResultSet priceResult = stmt.executeQuery(getPrice);
+					priceResult.next();
+					float itemPrice = Float.parseFloat(priceResult.getString("price"));
+					TotalPrice += itemPrice;
+				}
+				String priceStr = Float.toString(TotalPrice);
+
+				String orderStr = "{";
+				for (int i=0; i < listSize; i++) {
+					orderStr = orderStr + currentOrder.get(i) + ",";
+				}
+				orderStr = orderStr.substring(0, orderStr.length()-1);
+				orderStr = orderStr + "}";
+
+				// submit the query:
+				String submitTrans = "INSERT INTO transactions (transaction_id, transaction_date, num_of_items, order_list, employee, total) VALUES ('"
+						+ transDate + "','"
+						+ currDate + "',"
+						+ listSize + ",'"
+						+ orderStr + "','"
+						+ CurrentEmployee + "',"
+						+ TotalPrice + ")";
+				UpdateInventory(currConn);
+				System.out.println("submitting to db: " + submitTrans);
+				stmt.executeUpdate(submitTrans);
+				CurrentOrderList.getInstance().resetOrder();
+
+
+
+
+			} catch (Exception e) {
+				e.printStackTrace();
+				System.err.println(e.getClass().getName() + ": " + e.getMessage());
+				System.exit(0);
 			}
-			catch (Exception e){
-				transDate = "1" + currDate + "001";
-			}
-			// get the number of items in list
-			int listSize = currentOrder.size();
-
-			// for every item in list:
-			for (int i=0; i < listSize; i++) {
-				// get the price
-				String getPrice = "SELECT * FROM menu_items WHERE item_id=" + currentOrder.get(i);
-				ResultSet priceResult = stmt.executeQuery(getPrice);
-				priceResult.next();
-				float itemPrice = Float.parseFloat(priceResult.getString("price"));
-				TotalPrice += itemPrice;
-			}
-			String priceStr = Float.toString(TotalPrice);
-
-			String orderStr = "{";
-			for (int i=0; i < listSize; i++) {
-				orderStr = orderStr + currentOrder.get(i) + ",";
-			}
-			orderStr = orderStr.substring(0, orderStr.length()-1);
-			orderStr = orderStr + "}";
-
-			// submit the query:
-			String submitTrans = "INSERT INTO transactions (transaction_id, transaction_date, num_of_items, order_list, employee, total) VALUES ('"
-					+ transDate + "','"
-					+ currDate + "',"
-					+ listSize + ",'"
-					+ orderStr + "','"
-					+ CurrentEmployee + "',"
-					+ TotalPrice + ")";
-
-			System.out.println("submitting to db: " + submitTrans);
-			stmt.executeUpdate(submitTrans);
-			CurrentOrderList.getInstance().resetOrder();
-
-			UpdateInventory(currConn);
-
-
-		} catch (Exception e) {
-			e.printStackTrace();
-			System.err.println(e.getClass().getName() + ": " + e.getMessage());
-			System.exit(0);
+		} else {
+			System.out.println("No Items in OrderList");
 		}
+
 	}
 
 	/**
