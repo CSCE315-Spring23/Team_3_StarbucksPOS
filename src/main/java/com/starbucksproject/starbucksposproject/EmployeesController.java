@@ -31,8 +31,12 @@ public class EmployeesController implements Initializable {
     @FXML
     private TableView employeesTable;
     @FXML
-    protected void clickServer() {
-
+    protected void clickServer(ActionEvent event) throws IOException {
+        root = FXMLLoader.load(getClass().getResource("coffee-gui.fxml"));
+        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
     }
     @FXML
     protected void clickInventory(ActionEvent event) throws IOException {
