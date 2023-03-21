@@ -39,6 +39,7 @@ public class CurrentOrderList {
 		for (int i=0; i < ingredients_list.length && i < ingredients_amt.length; i++) {
 			try (Statement statement = conn.createStatement()) {
 				System.out.println("calling the sql to update the DBInventory");
+				System.out.println(ingredients_amt.length);
 				String sql = "UPDATE inventory SET quantity = quantity - " + Float.parseFloat(ingredients_amt[i]) + " WHERE inventory_name = " + '\'' + ingredients_list[i] + '\'';
 				System.out.println(sql);
 				statement.executeUpdate(sql);
@@ -54,23 +55,14 @@ public class CurrentOrderList {
 		String query = "SELECT " + columnName + " FROM menu_items WHERE item_id = " + id;
 		try (Statement statement = connection.createStatement()) {
 			ResultSet resultSet = statement.executeQuery(query);
-			ArrayList<String> strings = new ArrayList<>();
 			resultSet.next();
-			strings.add(resultSet.getString(columnName));
-			String[] returnStr = PreprocessItemsInList(strings);
-			return returnStr;
+			String[] strings = resultSet.getString(columnName).split(",");
+			strings[0] = strings[0].replace("{", "");
+			strings[strings.length - 1] = strings[strings.length - 1].replace("}", "");
+			return strings;
 		}
 	}
 
-	private String[] PreprocessItemsInList(ArrayList<String> oldList) {
-		for(int i=0; i<oldList.size(); i++) {
-			String element = oldList.get(i);
-			element = element.replace("{", "");
-			element = element.replace("}", "");
-			oldList.set(i, element);
-		}
-		return oldList.toArray(new String[oldList.size()]);
-	}
 
 	private void UpdateInventory(Connection connection) {
 		try {
