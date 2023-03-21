@@ -1,5 +1,7 @@
 package com.starbucksproject.starbucksposproject;
 
+import javafx.scene.control.CheckMenuItem;
+
 import java.util.ArrayList;
 
 import java.sql.*;
@@ -53,15 +55,38 @@ public class CurrentOrderList {
 		return true;
 	}
 
+	public void addItem(String menuID) {
+		if (CheckItemAvailability(menuID)) {
+			currentOrder.add(menuID);
+			System.out.println("Item added to the order list!");
+		} else {
+			System.out.println("Item currently not available.");
+		}
+	}
+
+	private boolean CheckItemAvailability(String order) {
+		try {
+			String[] ingredientsList = GetList("ingredients", Integer.parseInt(order));
+			String[] amountsList = GetList("amounts", Integer.parseInt(order));
+			for (int i=0; i < ingredientsList.length && i < amountsList.length; i++) {
+				if (CheckIngredientInventory(ingredientsList[i], Float.parseFloat(amountsList[i])) == false) {
+					return false;
+				}
+			}
+		} catch (SQLException e) {
+			System.out.println("CheckItemAvailability Failed: ingredient for Item does not exist.");
+			return false;
+		}
+		return true;
+	}
+
 	private boolean CheckIngredientInventory(String ingredient, float amt) throws SQLException {
-		System.out.println("Checking if enough inventory...");
 		String sql = "SELECT quantity FROM inventory WHERE inventory_name=" + '\'' + ingredient + '\'';
 		try (Statement stat = conn.createStatement()) {
 			ResultSet resultSet = stat.executeQuery(sql);
-			System.out.println("Sql command went through");
 			resultSet.next();
 			float currentQuantity = resultSet.getFloat("quantity");
-			if (currentQuantity > amt) {
+			if (currentQuantity >= amt) {
 				return true;
 			}
 		} catch (SQLException e) {
