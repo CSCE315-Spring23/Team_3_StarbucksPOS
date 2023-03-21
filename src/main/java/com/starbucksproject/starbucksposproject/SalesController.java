@@ -1,25 +1,32 @@
 package com.starbucksproject.starbucksposproject;
 
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
+import javafx.util.Pair;
 
 import java.io.IOException;
 import java.net.URL;
 import java.sql.*;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.Optional;
 import java.util.HexFormat;
 import java.util.ResourceBundle;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 public class SalesController implements Initializable {
     Connection conn = null;
@@ -101,6 +108,7 @@ public class SalesController implements Initializable {
     }
     @FXML
     protected void clickSalesReport(ActionEvent event) throws IOException {
+        // Enter SalesReport actions here
         // Enter SalesReport actions here:
         int startDate = Integer.parseInt(fromDate.getText());
         int endDate = Integer.parseInt(toDate.getText());
@@ -126,6 +134,7 @@ public class SalesController implements Initializable {
                 int year = response.getInt("year");
                 boolean game_day = response.getBoolean("game_day");
                 double sales = response.getDouble("sales");
+
                 if(date >= startDate && date <= endDate) {
                     SalesItem item = new SalesItem(day, date, week, year, game_day, sales);
                     items.add(item);
@@ -145,6 +154,16 @@ public class SalesController implements Initializable {
     }
 
     protected void clickSalesFromTo(ActionEvent event) throws IOException{
+
+    }
+
+    @FXML
+    protected void clickExcessReport(ActionEvent event) throws IOException {
+
+    }
+
+    @FXML
+    protected void clickReset(ActionEvent event) throws IOException {
 
     }
     /**
