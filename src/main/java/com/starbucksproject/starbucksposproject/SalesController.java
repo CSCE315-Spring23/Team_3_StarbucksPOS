@@ -94,6 +94,22 @@ public class SalesController implements Initializable {
         stage.setScene(scene);
         stage.show();
     }
+    @FXML
+    protected void clickSalesReport(ActionEvent event) throws IOException {
+        // Enter SalesReport actions here:
+
+
+
+
+        /*
+
+        root = FXMLLoader.load(getClass().getResource("sales-gui.fxml"));
+        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+        */
+    }
 
     /**
      * Called to initialize a controller after its root element has been
