@@ -1,197 +1,196 @@
-item_id (PK),item_name,display_name,category,size,ingredients,price
-101001,coffee-tall,Brewed Coffee,coffee_hot_iced,tall,"{reg-coffee}",2.65
-101002,coffee-grande,Brewed Coffee,coffee_hot_iced,grande,"{reg-coffee}",2.95
-101003,coffee-venti,Brewed Coffee,coffee_hot_iced,venti,"{reg-coffee}",3.25
-101004,iced-coffee-tall,Iced Coffee,coffee_hot_iced,tall,"{iced-coffee, classic-syrup}",3.75
-101005,iced-coffee-grande,Iced Coffee,coffee_hot_iced,grande,"{iced-coffee, classic-syrup}",3.95
-101006,iced-coffee-venti,Iced Coffee,coffee_hot_iced,venti,"{iced-coffee, classic-syrup}",4.45
-101007,cafe-au-lait-tall,Cafe Latte,coffee_hot_iced,tall,"{espresso-shot, 2p-milk}",3.95
-101008,cafe-au-lait-grande,Cafe Latte,coffee_hot_iced,grande,"{espresso-shot, 2p-milk}",4.65
-101009,cafe-au-lait-venti,Cafe Latte,coffee_hot_iced,venti,"{espresso-shot, 2p-milk}",4.95
-101010,cold-brew-tall,Cold Brew Coffee,coffee_hot_iced,tall,"{chameleon-cold-brew}",3.95
-101011,cold-brew-grande,Cold Brew Coffee,coffee_hot_iced,grande,"{chameleon-cold-brew}",4.45
-101012,cold-brew-venti,Cold Brew Coffee,coffee_hot_iced,venti,"{chameleon-cold-brew}",4.95
-101013,brewed-coffee-refill,NA,coffee_hot_iced,NA,"{chameleon-cold-brew}",0.5
-101014,coffee-traveller,NA,coffee_hot_iced,NA,"{reg-coffee}",20
-101015,reusable-cup-lid,NA,coffee_hot_iced,NA,"{cup, lid}",0
-101016,add-cream,NA,"coffee_hot_iced, add-on",NA,"{cream}",0
-101017,cold-brew,NA,"coffee_hot_iced, add-on",NA,"{chameleon-cold-brew}",0
-101018,nitro-cold-brew,NA,"coffee_hot_iced, add-on",NA,"{nitro-chameleon-cold-brew}",0
-101019,CFCB-tall,Cold Brew with Cold Foam,coffee_hot_iced,tall,"{skimmed-milk, heavy-cream,chameleon-cold-brew}",3.95
-101020,CFCB-grande,Cold Brew with Cold Foam,coffee_hot_iced,grande,"{skimmed-milk, heavy-cream,chameleon-cold-brew}",4.45
-101021,CFCB-venti,Cold Brew with Cold Foam,coffee_hot_iced,venti,"{skimmed-milk, heavy-cream,chameleon-cold-brew}",4.95
-101022,SCCCB-tall,Salted Caramel Cream Cold Brew,coffee_hot_iced,tall,"{salt, caramel-syrup, vanilla-syrup, chameleon-cold-brew, sweet-cream}",4.75
-101023,SCCCB-grande,Salted Caramel Cream Cold Brew,coffee_hot_iced,grande,"{salt, caramel-syrup, vanilla-syrup, chameleon-cold-brew, sweet-cream}",5.25
-101024,SCCCB-venti,Salted Caramel Cream Cold Brew,coffee_hot_iced,venti,"{salt, caramel-syrup, vanilla-syrup, chameleon-cold-brew, sweet-cream}",5.65
-102001,espresso-shot,Espresso Shot,add-on,NA,"{espresso-shot}",1
-102002,classic-syrup,Classic Syrup,add-on,NA,"{classic-syrup}",0.8
-102003,vanilla-syrup,Vanilla Syrup,add-on,NA,"{vanilla-syrup}",0.8
-102004,breve,Breve,add-on,NA,"{reg-cream}",0
-102005,heavy-cream,Heavy Cream,add-on,NA,"{heavy-cream}",0
-102006,sweet-cream,Sweet Cream,add-on,NA,"{vanilla-syrup, 2p-milk, heavy-cream}",1.25
-102007,whipped-cream,Whipped Cream,add-on,NA,"{heavy-cream, vanilla-syrup}",0
-102008,almond-milk,Almond Milk,add-on,NA,"{almond-milk}",0.6
-102009,oat-milk,Oat Milk,add-on,NA,"{oat-milk}",0.6
-102010,soy-milk,Soy Milk,add-on,NA,"{soy-milk}",0.6
-102011,coconut-milk,Coconut Milk,add-on,NA,"{coconut-milk}",0.6
-102012,lemonade,Lemonade,add-on,NA,"{lemonade}",0.5
-102013,matcha,Matcha,add-on,NA,"{matcha-powder}",0.8
-102014,dried-strawberries,Strawberry Inclusions,add-on,NA,"{dried-strawberries}",0.8
-102015,dried-dragonfruit,Dragonfruit Inclusions,add-on,NA,"{dried-dragondruit}",0.8
-102016,straw-acai-base,Strawberry Acai Base,add-on,NA,"{straw-acai-base}",0.5
-102017,mango-dragon-base,Mango Dragofruit Base,add-on,NA,"{mango-dragon-base}",0.5
-102018,iced-venti,NA,add-on,NA,"{caramel}",0.5
-102019,honey-cup,Honey,add-on,tall,"{honey}",0
-102020,honey-drop,Honey,add-on,grande,"{honey}",0
-103001,americano-tall,Americano,espresso-drinks,tall,"{espresso-shot}",3.35
-103002,americano-grande,Americano,espresso-drinks,grande,"{espresso-shot}",3.65
-103003,americano-venti,Americano,espresso-drinks,venti,"{espresso-shot}",3.95
-103004,capp-tall,Cappuccino,espresso-drinks,tall,"{espresso-shot, 2p-milk}",4.35
-103005,capp-grande,Cappuccino,espresso-drinks,grande,"{espresso-shot, 2p-milk}",4.65
-103006,capp-venti,Cappuccino,espresso-drinks,venti,"{espresso-shot, 2p-milk}",4.95
-103007,latte-tall,Caffe Latte,espresso-drinks,tall,"{espresso-shot, 2p-milk}",4.35
-103008,latte-grande,Caffe Latte,espresso-drinks,grande,"{espresso-shot, 2p-milk}",4.65
-103009,latte-venti,Caffe Latte,espresso-drinks,venti,"{espresso-shot, 2p-milk}",4.95
-103010,CRML-MACO-tall,Caramel Macchiato,espresso-drinks,tall,"{espresso-shot, 2p-milk, vanilla-syrup, caramel}",4.65
-103011,CRML-MACO-grande,Caramel Macchiato,espresso-drinks,grande,"{espresso-shot, 2p-milk, vanilla-syrup, caramel}",5.45
-103012,CRML-MACO-venti,Caramel Macchiato,espresso-drinks,venti,"{espresso-shot, 2p-milk, vanilla-syrup, caramel}",5.65
-103013,mocha-tall,Caffe Mocha,espresso-drinks,tall,"{espresso-shot, 2p-milk, mocha-sauce, whipped-cream}",4.45
-103014,mocha-grande,Caffe Mocha,espresso-drinks,grande,"{espresso-shot, 2p-milk, mocha-sauce, whipped-cream}",5.25
-103015,mocha-venti,Caffe Mocha,espresso-drinks,venti,"{espresso-shot, 2p-milk, mocha-sauce, whipped-cream}",5.45
-103016,wht-mocha-tall,White Chocolate Mocha ,espresso-drinks,tall,"{white-chocolate, espresso-shot, 2p-milk, whipped-cream}",4.45
-103017,wht-mocha-grande,White Chocolate Mocha ,espresso-drinks,grande,"{white-chocolate, espresso-shot, 2p-milk, whipped-cream}",5.25
-103018,wht-mocha-venti,White Chocolate Mocha ,espresso-drinks,venti,"{white-chocolate, espresso-shot, 2p-milk, whipped-cream}",5.45
-103019,cinn-dolce-tall,CInnamon Dolce Latte,espresso-drinks,tall,"{cinnamon-dolce-syrup, espresso-shot, reg-milk, cinnamon-dolce-topping, whipped-cream}",4.95
-103020,cinn-dolce-grande,CInnamon Dolce Latte,espresso-drinks,grande,"{cinnamon-dolce-syrup, espresso-shot, reg-milk, cinnamon-dolce-topping, whipped-cream}",5.65
-103021,cinn-dolce-venti,CInnamon Dolce Latte,espresso-drinks,venti,"{cinnamon-dolce-syrup, espresso-shot, reg-milk, cinnamon-dolce-topping, whipped-cream}",5.95
-103022,TNL-latte-tall,Toffee Nut Latte,espresso-drinks,tall,"{espresso-shot, toffee-nut-syrup, reg-milk, whipped-cream}",5.15
-103023,TNL-latte-grande,Toffee Nut Latte,espresso-drinks,grande,"{espresso-shot, toffee-nut-syrup, reg-milk, whipped-cream}",5.45
-103024,TNL-latte-venti,Toffee Nut Latte,espresso-drinks,venti,"{espresso-shot, toffee-nut-syrup, reg-milk, whipped-cream}",5.75
-103025,CCNT-MACO-tall,Coconut Macchiato,espresso-drinks,tall,"{coconut-milk, espresso-shot, chocolate-syrup}",4.65
-103026,CCNT-MACO-grande,Coconut Macchiato,espresso-drinks,grande,"{coconut-milk, espresso-shot, chocolate-syrup}",5.45
-103027,CCNT-MACO-venti,Coconut Macchiato,espresso-drinks,venti,"{coconut-milk, espresso-shot, chocolate-syrup}",5.65
-103028,CIN-ALMD-MACO-tall,Cinnamon Dolce Almond Milk Macchiato,espresso-drinks,tall,"{cinnamon-dolce-syrup, espresso-shot, almond-milk}",4.85
-103029,CIN-ALMD-MACO-grande,Cinnamon Dolce Almond Milk Macchiato,espresso-drinks,grande,"{cinnamon-dolce-syrup, espresso-shot, almond-milk}",5.65
-103030,CIN-ALMD-MACO-venti,Cinnamon Dolce Almond Milk Macchiato,espresso-drinks,venti,"{cinnamon-dolce-syrup, espresso-shot, almond-milk}",5.85
-103031,espresso-shot-solo,Solo,espresso-drinks,NA,"{espresso-shot}",2.45
-103032,espresso-shot-dopio,Doppio,espresso-drinks,NA,"{espresso-shot}",2.75
-103033,espresso-shot-triple,Triple,espresso-drinks,NA,"{espresso-shot}",3.25
-103034,espresso-shot-quad,Quad,espresso-drinks,NA,"{espresso-shot}",3.65
-103035,CCNT-MOCH-tall,Coconut Mocha,espresso-drinks,tall,"{espresso-shot, coconut-milk, mocha-sauce}",4.65
-103036,CCNT-MOCH-grande,Coconut Mocha,espresso-drinks,grande,"{espresso-shot, coconut-milk, mocha-sauce}",5.45
-103037,CCNT-MOCH-venti,Coconut Mocha,espresso-drinks,venti,"{espresso-shot, coconut-milk, mocha-sauce}",5.65
-103038,BW-MOCH-tall,Black and White Mocha,espresso-drinks,tall,"{espresso-shot, mocha-sauce, white-chocolate, 2p-milk, whipped-cream}",4.45
-103039,BW-MOCH-grande,Black and White Mocha,espresso-drinks,grande,"{espresso-shot, mocha-sauce, white-chocolate, 2p-milk, whipped-cream}",5.25
-103040,BW-MOCH-venti,Black and White Mocha,espresso-drinks,venti,"{espresso-shot, mocha-sauce, white-chocolate, 2p-milk, whipped-cream}",5.45
-201001,bagel-everything,Everything Bagel,bakery-coremark,NA,"{bagel-everything}",2.25
-201002,bagel-muligrain,Multi-Grain Bagel,bakery-coremark,NA,"{bagel-muligrain}",2.25
-201003,bagel-plain,Plain Bagel,bakery-coremark,NA,"{bagel-plain}",2.25
-201004,cream-cheese,Cream Cheese,bakery-coremark,NA,"{cream-cheese}",0.95
-201005,donut-glazed,Glazed Donut,bakery-coremark,NA,"{donut-glazed}",2.25
-201006,cheese-dani,Cheese Danish,bakery-coremark,NA,"{cheese-dani}",3.45
-201007,apple-fritter,Apple Fritter,bakery-coremark,NA,"{apple-fritter}",3.45
-201008,saltCr-cookie,Salted Caramel Cookie,bakery-coremark,NA,"{saltCr-cookie}",2.95
-201009,cinn-roll,Cinnamon Roll,bakery-coremark,NA,"{cinn-roll}",3.75
-201010,blub-muffin,Blueberry Muffin,bakery-coremark,NA,"{blub-muffin}",3.25
-201011,tuxedo-muffin,Tuxedo Muffin,bakery-coremark,NA,"{tuxedo-muffin}",3.25
-201012,banana-muffin,Banana Muffin,bakery-coremark,NA,"{banana-muffin}",3.25
-201013,banana-bread,Banana Nut Loaf,bakery-coremark,NA,"{banana-bread}",3.65
-201014,croissant-sweet,Sweet Croissant,bakery-coremark,NA,"{croissant-sweet}",3.45
-201015,CC-cookie-sweet,Sweet Chocolate Chip Cookie,bakery-coremark,NA,"{CC-cookie-sweet}",2.95
-201016,CC-cookie-baked,Baked Chocolate Chip Cookie,bakery-coremark,NA,"{CC-cookie-baked}",2.95
-201017,toffee-bar,Toffee Bar,bakery-coremark,NA,"{toffee-bar}",3.25
-201018,CC-cookie-wrapped,Chocolate Chip Cookie,bakery-coremark,NA,"{CC-cookie-wrapped}",2.95
-201019,brownie-wrapped,Brownie Bar,bakery-coremark,NA,"{brownie-wrapped}",3.25
-201020,zoes-cookie-wrapped,Zeo's Cookie,bakery-coremark,NA,"{zoes-cookie-wrapped}",2.95
-201021,cheesecake,Cheesecake,bakery-coremark,NA,"{cheesecake}",3.25
-201022,reeses-pie,Reese's Pie,bakery-coremark,NA,"{reeses-pie}",3.25
-104001,hot-tea-tall,Hot Tea,tea-hot-iced,tall,"{black-tea}",2.95
-104002,hot-tea-grande,Hot Tea,tea-hot-iced,grande,"{black-tea}",3.25
-104003,hot-tea-venti,Hot Tea,tea-hot-iced,venti,"{black-tea}",3.45
-104004,brewed-tea-tall,Brewed Tea,tea-hot-iced,tall,"{tea-leaves}",2.95
-104005,brewed-tea-grande,Brewed Tea,tea-hot-iced,grande,"{tea-leaves}",3.25
-104006,brewed-tea-venti,Brewed Tea,tea-hot-iced,venti,"{tea-leaves}",3.45
-104007,green-tea-tall,Green Tea,tea-hot-iced,tall,"{green-tea}",2.95
-104008,green-tea-grande,Green Tea,tea-hot-iced,grande,"{green-tea}",3.25
-104009,green-tea-venti,Green Tea,tea-hot-iced,venti,"{green-tea}",3.45
-104010,HCM-tall,Ho Chi Minh Tea,tea-hot-iced,tall,"{HCM-tea}",2.95
-104011,HCM-grande,Ho Chi Minh Tea,tea-hot-iced,grande,"{HCM-tea}",3.25
-104012,HCM-venti,Ho Chi Minh Tea,tea-hot-iced,venti,"{HCM-tea}",3.45
-104013,iced-tea-lem-tall,Iced Tea Lemonade,tea-hot-iced,tall,"{black-tea, lemonade}",3.45
-104014,iced-tea-lem-grande,Iced Tea Lemonade,tea-hot-iced,grande,"{black-tea, lemonade}",3.95
-104015,iced-tea-lem-venti,Iced Tea Lemonade,tea-hot-iced,venti,"{black-tea, lemonade}",4.45
-104016,tazo-chai-tall,Tazo Chai Tea,tea-hot-iced,tall,"{TC-tea}",2.95
-104017,tazo-chai-grande,Tazo Chai Tea,tea-hot-iced,grande,"{TC-tea}",3.25
-104018,tazo-chai-venti,Tazo Chai Tea,tea-hot-iced,venti,"{TC-tea}",3.45
-104019,pink-drink-tall,Pink Drink,tea-hot-iced,tall,"{straw-acai-base, dried-strawberries, coconut-milk}",4.65
-104020,pink-drink-grande,Pink Drink,tea-hot-iced,grande,"{straw-acai-base, dried-strawberries, coconut-milk}",4.95
-104021,pink-drink-venti,Pink Drink,tea-hot-iced,venti,"{straw-acai-base, dried-strawberries, coconut-milk}",5.65
-104022,straw-acai-lem-tall,Strawberry Acai Lemonade Refresher,tea-hot-iced,tall,"{straw-acai-base, dried-strawberries, lemonade}",4.65
-104023,straw-acai-lem-grande,Strawberry Acai Lemonade Refresher,tea-hot-iced,grande,"{straw-acai-base, dried-strawberries, lemonade}",4.95
-104024,straw-acai-lem-venti,Strawberry Acai Lemonade Refresher,tea-hot-iced,venti,"{straw-acai-base, dried-strawberries, lemonade}",5.65
-104025,straw-acai-tall,Strawberry Acai Refresher,tea-hot-iced,tall,"{straw-acai-base, dried-strawberries, water}",3.95
-104026,straw-acai-grande,Strawberry Acai Refresher,tea-hot-iced,grande,"{straw-acai-base, dried-strawberries, water}",4.45
-104027,straw-acai-venti,Strawberry Acai Refresher,tea-hot-iced,venti,"{straw-acai-base, dried-strawberries, water}",4.95
-104028,dragon-drink-tall,Dragon Drink,tea-hot-iced,tall,"{mango-dragon-base, dried-dragonfruit, coconut-milk}",4.65
-104029,dragon-drink-grande,Dragon Drink,tea-hot-iced,grande,"{mango-dragon-base, dried-dragonfruit, coconut-milk}",4.95
-104030,dragon-drink-venti,Dragon Drink,tea-hot-iced,venti,"{mango-dragon-base, dried-dragonfruit, coconut-milk}",5.65
-104031,mango-dragon-lem-tall,Mango Dragonfruit Lemonade Refresher,tea-hot-iced,tall,"{mango-dragon-base, dried-dragonfruit, lemonade}",4.65
-104032,mango-dragon-lem-grande,Mango Dragonfruit Lemonade Refresher,tea-hot-iced,grande,"{mango-dragon-base, dried-dragonfruit, lemonade}",4.95
-104033,mango-dragon-lem-venti,Mango Dragonfruit Lemonade Refresher,tea-hot-iced,venti,"{mango-dragon-base, dried-dragonfruit, lemonade}",5.65
-104034,mango-dragon-tall,Mango Dragonfruit Refresher,tea-hot-iced,tall,"{mango-dragon-base, dried-dragonfruit, water}",3.95
-104035,mango-dragon-grande,Mango Dragonfruit Refresher,tea-hot-iced,grande,"{mango-dragon-base, dried-dragonfruit, water}",4.45
-104036,mango-dragon-venti,Mango Dragonfruit Refresher,tea-hot-iced,venti,"{mango-dragon-base, dried-dragonfruit, water}",4.95
-104037,very-berry-tall,Very Berry Hibiscus Refresher,tea-hot-iced,tall,"{sugar, green-tea, ice, fresh-fruits}",3.95
-104038,very-berry-grande,Very Berry Hibiscus Refresher,tea-hot-iced,grande,"{sugar, green-tea, ice, fresh-fruits}",4.45
-104039,very-berry-venti,Very Berry Hibiscus Refresher,tea-hot-iced,venti,"{sugar, green-tea, ice, fresh-fruits}",4.95
-104040,tav-blk-tea-tall,Tavalon Black Tea,tea-hot-iced,tall,"{TAV-blk-tea}",2.95
-104041,tav-blk-tea-grande,Tavalon Black Tea,tea-hot-iced,grande,"{TAV-blk-tea}",3.25
-104042,tav-blk-tea-venti,Tavalon Black Tea,tea-hot-iced,venti,"{TAV-blk-tea}",3.45
-104043,tav-grn-tea-tall,Tavalon Green Tea,tea-hot-iced,tall,"{TAV-grn-tea}",2.95
-104044,tav-grn-tea-grande,Tavalon Green Tea,tea-hot-iced,grande,"{TAV-grn-tea}",3.25
-104045,tav-grn-tea-venti,Tavalon Green Tea,tea-hot-iced,venti,"{TAV-grn-tea}",3.45
-105001,coffee-frap-tall,Coffee Frappuccino,frappuccino-and-blended,tall,"{frap-roast, whole-milk, frap-syrup, ice}",4.65
-105002,coffee-frap-grande,Coffee Frappuccino,frappuccino-and-blended,grande,"{frap-roast, whole-milk, frap-syrup, ice}",5.45
-105003,coffee-frap-venti,Coffee Frappuccino,frappuccino-and-blended,venti,"{frap-roast, whole-milk, frap-syrup, ice}",5.75
-105004,espresso-frap-tall,Espresso Frappuccino,frappuccino-and-blended,tall,"{frap-roast, espresso-shot, whole-milk, frap-syrup, ice}",5.65
-105005,espresso-frap-grande,Espresso Frappuccino,frappuccino-and-blended,grande,"{frap-roast, espresso-shot, whole-milk, frap-syrup, ice}",6.45
-105006,espresso-frap-venti,Espresso Frappuccino,frappuccino-and-blended,venti,"{frap-roast, espresso-shot, whole-milk, frap-syrup, ice}",6.75
-105007,mocha-frap-tall,Mocha Frappuccino,frappuccino-and-blended,tall,"{frap-roast, whole-milk, frap-syrup, mocha-sauce, whipped-cream, ice}",4.95
-105008,mocha-frap-grande,Mocha Frappuccino,frappuccino-and-blended,grande,"{frap-roast, whole-milk, frap-syrup, mocha-sauce, whipped-cream, ice}",5.65
-105009,mocha-frap-venti,Mocha Frappuccino,frappuccino-and-blended,venti,"{frap-roast, whole-milk, frap-syrup, mocha-sauce, whipped-cream, ice}",5.95
-105010,CRML-frap-tall,Caramel Frappuccino,frappuccino-and-blended,tall,"{frap-roast, whole-milk, frap-syrup, caramel-syrup, whipped-cream, caramel, ice}",4.95
-105011,CRML-frap-grande,Caramel Frappuccino,frappuccino-and-blended,grande,"{frap-roast, whole-milk, frap-syrup, caramel-syrup, whipped-cream, caramel, ice}",5.65
-105012,CRML-frap-venti,Caramel Frappuccino,frappuccino-and-blended,venti,"{frap-roast, whole-milk, frap-syrup, caramel-syrup, whipped-cream, caramel, ice}",5.95
-105013,straw-CRM-tall,Strawberry Creme Frappuccino,frappuccino-and-blended,tall,"{whole-milk, cream-frap-syrup, straw-puree, classic-syrup, whipped-cream, ice}",4.95
-105014,straw-CRM-grande,Strawberry Creme Frappuccino,frappuccino-and-blended,grande,"{whole-milk, cream-frap-syrup, straw-puree, classic-syrup, whipped-cream, ice}",5.65
-105015,straw-CRM-venti,Strawberry Creme Frappuccino,frappuccino-and-blended,venti,"{whole-milk, cream-frap-syrup, straw-puree, classic-syrup, whipped-cream, ice}",5.95
-105016,van-bean-tall,Vanilla Bean Frappuccino,frappuccino-and-blended,tall,"{whole-milk, cream-frap-syrup, vanilla-bean-powder, whipped-cream, ice}",4.65
-105017,van-bean-grande,Vanilla Bean Frappuccino,frappuccino-and-blended,grande,"{whole-milk, cream-frap-syrup, vanilla-bean-powder, whipped-cream, ice}",5.45
-105018,van-bean-venti,Vanilla Bean Frappuccino,frappuccino-and-blended,venti,"{whole-milk, cream-frap-syrup, vanilla-bean-powder, whipped-cream, ice}",5.75
-105019,java-chip-tall,Java Chip Frappuccino,frappuccino-and-blended,tall,"{frap-roast, whole-milk, frap-syrup, mocha-sauce, frap-chip, whipped-cream, ice}",4.95
-105020,java-chip-grande,Java Chip Frappuccino,frappuccino-and-blended,grande,"{frap-roast, whole-milk, frap-syrup, mocha-sauce, frap-chip, whipped-cream, ice}",5.65
-105021,java-chip-venti,Java Chip Frappuccino,frappuccino-and-blended,venti,"{frap-roast, whole-milk, frap-syrup, mocha-sauce, frap-chip, whipped-cream, ice}",5.95
-105022,DBL-CHOCO-tall,Double Chocolaty Chip Creme Frappuccino,frappuccino-and-blended,tall,"{whole-milk, cream-frap-syrup, mocha-sauce, frap-chip, whipped-cream, ice}",4.95
-105023,DBL-CHOCO-grande,Double Chocolaty Chip Creme Frappuccino,frappuccino-and-blended,grande,"{whole-milk, cream-frap-syrup, mocha-sauce, frap-chip, whipped-cream, ice}",5.65
-105024,DBL-CHOCO-venti,Double Chocolaty Chip Creme Frappuccino,frappuccino-and-blended,venti,"{whole-milk, cream-frap-syrup, mocha-sauce, frap-chip, whipped-cream, ice}",5.95
-105025,WHT-CHOCO-tall,White Chocolate Mocha Frappuccino,frappuccino-and-blended,tall,"{frap-roast, whole-milk, frap-syrup, white-chocolate, whipped-cream, ice}",4.95
-105026,WHT-CHOCO-grande,White Chocolate Mocha Frappuccino,frappuccino-and-blended,grande,"{frap-roast, whole-milk, frap-syrup, white-chocolate, whipped-cream, ice}",5.65
-105027,WHT-CHOCO-venti,White Chocolate Mocha Frappuccino,frappuccino-and-blended,venti,"{frap-roast, whole-milk, frap-syrup, white-chocolate, whipped-cream, ice}",5.95
-105028,BB-smoothie,Blueberry Smoothie,frappuccino-and-blended,NA,"{blueberry, sugar, whole-milk, ice}",4.95
-105029,POM-smoothie,Pomegranate Smoothie,frappuccino-and-blended,NA,"{pomegranate-juice, sugar, whole-milk, ice}",5.65
-105030,MANG-smoothie,Mango Smoothie,frappuccino-and-blended,NA,"{mango, sugar, whole-milk, ice}",5.95
-105031,grn-tea-frap-tall,Matcha Creme Frappuccino,frappuccino-and-blended,tall,"{whole-milk, cream-frap-syrup, matcha-powder, classic-syrup, whipped-cream, ice}",4.95
-105032,grn-tea-frap-grande,Matcha Creme Frappuccino,frappuccino-and-blended,grande,"{whole-milk, cream-frap-syrup, matcha-powder, classic-syrup, whipped-cream, ice}",5.65
-105033,grn-tea-frap-venti,Matcha Creme Frappuccino,frappuccino-and-blended,venti,"{whole-milk, cream-frap-syrup, matcha-powder, classic-syrup, whipped-cream, ice}",5.95
-106001,milk-tall,Cold Milk,coffee-alternatives,tall,"{2p-milk}",2.95
-106002,milk-grande,Cold Milk,coffee-alternatives,grande,"{2p-milk}",3.25
-106003,milk-venti,Cold Milk,coffee-alternatives,venti,"{2p-milk}",3.45
-106004,hot-choco-tall,Hot Chocolate,coffee-alternatives,tall,"{2p-milk, mocha-sauce, whipped-cream}",3.45
-106005,hot-choco-grande,Hot Chocolate,coffee-alternatives,grande,"{2p-milk, mocha-sauce, whipped-cream}",3.95
-106006,hot-choco-venti,Hot Chocolate,coffee-alternatives,venti,"{2p-milk, mocha-sauce, whipped-cream}",4.45
-106007,wht-ht-choco-tall,White Hot Chocolate,coffee-alternatives,tall,"{2p-milk, white-chocolate, whipped-cream}",3.45
-106008,wht-ht-choco-grande,White Hot Chocolate,coffee-alternatives,grande,"{2p-milk, white-chocolate, whipped-cream}",3.95
-106009,wht-ht-choco-venti,White Hot Chocolate,coffee-alternatives,venti,"{2p-milk, white-chocolate, whipped-cream}",4.45
-106010,soda-tall,SODA,coffee-alternatives,tall,"{SODA}",2.95
-106011,soda-grande,SODA,coffee-alternatives,grande,"{SODA}",3.25
-106012,soda-venti,SODA,coffee-alternatives,venti,"{SODA}",3.45
+101001,coffee-tall,Brewed Coffee,coffee_hot_iced,tall,{reg-coffee},{12.00000000000000000},2.65
+101002,coffee-grande,Brewed Coffee,coffee_hot_iced,grande,{reg-coffee},{16.00000000000000000},2.95
+101003,coffee-venti,Brewed Coffee,coffee_hot_iced,venti,{reg-coffee},{24.00000000000000000},3.25
+101004,iced-coffee-tall,Iced Coffee,coffee_hot_iced,tall,"{iced-coffee,classic-syrup}","{12.00000000000000000,3.00000000000000000}",3.75
+101005,iced-coffee-grande,Iced Coffee,coffee_hot_iced,grande,"{iced-coffee,classic-syrup}","{16.00000000000000000,4.00000000000000000}",3.95
+101006,iced-coffee-venti,Iced Coffee,coffee_hot_iced,venti,"{iced-coffee,classic-syrup}","{24.00000000000000000,6.00000000000000000}",4.45
+101007,cafe-au-lait-tall,Cafe Latte,coffee_hot_iced,tall,"{espresso-shot,2p-milk}","{1.00000000000000000,11.00000000000000000}",3.95
+101008,cafe-au-lait-grande,Cafe Latte,coffee_hot_iced,grande,"{espresso-shot,2p-milk}","{1.00000000000000000,15.00000000000000000}",4.65
+101009,cafe-au-lait-venti,Cafe Latte,coffee_hot_iced,venti,"{espresso-shot,2p-milk}","{1.00000000000000000,23.00000000000000000}",4.95
+101010,cold-brew-tall,Cold Brew Coffee,coffee_hot_iced,tall,{chameleon-cold-brew},{1.00000000000000000},3.95
+101011,cold-brew-grande,Cold Brew Coffee,coffee_hot_iced,grande,{chameleon-cold-brew},{2.00000000000000000},4.45
+101012,cold-brew-venti,Cold Brew Coffee,coffee_hot_iced,venti,{chameleon-cold-brew},{3.00000000000000000},4.95
+101013,brewed-coffee-refill,NA,coffee_hot_iced,NA,{chameleon-cold-brew},{1.00000000000000000},0.5
+101014,coffee-traveller,NA,coffee_hot_iced,NA,{reg-coffee},{16.00000000000000000},20
+101015,reusable-cup-lid,NA,coffee_hot_iced,NA,"{cup,lid}","{1.00000000000000000,1.00000000000000000}",0
+101016,add-cream,NA,"coffee_hot_iced, add-on",NA,{cream},{2.00000000000000000},0
+101017,cold-brew,NA,"coffee_hot_iced, add-on",NA,{chameleon-cold-brew},{1.00000000000000000},0
+101018,nitro-cold-brew,NA,"coffee_hot_iced, add-on",NA,{nitro-chameleon-cold-brew},{1.00000000000000000},0
+101019,CFCB-tall,Cold Brew with Cold Foam,coffee_hot_iced,tall,"{skimmed-milk,heavy-cream,chameleon-cold-brew}","{12.00000000000000000,2.00000000000000000,1.00000000000000000}",3.95
+101020,CFCB-grande,Cold Brew with Cold Foam,coffee_hot_iced,grande,"{skimmed-milk,heavy-cream,chameleon-cold-brew}","{16.00000000000000000,2.00000000000000000,1.00000000000000000}",4.45
+101021,CFCB-venti,Cold Brew with Cold Foam,coffee_hot_iced,venti,"{skimmed-milk,heavy-cream,chameleon-cold-brew}","{24.00000000000000000,2.00000000000000000,1.00000000000000000}",4.95
+101022,SCCCB-tall,Salted Caramel Cream Cold Brew,coffee_hot_iced,tall,"{salt,caramel-syrup,vanilla-syrup,chameleon-cold-brew,sweet-cream}","{0.20000000000000000,1.00000000000000000,1.00000000000000000,1.00000000000000000,1.00000000000000000}",4.75
+101023,SCCCB-grande,Salted Caramel Cream Cold Brew,coffee_hot_iced,grande,"{salt,caramel-syrup,vanilla-syrup,chameleon-cold-brew,sweet-cream}","{0.20000000000000000,2.00000000000000000,2.00000000000000000,2.00000000000000000,2.00000000000000000}",5.25
+101024,SCCCB-venti,Salted Caramel Cream Cold Brew,coffee_hot_iced,venti,"{salt,caramel-syrup,vanilla-syrup,chameleon-cold-brew,sweet-cream}","{0.20000000000000000,3.00000000000000000,3.00000000000000000,3.00000000000000000,3.00000000000000000}",5.65
+102001,espresso-shot,Espresso Shot,add-on,NA,{espresso-shot},{1.00000000000000000},1
+102002,classic-syrup,Classic Syrup,add-on,NA,{classic-syrup},{1.00000000000000000},0.8
+102003,vanilla-syrup,Vanilla Syrup,add-on,NA,{vanilla-syrup},{1.00000000000000000},0.8
+102004,breve,Breve,add-on,NA,{reg-cream},{1.00000000000000000},0
+102005,heavy-cream,Heavy Cream,add-on,NA,{heavy-cream},{1.00000000000000000},0
+102006,sweet-cream,Sweet Cream,add-on,NA,"{vanilla-syrup,2p-milk,heavy-cream}","{1.00000000000000000,12.00000000000000000,1.00000000000000000}",1.25
+102007,whipped-cream,Whipped Cream,add-on,NA,"{heavy-cream,vanilla-syrup}","{1.00000000000000000,1.00000000000000000}",0
+102008,almond-milk,Almond Milk,add-on,NA,{almond-milk},{1.00000000000000000},0.6
+102009,oat-milk,Oat Milk,add-on,NA,{oat-milk},{1.00000000000000000},0.6
+102010,soy-milk,Soy Milk,add-on,NA,{soy-milk},{1.00000000000000000},0.6
+102011,coconut-milk,Coconut Milk,add-on,NA,{coconut-milk},{1.00000000000000000},0.6
+102012,lemonade,Lemonade,add-on,NA,{lemonade},{1.00000000000000000},0.5
+102013,matcha,Matcha,add-on,NA,{matcha-powder},{1.00000000000000000},0.8
+102014,dried-strawberries,Strawberry Inclusions,add-on,NA,{dried-strawberries},{1.00000000000000000},0.8
+102015,dried-dragonfruit,Dragonfruit Inclusions,add-on,NA,{dried-dragondruit},{1.00000000000000000},0.8
+102016,straw-acai-base,Strawberry Acai Base,add-on,NA,{straw-acai-base},{1.00000000000000000},0.5
+102017,mango-dragon-base,Mango Dragofruit Base,add-on,NA,{mango-dragon-base},{1.00000000000000000},0.5
+102018,iced-venti,NA,add-on,NA,{caramel},{1.00000000000000000},0.5
+102019,honey-cup,Honey,add-on,tall,{honey},{1.00000000000000000},0
+102020,honey-drop,Honey,add-on,grande,{honey},{2.00000000000000000},0
+103001,americano-tall,Americano,espresso-drinks,tall,{espresso-shot},{1.00000000000000000},3.35
+103002,americano-grande,Americano,espresso-drinks,grande,{espresso-shot},{2.00000000000000000},3.65
+103003,americano-venti,Americano,espresso-drinks,venti,{espresso-shot},{3.00000000000000000},3.95
+103004,capp-tall,Cappuccino,espresso-drinks,tall,"{espresso-shot,2p-milk}","{1.00000000000000000,11.00000000000000000}",4.35
+103005,capp-grande,Cappuccino,espresso-drinks,grande,"{espresso-shot,2p-milk}","{2.00000000000000000,14.00000000000000000}",4.65
+103006,capp-venti,Cappuccino,espresso-drinks,venti,"{espresso-shot,2p-milk}","{3.00000000000000000,21.00000000000000000}",4.95
+103007,latte-tall,Caffe Latte,espresso-drinks,tall,"{espresso-shot,2p-milk}","{1.00000000000000000,11.00000000000000000}",4.35
+103008,latte-grande,Caffe Latte,espresso-drinks,grande,"{espresso-shot,2p-milk}","{2.00000000000000000,14.00000000000000000}",4.65
+103009,latte-venti,Caffe Latte,espresso-drinks,venti,"{espresso-shot,2p-milk}","{3.00000000000000000,21.00000000000000000}",4.95
+103010,CRML-MACO-tall,Caramel Macchiato,espresso-drinks,tall,"{espresso-shot,2p-milk,vanilla-syrup,caramel}","{1.00000000000000000,11.00000000000000000,1.00000000000000000,1.00000000000000000}",4.65
+103011,CRML-MACO-grande,Caramel Macchiato,espresso-drinks,grande,"{espresso-shot,2p-milk,vanilla-syrup,caramel}","{2.00000000000000000,14.00000000000000000,2.00000000000000000,2.00000000000000000}",5.45
+103012,CRML-MACO-venti,Caramel Macchiato,espresso-drinks,venti,"{espresso-shot,2p-milk,vanilla-syrup,caramel}","{3.00000000000000000,21.00000000000000000,3.00000000000000000,3.00000000000000000}",5.65
+103013,mocha-tall,Caffe Mocha,espresso-drinks,tall,"{espresso-shot,2p-milk,mocha-sauce,whipped-cream}","{1.00000000000000000,11.00000000000000000,1.00000000000000000,1.00000000000000000}",4.45
+103014,mocha-grande,Caffe Mocha,espresso-drinks,grande,"{espresso-shot,2p-milk,mocha-sauce,whipped-cream}","{2.00000000000000000,14.00000000000000000,2.00000000000000000,2.00000000000000000}",5.25
+103015,mocha-venti,Caffe Mocha,espresso-drinks,venti,"{espresso-shot,2p-milk,mocha-sauce,whipped-cream}","{3.00000000000000000,21.00000000000000000,3.00000000000000000,3.00000000000000000}",5.45
+103016,wht-mocha-tall,White Chocolate Mocha ,espresso-drinks,tall,"{white-chocolate,espresso-shot,2p-milk,whipped-cream}","{1.00000000000000000,1.00000000000000000,9.00000000000000000,1.00000000000000000}",4.45
+103017,wht-mocha-grande,White Chocolate Mocha ,espresso-drinks,grande,"{white-chocolate,espresso-shot,2p-milk,whipped-cream}","{2.00000000000000000,2.00000000000000000,13.00000000000000000,2.00000000000000000}",5.25
+103018,wht-mocha-venti,White Chocolate Mocha ,espresso-drinks,venti,"{white-chocolate,espresso-shot,2p-milk,whipped-cream}","{3.00000000000000000,3.00000000000000000,20.00000000000000000,3.00000000000000000}",5.45
+103019,cinn-dolce-tall,CInnamon Dolce Latte,espresso-drinks,tall,"{cinnamon-dolce-syrup,espresso-shot,reg-milk,cinnamon-dolce-topping,whipped-cream}","{1.00000000000000000,1.00000000000000000,10.00000000000000000,1.00000000000000000,1.00000000000000000}",4.95
+103020,cinn-dolce-grande,CInnamon Dolce Latte,espresso-drinks,grande,"{cinnamon-dolce-syrup,espresso-shot,reg-milk,cinnamon-dolce-topping,whipped-cream}","{2.00000000000000000,2.00000000000000000,12.00000000000000000,2.00000000000000000,2.00000000000000000}",5.65
+103021,cinn-dolce-venti,CInnamon Dolce Latte,espresso-drinks,venti,"{cinnamon-dolce-syrup,espresso-shot,reg-milk,cinnamon-dolce-topping,whipped-cream}","{3.00000000000000000,3.00000000000000000,20.00000000000000000,3.00000000000000000,3.00000000000000000}",5.95
+103022,TNL-latte-tall,Toffee Nut Latte,espresso-drinks,tall,"{espresso-shot,toffee-nut-syrup,reg-milk,whipped-cream}","{1.00000000000000000,1.00000000000000000,8.00000000000000000,1.00000000000000000}",5.15
+103023,TNL-latte-grande,Toffee Nut Latte,espresso-drinks,grande,"{espresso-shot,toffee-nut-syrup,reg-milk,whipped-cream}","{2.00000000000000000,2.00000000000000000,13.00000000000000000,2.00000000000000000}",5.45
+103024,TNL-latte-venti,Toffee Nut Latte,espresso-drinks,venti,"{espresso-shot,toffee-nut-syrup,reg-milk,whipped-cream}","{3.00000000000000000,3.00000000000000000,20.00000000000000000,3.00000000000000000}",5.75
+103025,CCNT-MACO-tall,Coconut Macchiato,espresso-drinks,tall,"{coconut-milk,espresso-shot,chocolate-syrup}","{10.00000000000000000,1.00000000000000000,1.00000000000000000}",4.65
+103026,CCNT-MACO-grande,Coconut Macchiato,espresso-drinks,grande,"{coconut-milk,espresso-shot,chocolate-syrup}","{12.00000000000000000,2.00000000000000000,2.00000000000000000}",5.45
+103027,CCNT-MACO-venti,Coconut Macchiato,espresso-drinks,venti,"{coconut-milk,espresso-shot,chocolate-syrup}","{18.00000000000000000,3.00000000000000000,3.00000000000000000}",5.65
+103028,CIN-ALMD-MACO-tall,Cinnamon Dolce Almond Milk Macchiato,espresso-drinks,tall,"{cinnamon-dolce-syrup,espresso-shot,almond-milk}","{1.00000000000000000,1.00000000000000000,10.00000000000000000}",4.85
+103029,CIN-ALMD-MACO-grande,Cinnamon Dolce Almond Milk Macchiato,espresso-drinks,grande,"{cinnamon-dolce-syrup,espresso-shot,almond-milk}","{2.00000000000000000,2.00000000000000000,12.00000000000000000}",5.65
+103030,CIN-ALMD-MACO-venti,Cinnamon Dolce Almond Milk Macchiato,espresso-drinks,venti,"{cinnamon-dolce-syrup,espresso-shot,almond-milk}","{3.00000000000000000,3.00000000000000000,18.00000000000000000}",5.85
+103031,espresso-shot-solo,Solo,espresso-drinks,NA,{espresso-shot},{1.00000000000000000},2.45
+103032,espresso-shot-dopio,Doppio,espresso-drinks,NA,{espresso-shot},{2.00000000000000000},2.75
+103033,espresso-shot-triple,Triple,espresso-drinks,NA,{espresso-shot},{3.00000000000000000},3.25
+103034,espresso-shot-quad,Quad,espresso-drinks,NA,{espresso-shot},{4.00000000000000000},3.65
+103035,CCNT-MOCH-tall,Coconut Mocha,espresso-drinks,tall,"{espresso-shot,coconut-milk,mocha-sauce}","{1.00000000000000000,10.00000000000000000,1.00000000000000000}",4.65
+103036,CCNT-MOCH-grande,Coconut Mocha,espresso-drinks,grande,"{espresso-shot,coconut-milk,mocha-sauce}","{2.00000000000000000,12.00000000000000000,2.00000000000000000}",5.45
+103037,CCNT-MOCH-venti,Coconut Mocha,espresso-drinks,venti,"{espresso-shot,coconut-milk,mocha-sauce}","{3.00000000000000000,18.00000000000000000,3.00000000000000000}",5.65
+103038,BW-MOCH-tall,Black and White Mocha,espresso-drinks,tall,"{espresso-shot,mocha-sauce,white-chocolate,2p-milk,whipped-cream}","{1.00000000000000000,1.00000000000000000,1.00000000000000000,8.00000000000000000,1.00000000000000000}",4.45
+103039,BW-MOCH-grande,Black and White Mocha,espresso-drinks,grande,"{espresso-shot,mocha-sauce,white-chocolate,2p-milk,whipped-cream}","{2.00000000000000000,2.00000000000000000,2.00000000000000000,8.00000000000000000,2.00000000000000000}",5.25
+103040,BW-MOCH-venti,Black and White Mocha,espresso-drinks,venti,"{espresso-shot,mocha-sauce,white-chocolate,2p-milk,whipped-cream}","{3.00000000000000000,3.00000000000000000,3.00000000000000000,8.00000000000000000,3.00000000000000000}",5.45
+201001,bagel-everything,Everything Bagel,bakery-coremark,NA,{bagel-everything},{1.00000000000000000},2.25
+201002,bagel-muligrain,Multi-Grain Bagel,bakery-coremark,NA,{bagel-muligrain},{1.00000000000000000},2.25
+201003,bagel-plain,Plain Bagel,bakery-coremark,NA,{bagel-plain},{1.00000000000000000},2.25
+201004,cream-cheese,Cream Cheese,bakery-coremark,NA,{cream-cheese},{2.00000000000000000},0.95
+201005,donut-glazed,Glazed Donut,bakery-coremark,NA,{donut-glazed},{1.00000000000000000},2.25
+201006,cheese-dani,Cheese Danish,bakery-coremark,NA,{cheese-dani},{1.00000000000000000},3.45
+201007,apple-fritter,Apple Fritter,bakery-coremark,NA,{apple-fritter},{1.00000000000000000},3.45
+201008,saltCr-cookie,Salted Caramel Cookie,bakery-coremark,NA,{saltCr-cookie},{1.00000000000000000},2.95
+201009,cinn-roll,Cinnamon Roll,bakery-coremark,NA,{cinn-roll},{1.00000000000000000},3.75
+201010,blub-muffin,Blueberry Muffin,bakery-coremark,NA,{blub-muffin},{1.00000000000000000},3.25
+201011,tuxedo-muffin,Tuxedo Muffin,bakery-coremark,NA,{tuxedo-muffin},{1.00000000000000000},3.25
+201012,banana-muffin,Banana Muffin,bakery-coremark,NA,{banana-muffin},{1.00000000000000000},3.25
+201013,banana-bread,Banana Nut Loaf,bakery-coremark,NA,{banana-bread},{1.00000000000000000},3.65
+201014,croissant-sweet,Sweet Croissant,bakery-coremark,NA,{croissant-sweet},{1.00000000000000000},3.45
+201015,CC-cookie-sweet,Sweet Chocolate Chip Cookie,bakery-coremark,NA,{CC-cookie-sweet},{1.00000000000000000},2.95
+201016,CC-cookie-baked,Baked Chocolate Chip Cookie,bakery-coremark,NA,{CC-cookie-baked},{1.00000000000000000},2.95
+201017,toffee-bar,Toffee Bar,bakery-coremark,NA,{toffee-bar},{1.00000000000000000},3.25
+201018,CC-cookie-wrapped,Chocolate Chip Cookie,bakery-coremark,NA,{CC-cookie-wrapped},{1.00000000000000000},2.95
+201019,brownie-wrapped,Brownie Bar,bakery-coremark,NA,{brownie-wrapped},{1.00000000000000000},3.25
+201020,zoes-cookie-wrapped,Zeo's Cookie,bakery-coremark,NA,{zoes-cookie-wrapped},{1.00000000000000000},2.95
+201021,cheesecake,Cheesecake,bakery-coremark,NA,{cheesecake},{1.00000000000000000},3.25
+201022,reeses-pie,Reese's Pie,bakery-coremark,NA,{reeses-pie},{1.00000000000000000},3.25
+104001,hot-tea-tall,Hot Tea,tea-hot-iced,tall,{black-tea},{12.00000000000000000},2.95
+104002,hot-tea-grande,Hot Tea,tea-hot-iced,grande,{black-tea},{16.00000000000000000},3.25
+104003,hot-tea-venti,Hot Tea,tea-hot-iced,venti,{black-tea},{24.00000000000000000},3.45
+104004,brewed-tea-tall,Brewed Tea,tea-hot-iced,tall,{tea-leaves},{1.00000000000000000},2.95
+104005,brewed-tea-grande,Brewed Tea,tea-hot-iced,grande,{tea-leaves},{1.00000000000000000},3.25
+104006,brewed-tea-venti,Brewed Tea,tea-hot-iced,venti,{tea-leaves},{1.00000000000000000},3.45
+104007,green-tea-tall,Green Tea,tea-hot-iced,tall,{green-tea},{12.00000000000000000},2.95
+104008,green-tea-grande,Green Tea,tea-hot-iced,grande,{green-tea},{16.00000000000000000},3.25
+104009,green-tea-venti,Green Tea,tea-hot-iced,venti,{green-tea},{24.00000000000000000},3.45
+104010,HCM-tall,Ho Chi Minh Tea,tea-hot-iced,tall,{HCM-tea},{12.00000000000000000},2.95
+104011,HCM-grande,Ho Chi Minh Tea,tea-hot-iced,grande,{HCM-tea},{16.00000000000000000},3.25
+104012,HCM-venti,Ho Chi Minh Tea,tea-hot-iced,venti,{HCM-tea},{24.00000000000000000},3.45
+104013,iced-tea-lem-tall,Iced Tea Lemonade,tea-hot-iced,tall,"{black-tea,lemonade}","{11.00000000000000000,1.00000000000000000}",3.45
+104014,iced-tea-lem-grande,Iced Tea Lemonade,tea-hot-iced,grande,"{black-tea,lemonade}","{14.00000000000000000,2.00000000000000000}",3.95
+104015,iced-tea-lem-venti,Iced Tea Lemonade,tea-hot-iced,venti,"{black-tea,lemonade}","{21.00000000000000000,3.00000000000000000}",4.45
+104016,tazo-chai-tall,Tazo Chai Tea,tea-hot-iced,tall,{TC-tea},{12.00000000000000000},2.95
+104017,tazo-chai-grande,Tazo Chai Tea,tea-hot-iced,grande,{TC-tea},{16.00000000000000000},3.25
+104018,tazo-chai-venti,Tazo Chai Tea,tea-hot-iced,venti,{TC-tea},{24.00000000000000000},3.45
+104019,pink-drink-tall,Pink Drink,tea-hot-iced,tall,"{straw-acai-base,dried-strawberries,coconut-milk}","{1.00000000000000000,1.00000000000000000,10.00000000000000000}",4.65
+104020,pink-drink-grande,Pink Drink,tea-hot-iced,grande,"{straw-acai-base,dried-strawberries,coconut-milk}","{2.00000000000000000,2.00000000000000000,12.00000000000000000}",4.95
+104021,pink-drink-venti,Pink Drink,tea-hot-iced,venti,"{straw-acai-base,dried-strawberries,coconut-milk}","{3.00000000000000000,3.00000000000000000,18.00000000000000000}",5.65
+104022,straw-acai-lem-tall,Strawberry Acai Lemonade Refresher,tea-hot-iced,tall,"{straw-acai-base,dried-strawberries,lemonade}","{1.00000000000000000,1.00000000000000000,10.00000000000000000}",4.65
+104023,straw-acai-lem-grande,Strawberry Acai Lemonade Refresher,tea-hot-iced,grande,"{straw-acai-base,dried-strawberries,lemonade}","{2.00000000000000000,2.00000000000000000,12.00000000000000000}",4.95
+104024,straw-acai-lem-venti,Strawberry Acai Lemonade Refresher,tea-hot-iced,venti,"{straw-acai-base,dried-strawberries,lemonade}","{3.00000000000000000,3.00000000000000000,18.00000000000000000}",5.65
+104025,straw-acai-tall,Strawberry Acai Refresher,tea-hot-iced,tall,"{straw-acai-base,dried-strawberries,water}","{1.00000000000000000,1.00000000000000000,10.00000000000000000}",3.95
+104026,straw-acai-grande,Strawberry Acai Refresher,tea-hot-iced,grande,"{straw-acai-base,dried-strawberries,water}","{2.00000000000000000,2.00000000000000000,12.00000000000000000}",4.45
+104027,straw-acai-venti,Strawberry Acai Refresher,tea-hot-iced,venti,"{straw-acai-base,dried-strawberries,water}","{3.00000000000000000,3.00000000000000000,18.00000000000000000}",4.95
+104028,dragon-drink-tall,Dragon Drink,tea-hot-iced,tall,"{mango-dragon-base,dried-dragonfruit,coconut-milk}","{1.00000000000000000,1.00000000000000000,10.00000000000000000}",4.65
+104029,dragon-drink-grande,Dragon Drink,tea-hot-iced,grande,"{mango-dragon-base,dried-dragonfruit,coconut-milk}","{2.00000000000000000,2.00000000000000000,12.00000000000000000}",4.95
+104030,dragon-drink-venti,Dragon Drink,tea-hot-iced,venti,"{mango-dragon-base,dried-dragonfruit,coconut-milk}","{3.00000000000000000,3.00000000000000000,18.00000000000000000}",5.65
+104031,mango-dragon-lem-tall,Mango Dragonfruit Lemonade Refresher,tea-hot-iced,tall,"{mango-dragon-base,dried-dragonfruit,lemonade}","{1.00000000000000000,1.00000000000000000,10.00000000000000000}",4.65
+104032,mango-dragon-lem-grande,Mango Dragonfruit Lemonade Refresher,tea-hot-iced,grande,"{mango-dragon-base,dried-dragonfruit,lemonade}","{2.00000000000000000,2.00000000000000000,12.00000000000000000}",4.95
+104033,mango-dragon-lem-venti,Mango Dragonfruit Lemonade Refresher,tea-hot-iced,venti,"{mango-dragon-base,dried-dragonfruit,lemonade}","{3.00000000000000000,3.00000000000000000,18.00000000000000000}",5.65
+104034,mango-dragon-tall,Mango Dragonfruit Refresher,tea-hot-iced,tall,"{mango-dragon-base,dried-dragonfruit,water}","{1.00000000000000000,1.00000000000000000,10.00000000000000000}",3.95
+104035,mango-dragon-grande,Mango Dragonfruit Refresher,tea-hot-iced,grande,"{mango-dragon-base,dried-dragonfruit,water}","{2.00000000000000000,2.00000000000000000,12.00000000000000000}",4.45
+104036,mango-dragon-venti,Mango Dragonfruit Refresher,tea-hot-iced,venti,"{mango-dragon-base,dried-dragonfruit,water}","{3.00000000000000000,3.00000000000000000,18.00000000000000000}",4.95
+104037,very-berry-tall,Very Berry Hibiscus Refresher,tea-hot-iced,tall,"{sugar,green-tea,ice,fresh-fruits}","{0.20000000000000000,10.00000000000000000,1.00000000000000000,1.00000000000000000}",3.95
+104038,very-berry-grande,Very Berry Hibiscus Refresher,tea-hot-iced,grande,"{sugar,green-tea,ice,fresh-fruits}","{0.20000000000000000,12.00000000000000000,2.00000000000000000,2.00000000000000000}",4.45
+104039,very-berry-venti,Very Berry Hibiscus Refresher,tea-hot-iced,venti,"{sugar,green-tea,ice,fresh-fruits}","{0.20000000000000000,18.00000000000000000,3.00000000000000000,3.00000000000000000}",4.95
+104040,tav-blk-tea-tall,Tavalon Black Tea,tea-hot-iced,tall,{TAV-blk-tea},{12.00000000000000000},2.95
+104041,tav-blk-tea-grande,Tavalon Black Tea,tea-hot-iced,grande,{TAV-blk-tea},{16.00000000000000000},3.25
+104042,tav-blk-tea-venti,Tavalon Black Tea,tea-hot-iced,venti,{TAV-blk-tea},{24.00000000000000000},3.45
+104043,tav-grn-tea-tall,Tavalon Green Tea,tea-hot-iced,tall,{TAV-grn-tea},{12.00000000000000000},2.95
+104044,tav-grn-tea-grande,Tavalon Green Tea,tea-hot-iced,grande,{TAV-grn-tea},{16.00000000000000000},3.25
+104045,tav-grn-tea-venti,Tavalon Green Tea,tea-hot-iced,venti,{TAV-grn-tea},{24.00000000000000000},3.45
+105001,coffee-frap-tall,Coffee Frappuccino,frappuccino-and-blended,tall,"{frap-roast,whole-milk,frap-syrup,ice}","{1.00000000000000000,10.00000000000000000,1.00000000000000000,1.00000000000000000}",4.65
+105002,coffee-frap-grande,Coffee Frappuccino,frappuccino-and-blended,grande,"{frap-roast,whole-milk,frap-syrup,ice}","{1.00000000000000000,12.00000000000000000,2.00000000000000000,2.00000000000000000}",5.45
+105003,coffee-frap-venti,Coffee Frappuccino,frappuccino-and-blended,venti,"{frap-roast,whole-milk,frap-syrup,ice}","{1.00000000000000000,18.00000000000000000,3.00000000000000000,3.00000000000000000}",5.75
+105004,espresso-frap-tall,Espresso Frappuccino,frappuccino-and-blended,tall,"{frap-roast,espresso-shot,whole-milk,frap-syrup,ice}","{1.00000000000000000,1.00000000000000000,10.00000000000000000,1.00000000000000000,1.00000000000000000}",5.65
+105005,espresso-frap-grande,Espresso Frappuccino,frappuccino-and-blended,grande,"{frap-roast,espresso-shot,whole-milk,frap-syrup,ice}","{1.00000000000000000,2.00000000000000000,12.00000000000000000,2.00000000000000000,2.00000000000000000}",6.45
+105006,espresso-frap-venti,Espresso Frappuccino,frappuccino-and-blended,venti,"{frap-roast,espresso-shot,whole-milk,frap-syrup,ice}","{1.00000000000000000,3.00000000000000000,18.00000000000000000,3.00000000000000000,3.00000000000000000}",6.75
+105007,mocha-frap-tall,Mocha Frappuccino,frappuccino-and-blended,tall,"{frap-roast,whole-milk,frap-syrup,mocha-sauce,whipped-cream,ice}","{1.00000000000000000,8.00000000000000000,1.00000000000000000,1.00000000000000000,1.00000000000000000,1.00000000000000000}",4.95
+105008,mocha-frap-grande,Mocha Frappuccino,frappuccino-and-blended,grande,"{frap-roast,whole-milk,frap-syrup,mocha-sauce,whipped-cream,ice}","{2.00000000000000000,10.00000000000000000,2.00000000000000000,2.00000000000000000,2.00000000000000000,2.00000000000000000}",5.65
+105009,mocha-frap-venti,Mocha Frappuccino,frappuccino-and-blended,venti,"{frap-roast,whole-milk,frap-syrup,mocha-sauce,whipped-cream,ice}","{3.00000000000000000,12.00000000000000000,3.00000000000000000,3.00000000000000000,3.00000000000000000,3.00000000000000000}",5.95
+105010,CRML-frap-tall,Caramel Frappuccino,frappuccino-and-blended,tall,"{frap-roast,whole-milk,frap-syrup,caramel-syrup,whipped-cream,caramel,ice}","{1.00000000000000000,8.00000000000000000,1.00000000000000000,1.00000000000000000,1.00000000000000000,1.00000000000000000,1.00000000000000000}",4.95
+105011,CRML-frap-grande,Caramel Frappuccino,frappuccino-and-blended,grande,"{frap-roast,whole-milk,frap-syrup,caramel-syrup,whipped-cream,caramel,ice}","{2.00000000000000000,10.00000000000000000,2.00000000000000000,2.00000000000000000,2.00000000000000000,1.00000000000000000,2.00000000000000000}",5.65
+105012,CRML-frap-venti,Caramel Frappuccino,frappuccino-and-blended,venti,"{frap-roast,whole-milk,frap-syrup,caramel-syrup,whipped-cream,caramel,ice}","{3.00000000000000000,12.00000000000000000,3.00000000000000000,3.00000000000000000,3.00000000000000000,1.00000000000000000,3.00000000000000000}",5.95
+106011,soda-grande,SODA,coffee-alternatives,grande,{SODA},{16.00000000000000000},3.25
+105013,straw-CRM-tall,Strawberry Creme Frappuccino,frappuccino-and-blended,tall,"{whole-milk,cream-frap-syrup,straw-puree,classic-syrup,whipped-cream,ice}","{8.00000000000000000,1.00000000000000000,1.00000000000000000,1.00000000000000000,1.00000000000000000,1.00000000000000000}",4.95
+105014,straw-CRM-grande,Strawberry Creme Frappuccino,frappuccino-and-blended,grande,"{whole-milk,cream-frap-syrup,straw-puree,classic-syrup,whipped-cream,ice}","{10.00000000000000000,2.00000000000000000,2.00000000000000000,2.00000000000000000,2.00000000000000000,2.00000000000000000}",5.65
+105015,straw-CRM-venti,Strawberry Creme Frappuccino,frappuccino-and-blended,venti,"{whole-milk,cream-frap-syrup,straw-puree,classic-syrup,whipped-cream,ice}","{12.00000000000000000,3.00000000000000000,3.00000000000000000,3.00000000000000000,3.00000000000000000,3.00000000000000000}",5.95
+105016,van-bean-tall,Vanilla Bean Frappuccino,frappuccino-and-blended,tall,"{whole-milk,cream-frap-syrup,vanilla-bean-powder,whipped-cream,ice}","{8.00000000000000000,1.00000000000000000,1.00000000000000000,1.00000000000000000,1.00000000000000000}",4.65
+105017,van-bean-grande,Vanilla Bean Frappuccino,frappuccino-and-blended,grande,"{whole-milk,cream-frap-syrup,vanilla-bean-powder,whipped-cream,ice}","{10.00000000000000000,2.00000000000000000,2.00000000000000000,2.00000000000000000,2.00000000000000000}",5.45
+105018,van-bean-venti,Vanilla Bean Frappuccino,frappuccino-and-blended,venti,"{whole-milk,cream-frap-syrup,vanilla-bean-powder,whipped-cream,ice}","{12.00000000000000000,3.00000000000000000,3.00000000000000000,3.00000000000000000,3.00000000000000000}",5.75
+105019,java-chip-tall,Java Chip Frappuccino,frappuccino-and-blended,tall,"{frap-roast,whole-milk,frap-syrup,mocha-sauce,frap-chip,whipped-cream,ice}","{1.00000000000000000,8.00000000000000000,1.00000000000000000,1.00000000000000000,0.20000000000000000,1.00000000000000000,1.00000000000000000}",4.95
+105020,java-chip-grande,Java Chip Frappuccino,frappuccino-and-blended,grande,"{frap-roast,whole-milk,frap-syrup,mocha-sauce,frap-chip,whipped-cream,ice}","{2.00000000000000000,10.00000000000000000,2.00000000000000000,2.00000000000000000,0.20000000000000000,2.00000000000000000,2.00000000000000000}",5.65
+105021,java-chip-venti,Java Chip Frappuccino,frappuccino-and-blended,venti,"{frap-roast,whole-milk,frap-syrup,mocha-sauce,frap-chip,whipped-cream,ice}","{3.00000000000000000,12.00000000000000000,3.00000000000000000,3.00000000000000000,0.20000000000000000,3.00000000000000000,3.00000000000000000}",5.95
+105022,DBL-CHOCO-tall,Double Chocolaty Chip Creme Frappuccino,frappuccino-and-blended,tall,"{whole-milk,cream-frap-syrup,mocha-sauce,frap-chip,whipped-cream,ice}","{8.00000000000000000,1.00000000000000000,1.00000000000000000,1.00000000000000000,1.00000000000000000,1.00000000000000000}",4.95
+105023,DBL-CHOCO-grande,Double Chocolaty Chip Creme Frappuccino,frappuccino-and-blended,grande,"{whole-milk,cream-frap-syrup,mocha-sauce,frap-chip,whipped-cream,ice}","{10.00000000000000000,2.00000000000000000,2.00000000000000000,1.00000000000000000,1.00000000000000000,2.00000000000000000}",5.65
+105024,DBL-CHOCO-venti,Double Chocolaty Chip Creme Frappuccino,frappuccino-and-blended,venti,"{whole-milk,cream-frap-syrup,mocha-sauce,frap-chip,whipped-cream,ice}","{12.00000000000000000,3.00000000000000000,3.00000000000000000,1.00000000000000000,1.00000000000000000,3.00000000000000000}",5.95
+105025,WHT-CHOCO-tall,White Chocolate Mocha Frappuccino,frappuccino-and-blended,tall,"{frap-roast,whole-milk,frap-syrup,white-chocolate,whipped-cream,ice}","{1.00000000000000000,8.00000000000000000,1.00000000000000000,1.00000000000000000,1.00000000000000000,1.00000000000000000}",4.95
+105026,WHT-CHOCO-grande,White Chocolate Mocha Frappuccino,frappuccino-and-blended,grande,"{frap-roast,whole-milk,frap-syrup,white-chocolate,whipped-cream,ice}","{2.00000000000000000,10.00000000000000000,2.00000000000000000,1.00000000000000000,1.00000000000000000,2.00000000000000000}",5.65
+105027,WHT-CHOCO-venti,White Chocolate Mocha Frappuccino,frappuccino-and-blended,venti,"{frap-roast,whole-milk,frap-syrup,white-chocolate,whipped-cream,ice}","{3.00000000000000000,12.00000000000000000,3.00000000000000000,1.00000000000000000,1.00000000000000000,3.00000000000000000}",5.95
+105028,BB-smoothie,Blueberry Smoothie,frappuccino-and-blended,NA,"{blueberry,sugar,whole-milk,ice}","{1.00000000000000000,0.20000000000000000,10.00000000000000000,1.00000000000000000}",4.95
+105029,POM-smoothie,Pomegranate Smoothie,frappuccino-and-blended,NA,"{pomegranate-juice,sugar,whole-milk,ice}","{1.00000000000000000,0.20000000000000000,10.00000000000000000,1.00000000000000000}",5.65
+105030,MANG-smoothie,Mango Smoothie,frappuccino-and-blended,NA,"{mango,sugar,whole-milk,ice}","{1.00000000000000000,0.20000000000000000,10.00000000000000000,1.00000000000000000}",5.95
+105031,grn-tea-frap-tall,Matcha Creme Frappuccino,frappuccino-and-blended,tall,"{whole-milk,cream-frap-syrup,matcha-powder,classic-syrup,whipped-cream,ice}","{8.00000000000000000,1.00000000000000000,1.00000000000000000,1.00000000000000000,1.00000000000000000,1.00000000000000000}",4.95
+105032,grn-tea-frap-grande,Matcha Creme Frappuccino,frappuccino-and-blended,grande,"{whole-milk,cream-frap-syrup,matcha-powder,classic-syrup,whipped-cream,ice}","{10.00000000000000000,2.00000000000000000,2.00000000000000000,2.00000000000000000,1.00000000000000000,2.00000000000000000}",5.65
+105033,grn-tea-frap-venti,Matcha Creme Frappuccino,frappuccino-and-blended,venti,"{whole-milk,cream-frap-syrup,matcha-powder,classic-syrup,whipped-cream,ice}","{12.00000000000000000,3.00000000000000000,3.00000000000000000,3.00000000000000000,1.00000000000000000,3.00000000000000000}",5.95
+106001,milk-tall,Cold Milk,coffee-alternatives,tall,{2p-milk},{12.00000000000000000},2.95
+106002,milk-grande,Cold Milk,coffee-alternatives,grande,{2p-milk},{16.00000000000000000},3.25
+106003,milk-venti,Cold Milk,coffee-alternatives,venti,{2p-milk},{24.00000000000000000},3.45
+106004,hot-choco-tall,Hot Chocolate,coffee-alternatives,tall,"{2p-milk,mocha-sauce,whipped-cream}","{10.00000000000000000,1.00000000000000000,1.00000000000000000}",3.45
+106005,hot-choco-grande,Hot Chocolate,coffee-alternatives,grande,"{2p-milk,mocha-sauce,whipped-cream}","{12.00000000000000000,2.00000000000000000,2.00000000000000000}",3.95
+106006,hot-choco-venti,Hot Chocolate,coffee-alternatives,venti,"{2p-milk,mocha-sauce,whipped-cream}","{18.00000000000000000,3.00000000000000000,3.00000000000000000}",4.45
+106007,wht-ht-choco-tall,White Hot Chocolate,coffee-alternatives,tall,"{2p-milk,white-chocolate,whipped-cream}","{10.00000000000000000,1.00000000000000000,1.00000000000000000}",3.45
+106008,wht-ht-choco-grande,White Hot Chocolate,coffee-alternatives,grande,"{2p-milk,white-chocolate,whipped-cream}","{12.00000000000000000,2.00000000000000000,2.00000000000000000}",3.95
+106009,wht-ht-choco-venti,White Hot Chocolate,coffee-alternatives,venti,"{2p-milk,white-chocolate,whipped-cream}","{18.00000000000000000,3.00000000000000000,3.00000000000000000}",4.45
+106010,soda-tall,SODA,coffee-alternatives,tall,{SODA},{12.00000000000000000},2.95
+106012,soda-venti,SODA,coffee-alternatives,venti,{SODA},{24.00000000000000000},3.45

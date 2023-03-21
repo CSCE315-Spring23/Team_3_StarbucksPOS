@@ -54,6 +54,10 @@ public class PointOfSaleController {
 //        stage.setScene(scene);
 //        stage.show();
 //    }
+    /**
+     * @param event
+     * @throws IOException
+     */
     public void switchToManager(ActionEvent event) throws IOException {
         root = FXMLLoader.load(getClass().getResource("manager-view.fxml"));
         stage = (Stage)((Node)event.getSource()).getScene().getWindow();
@@ -305,8 +309,8 @@ public class PointOfSaleController {
     }
     @FXML
     protected void clickButtonClear(ActionEvent event){
-        //Will clear whichever text field is in focus.
-        if (currentFocus == false){
+        //Will clear whichever text field is in focus. If neither in focus, clear both.
+        if (!currentFocus){
             employeeID.setText(null);
         }
         else {
@@ -316,6 +320,8 @@ public class PointOfSaleController {
     }
     @FXML
     protected void clickButtonEnter(ActionEvent event){
+        //leftLogin.setOnAction(event -> attemptLogin());
+//        currentFocus = true;
         if (currentFocus) {
             try {
                 attemptLogin(event);

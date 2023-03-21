@@ -6,8 +6,9 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Line?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.starbucksproject.starbucksposproject.AddonsController">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="850.0" prefWidth="1250.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.starbucksproject.starbucksposproject.AddonsController">
    <children>
       <VBox layoutX="102.0" layoutY="94.0" prefHeight="570.0" prefWidth="195.0">
          <children>
@@ -188,7 +189,7 @@
             </VBox>
          </children>
       </HBox>
-      <HBox layoutX="102.0" layoutY="664.0" prefHeight="156.0" prefWidth="200.0">
+      <HBox layoutX="108.0" layoutY="667.0" prefHeight="79.0" prefWidth="184.0">
          <children>
             <VBox prefHeight="200.0" prefWidth="153.0">
                <children>
@@ -206,7 +207,7 @@
             </VBox>
             <VBox prefHeight="200.0" prefWidth="46.0">
                <children>
-                  <Button fx:id="payButton" mnemonicParsing="false" onAction="#clickPay" text="Pay">
+                  <Button fx:id="payButton" mnemonicParsing="false" onAction="#clickPay" prefHeight="74.0" prefWidth="40.0" text="Pay">
                      <padding>
                         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                      </padding>
@@ -215,13 +216,8 @@
             </VBox>
          </children>
       </HBox>
-      <HBox alignment="CENTER" layoutX="299.0" layoutY="32.0" prefHeight="62.0" prefWidth="805.0" spacing="25.0">
+      <HBox alignment="CENTER" layoutX="299.0" layoutY="32.0" prefHeight="62.0" prefWidth="727.0" spacing="25.0">
          <children>
-            <Button fx:id="managerMenu" mnemonicParsing="false" onAction="#clickManagerMenu" prefHeight="37.0" prefWidth="108.0" text="Manager Menu">
-               <padding>
-                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-               </padding>
-            </Button>
             <Button fx:id="coffeeMenu" mnemonicParsing="false" onAction="#clickCoffeeMenu" prefHeight="37.0" prefWidth="68.0" text="Coffee">
                <padding>
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
@@ -252,40 +248,47 @@
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </padding>
             </Button>
-            <Button fx:id="logoutButton" mnemonicParsing="false" onAction="#clickLogout" text="Logout">
+         </children>
+      </HBox>
+      <VBox alignment="CENTER" layoutX="1032.0" layoutY="97.0" prefHeight="564.0" prefWidth="100.0" spacing="25.0">
+         <children>
+            <HBox alignment="CENTER" prefHeight="58.0" prefWidth="100.0" />
+            <HBox alignment="CENTER" prefHeight="58.0" prefWidth="100.0" />
+            <HBox alignment="CENTER" prefHeight="58.0" prefWidth="200.0" />
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" />
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" />
+            <Button fx:id="addOnsMenu" mnemonicParsing="false" onAction="#clickAddons" prefWidth="100.0" text="Add-ons" textFill="RED">
                <padding>
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </padding>
             </Button>
          </children>
-      </HBox>
-      <VBox alignment="CENTER" layoutX="1026.0" layoutY="94.0" prefHeight="594.0" prefWidth="100.0" spacing="25.0">
-         <children>
-            <HBox alignment="CENTER" prefHeight="58.0" prefWidth="100.0" />
-            <HBox alignment="CENTER" prefHeight="58.0" prefWidth="100.0" />
-            <HBox alignment="CENTER" prefHeight="58.0" prefWidth="200.0" />
-            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
-               <children>
-                  <Button fx:id="addOnsMenu" mnemonicParsing="false" onAction="#clickAddons" prefWidth="100.0" text="Add-ons">
-                     <padding>
-                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                     </padding>
-                  </Button>
-               </children>
-            </HBox>
-            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
-               <children>
-                  <Button fx:id="nextDrink" mnemonicParsing="false" onAction="#clickNextDrink" prefHeight="37.0" prefWidth="100.0" text="Next Drink">
-                     <padding>
-                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                     </padding>
-                     <opaqueInsets>
-                        <Insets />
-                     </opaqueInsets>
-                  </Button>
-               </children>
-            </HBox>
-         </children>
       </VBox>
+      <Line endX="941.0" layoutX="197.0" layoutY="663.0" startX="-100.0" />
+      <Line endX="936.7928466796875" endY="0.2928924560546875" layoutX="201.0" layoutY="93.0" startX="-105.5" startY="-0.5" />
+      <Line endY="-741.0" layoutX="1024.0" layoutY="774.0" startY="-23.0858154296875" />
+      <Line endX="-101.5" endY="656.9141845703125" layoutX="1240.0" layoutY="94.0" startX="-101.5" startY="-62.70709228515625" />
+      <Line endX="23.5" endY="-680.7929077148438" layoutX="72.0" layoutY="713.0" startX="1067.0" startY="-682.2070922851562" />
+      <Line endY="-741.2929077148438" layoutX="96.0" layoutY="774.0" startY="-23.0" />
+      <Line endX="20.0" endY="-679.5858154296875" layoutX="77.0" layoutY="1431.0" startX="1061.0" startY="-679.5858154296875" />
+      <Line endX="2.0" endY="-741.0" layoutX="295.0" layoutY="774.0" startX="2.0" startY="-23.0858154296875" />
+      <Button fx:id="logoutButton" layoutX="1047.0" layoutY="45.0" mnemonicParsing="false" onAction="#clickLogout" text="Logout">
+         <padding>
+            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+         </padding>
+      </Button>
+      <Button fx:id="managerMenu" layoutX="146.0" layoutY="45.0" mnemonicParsing="false" onAction="#clickManagerMenu" prefHeight="37.0" prefWidth="108.0" text="Manager Menu">
+         <padding>
+            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+         </padding>
+      </Button>
+      <Button fx:id="nextDrink" layoutX="1032.0" layoutY="688.0" mnemonicParsing="false" onAction="#clickNextDrink" prefHeight="37.0" prefWidth="100.0" text="Next Drink">
+         <padding>
+            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+         </padding>
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+      </Button>
    </children>
 </Pane>

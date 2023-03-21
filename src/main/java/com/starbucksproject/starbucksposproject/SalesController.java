@@ -31,12 +31,32 @@ public class SalesController implements Initializable {
     @FXML
     private TableView salesTable;
     @FXML
-    protected void clickServer() {
-
+    protected void clickServer(ActionEvent event) throws IOException {
+        root = FXMLLoader.load(getClass().getResource("coffee-gui.fxml"));
+        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
     }
     @FXML
     protected void clickInventory(ActionEvent event) throws IOException {
         root = FXMLLoader.load(getClass().getResource("inventory-gui.fxml"));
+        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
+    @FXML
+    protected void clickLowStockItems(ActionEvent event) throws IOException {
+        root = FXMLLoader.load(getClass().getResource("low-stock-gui.fxml"));
+        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
+    @FXML
+    protected void clickMenuItems(ActionEvent event) throws IOException {
+        root = FXMLLoader.load(getClass().getResource("menu-items-gui.fxml"));
         stage = (Stage)((Node)event.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
