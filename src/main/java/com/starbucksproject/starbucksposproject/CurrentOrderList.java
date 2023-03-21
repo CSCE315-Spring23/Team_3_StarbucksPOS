@@ -26,22 +26,23 @@ public class CurrentOrderList {
 		currentOrder = new ArrayList<String>();
 	}
 
+	private Connection conn = DBConnection.getInstance().getConnection();
+
 
 	/**
 	 *
-	 * @param conn
 	 * @param ingredients_list
 	 * @param ingredients_amt
 	 *
 	 * Takes all the
 	 */
-	private void UpdateDBForInventory(Connection conn, String[] ingredients_list, String[] ingredients_amt) {
+	private boolean UpdateDBForInventory(String[] ingredients_list, String[] ingredients_amt) {
 		for (int i=0; i < ingredients_list.length && i < ingredients_amt.length; i++) {
+			float amt = Float.parseFloat(ingredients_amt[i]);
+			String ingredient = ingredients_list[i];
 			try (Statement statement = conn.createStatement()) {
-				System.out.println("calling the sql to update the DBInventory");
-				System.out.println(ingredients_amt.length);
-				String sql = "UPDATE inventory SET quantity = quantity - " + Float.parseFloat(ingredients_amt[i]) + " WHERE inventory_name = " + '\'' + ingredients_list[i] + '\'';
-				System.out.println(sql);
+				System.out.println("Calling the sql to update the DBInventory");
+				String sql = "UPDATE inventory SET quantity = quantity - " + amt + " WHERE inventory_name = " + '\'' + ingredient + '\'';
 				statement.executeUpdate(sql);
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -49,11 +50,30 @@ public class CurrentOrderList {
 				System.exit(0);
 			}
 		}
+		return true;
 	}
 
-	private String[] GetList(Connection connection, String columnName, int id) throws SQLException {
+	private boolean CheckIngredientInventory(String ingredient, float amt) throws SQLException {
+		System.out.println("Checking if enough inventory...");
+		String sql = "SELECT quantity FROM inventory WHERE inventory_name=" + '\'' + ingredient + '\'';
+		try (Statement stat = conn.createStatement()) {
+			ResultSet resultSet = stat.executeQuery(sql);
+			System.out.println("Sql command went through");
+			resultSet.next();
+			float currentQuantity = resultSet.getFloat("quantity");
+			if (currentQuantity > amt) {
+				return true;
+			}
+		} catch (SQLException e) {
+			throw new SQLException();
+		}
+
+		return false;
+	}
+
+	private String[] GetList(String columnName, int id) throws SQLException {
 		String query = "SELECT " + columnName + " FROM menu_items WHERE item_id = " + id;
-		try (Statement statement = connection.createStatement()) {
+		try (Statement statement = conn.createStatement()) {
 			ResultSet resultSet = statement.executeQuery(query);
 			resultSet.next();
 			String[] strings = resultSet.getString(columnName).split(",");
@@ -64,22 +84,21 @@ public class CurrentOrderList {
 	}
 
 
-	private void UpdateInventory(Connection connection) {
+	private void UpdateInventory() {
 		try {
 			for (String order : currentOrder) {
-				String[] ingredientsList = GetList(connection, "ingredients", Integer.parseInt(order));
-				String[] amountsList = GetList(connection, "amounts", Integer.parseInt(order));
-				System.out.println("ingredients list:");
-				System.out.println(Arrays.toString(ingredientsList));
-				System.out.println("Amounts list:");
-				System.out.println(Arrays.toString(amountsList));
-				UpdateDBForInventory(connection, ingredientsList, amountsList);
+				String[] ingredientsList = GetList("ingredients", Integer.parseInt(order));
+				String[] amountsList = GetList("amounts", Integer.parseInt(order));
+				System.out.println("ingredients list: " + Arrays.toString(ingredientsList));
+				System.out.println("Amounts list: " + Arrays.toString(amountsList));
+				UpdateDBForInventory(ingredientsList, amountsList);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.err.println(e.getClass().getName() + ": " + e.getMessage());
 			System.exit(0);
 		}
+
 		System.out.println("Updated inventory");
 	}
 
@@ -123,9 +142,8 @@ public class CurrentOrderList {
 	 * and then stores the employee name within the code.
 	 */
 	public void setCurrentEmployee(int employeeID) {
-		Connection currConn = DBConnection.getInstance().getConnection();
 		try {
-			Statement stmt = currConn.createStatement();
+			Statement stmt = conn.createStatement();
 			String sqlQuery = "SELECT * FROM employees WHERE employee_id=" + employeeID;
 			ResultSet result = stmt.executeQuery(sqlQuery);
 			result.next();
@@ -167,10 +185,9 @@ public class CurrentOrderList {
 	 */
 	public void completeTransaction() {
 		if (currentOrder.size() != 0) {
-			Connection currConn = DBConnection.getInstance().getConnection();
 			try {
 				// get current time
-				Statement stmt = currConn.createStatement();
+				Statement stmt = conn.createStatement();
 				SimpleDateFormat formatter = new SimpleDateFormat("yyMMdd");
 				Date date = new Date();
 				String currDate = "1" + formatter.format(date);
@@ -227,7 +244,7 @@ public class CurrentOrderList {
 						+ orderStr + "','"
 						+ CurrentEmployee + "',"
 						+ TotalPrice + ")";
-				UpdateInventory(currConn);
+				UpdateInventory();
 				System.out.println("submitting to db: " + submitTrans);
 				stmt.executeUpdate(submitTrans);
 				CurrentOrderList.getInstance().resetOrder();
