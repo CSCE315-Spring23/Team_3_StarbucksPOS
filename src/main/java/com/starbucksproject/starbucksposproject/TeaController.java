@@ -135,165 +135,165 @@ public class TeaController {
     @FXML
     protected void clickHotTea() {
         if (drinkSize == 0) {
-            CurrentOrderList.getInstance().getCurrentOrder().add("104001");
+            CurrentOrderList.getInstance().addItem("104001");
         } else if (drinkSize == 1) {
-            CurrentOrderList.getInstance().getCurrentOrder().add("104002");
+            CurrentOrderList.getInstance().addItem("104002");
         } else {
-            CurrentOrderList.getInstance().getCurrentOrder().add("104003");
+            CurrentOrderList.getInstance().addItem("104003");
         }
         System.out.println(CurrentOrderList.getInstance().getCurrentOrder());
     }
     @FXML
     protected void clickBrewedTea() {
         if (drinkSize == 0) {
-            CurrentOrderList.getInstance().getCurrentOrder().add("104004");
+            CurrentOrderList.getInstance().addItem("104004");
         } else if (drinkSize == 1) {
-            CurrentOrderList.getInstance().getCurrentOrder().add("104005");
+            CurrentOrderList.getInstance().addItem("104005");
         } else {
-            CurrentOrderList.getInstance().getCurrentOrder().add("104006");
+            CurrentOrderList.getInstance().addItem("104006");
         }
         System.out.println(CurrentOrderList.getInstance().getCurrentOrder());
     }
     @FXML
     protected void clickGreenTea() {
         if (drinkSize == 0) {
-            CurrentOrderList.getInstance().getCurrentOrder().add("104007");
+            CurrentOrderList.getInstance().addItem("104007");
         } else if (drinkSize == 1) {
-            CurrentOrderList.getInstance().getCurrentOrder().add("104008");
+            CurrentOrderList.getInstance().addItem("104008");
         } else {
-            CurrentOrderList.getInstance().getCurrentOrder().add("104009");
+            CurrentOrderList.getInstance().addItem("104009");
         }
         System.out.println(CurrentOrderList.getInstance().getCurrentOrder());
     }
     @FXML
     protected void clickHoChiMinhTea() {
         if (drinkSize == 0) {
-            CurrentOrderList.getInstance().getCurrentOrder().add("104010");
+            CurrentOrderList.getInstance().addItem("104010");
         } else if (drinkSize == 1) {
-            CurrentOrderList.getInstance().getCurrentOrder().add("104011");
+            CurrentOrderList.getInstance().addItem("104011");
         } else {
-            CurrentOrderList.getInstance().getCurrentOrder().add("104012");
+            CurrentOrderList.getInstance().addItem("104012");
         }
         System.out.println(CurrentOrderList.getInstance().getCurrentOrder());
     }
     @FXML
     protected void clickTazoChaiTea() {
         if (drinkSize == 0) {
-            CurrentOrderList.getInstance().getCurrentOrder().add("104016");
+            CurrentOrderList.getInstance().addItem("104016");
         } else if (drinkSize == 1) {
-            CurrentOrderList.getInstance().getCurrentOrder().add("104017");
+            CurrentOrderList.getInstance().addItem("104017");
         } else {
-            CurrentOrderList.getInstance().getCurrentOrder().add("104018");
+            CurrentOrderList.getInstance().addItem("104018");
         }
         System.out.println(CurrentOrderList.getInstance().getCurrentOrder());
     }
     @FXML
     protected void clickIcedTeaLemonade() {
         if (drinkSize == 0) {
-            CurrentOrderList.getInstance().getCurrentOrder().add("104013");
+            CurrentOrderList.getInstance().addItem("104013");
         } else if (drinkSize == 1) {
-            CurrentOrderList.getInstance().getCurrentOrder().add("104014");
+            CurrentOrderList.getInstance().addItem("104014");
         } else {
-            CurrentOrderList.getInstance().getCurrentOrder().add("104015");
+            CurrentOrderList.getInstance().addItem("104015");
         }
         System.out.println(CurrentOrderList.getInstance().getCurrentOrder());
     }
     @FXML
     protected void clickTavalonBlackTea() {
         if (drinkSize == 0) {
-            CurrentOrderList.getInstance().getCurrentOrder().add("104040");
+            CurrentOrderList.getInstance().addItem("104040");
         } else if (drinkSize == 1) {
-            CurrentOrderList.getInstance().getCurrentOrder().add("104041");
+            CurrentOrderList.getInstance().addItem("104041");
         } else {
-            CurrentOrderList.getInstance().getCurrentOrder().add("104042");
+            CurrentOrderList.getInstance().addItem("104042");
         }
         System.out.println(CurrentOrderList.getInstance().getCurrentOrder());
     }
     @FXML
     protected void clickTavalonGreenTea() {
         if (drinkSize == 0) {
-            CurrentOrderList.getInstance().getCurrentOrder().add("104043");
+            CurrentOrderList.getInstance().addItem("104043");
         } else if (drinkSize == 1) {
-            CurrentOrderList.getInstance().getCurrentOrder().add("104044");
+            CurrentOrderList.getInstance().addItem("104044");
         } else {
-            CurrentOrderList.getInstance().getCurrentOrder().add("104045");
+            CurrentOrderList.getInstance().addItem("104045");
         }
         System.out.println(CurrentOrderList.getInstance().getCurrentOrder());
     }
     @FXML
     protected void clickStrawberryRefresher() {
         if (drinkSize == 0) {
-            CurrentOrderList.getInstance().getCurrentOrder().add("104025");
+            CurrentOrderList.getInstance().addItem("104025");
         } else if (drinkSize == 1) {
-            CurrentOrderList.getInstance().getCurrentOrder().add("104026");
+            CurrentOrderList.getInstance().addItem("104026");
         } else {
-            CurrentOrderList.getInstance().getCurrentOrder().add("104027");
+            CurrentOrderList.getInstance().addItem("104027");
         }
         System.out.println(CurrentOrderList.getInstance().getCurrentOrder());
     }
     @FXML
     protected void clickStrawberryLemonadeRefresher() {
         if (drinkSize == 0) {
-            CurrentOrderList.getInstance().getCurrentOrder().add("104022");
+            CurrentOrderList.getInstance().addItem("104022");
         } else if (drinkSize == 1) {
-            CurrentOrderList.getInstance().getCurrentOrder().add("104023");
+            CurrentOrderList.getInstance().addItem("104023");
         } else {
-            CurrentOrderList.getInstance().getCurrentOrder().add("104024");
+            CurrentOrderList.getInstance().addItem("104024");
         }
         System.out.println(CurrentOrderList.getInstance().getCurrentOrder());
     }
     @FXML
     protected void clickPinkDrink() {
         if (drinkSize == 0) {
-            CurrentOrderList.getInstance().getCurrentOrder().add("104019");
+            CurrentOrderList.getInstance().addItem("104019");
         } else if (drinkSize == 1) {
-            CurrentOrderList.getInstance().getCurrentOrder().add("104020");
+            CurrentOrderList.getInstance().addItem("104020");
         } else {
-            CurrentOrderList.getInstance().getCurrentOrder().add("104021");
+            CurrentOrderList.getInstance().addItem("104021");
         }
         System.out.println(CurrentOrderList.getInstance().getCurrentOrder());
     }
     @FXML
     protected void clickMangoRefresher() {
         if (drinkSize == 0) {
-            CurrentOrderList.getInstance().getCurrentOrder().add("104034");
+            CurrentOrderList.getInstance().addItem("104034");
         } else if (drinkSize == 1) {
-            CurrentOrderList.getInstance().getCurrentOrder().add("104035");
+            CurrentOrderList.getInstance().addItem("104035");
         } else {
-            CurrentOrderList.getInstance().getCurrentOrder().add("104036");
+            CurrentOrderList.getInstance().addItem("104036");
         }
         System.out.println(CurrentOrderList.getInstance().getCurrentOrder());
     }
     @FXML
     protected void clickMangoLemonadeRefresher() {
         if (drinkSize == 0) {
-            CurrentOrderList.getInstance().getCurrentOrder().add("104031");
+            CurrentOrderList.getInstance().addItem("104031");
         } else if (drinkSize == 1) {
-            CurrentOrderList.getInstance().getCurrentOrder().add("104032");
+            CurrentOrderList.getInstance().addItem("104032");
         } else {
-            CurrentOrderList.getInstance().getCurrentOrder().add("104033");
+            CurrentOrderList.getInstance().addItem("104033");
         }
         System.out.println(CurrentOrderList.getInstance().getCurrentOrder());
     }
     @FXML
     protected void clickDragonDrink() {
         if (drinkSize == 0) {
-            CurrentOrderList.getInstance().getCurrentOrder().add("104028");
+            CurrentOrderList.getInstance().addItem("104028");
         } else if (drinkSize == 1) {
-            CurrentOrderList.getInstance().getCurrentOrder().add("104029");
+            CurrentOrderList.getInstance().addItem("104029");
         } else {
-            CurrentOrderList.getInstance().getCurrentOrder().add("104030");
+            CurrentOrderList.getInstance().addItem("104030");
         }
         System.out.println(CurrentOrderList.getInstance().getCurrentOrder());
     }
     @FXML
     protected void clickHibiscusRefresher() {
         if (drinkSize == 0) {
-            CurrentOrderList.getInstance().getCurrentOrder().add("104037");
+            CurrentOrderList.getInstance().addItem("104037");
         } else if (drinkSize == 1) {
-            CurrentOrderList.getInstance().getCurrentOrder().add("104038");
+            CurrentOrderList.getInstance().addItem("104038");
         } else {
-            CurrentOrderList.getInstance().getCurrentOrder().add("104039");
+            CurrentOrderList.getInstance().addItem("104039");
         }
         System.out.println(CurrentOrderList.getInstance().getCurrentOrder());
     }
