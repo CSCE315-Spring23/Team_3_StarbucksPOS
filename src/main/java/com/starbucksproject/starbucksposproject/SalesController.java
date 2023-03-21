@@ -11,15 +11,14 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
+import java.util.HexFormat;
 import java.util.ResourceBundle;
 
 public class SalesController implements Initializable {
@@ -30,6 +29,12 @@ public class SalesController implements Initializable {
 
     @FXML
     private TableView salesTable;
+
+    @FXML
+    private TextField fromDate;
+    @FXML
+    private TextField toDate;
+
     @FXML
     protected void clickServer(ActionEvent event) throws IOException {
         root = FXMLLoader.load(getClass().getResource("coffee-gui.fxml"));
@@ -97,20 +102,51 @@ public class SalesController implements Initializable {
     @FXML
     protected void clickSalesReport(ActionEvent event) throws IOException {
         // Enter SalesReport actions here:
+        int startDate = Integer.parseInt(fromDate.getText());
+        int endDate = Integer.parseInt(toDate.getText());
+        conn = DBConnection.getInstance().getConnection();
+        try {
+            final String query = "SELECT * FROM sales ORDER BY date DESC";
+            PreparedStatement tableQuery = conn.prepareStatement(query);
+            ResultSet response = tableQuery.executeQuery();
+            ObservableList<SalesItem> items = FXCollections.observableArrayList();
+
+            ObservableList<TableColumn> columns = salesTable.getColumns();
+            columns.get(0).setCellValueFactory(new PropertyValueFactory<>("day"));
+            columns.get(1).setCellValueFactory(new PropertyValueFactory<>("date"));
+            columns.get(2).setCellValueFactory(new PropertyValueFactory<>("week"));
+            columns.get(3).setCellValueFactory(new PropertyValueFactory<>("year"));
+            columns.get(4).setCellValueFactory(new PropertyValueFactory<>("game_day"));
+            columns.get(5).setCellValueFactory(new PropertyValueFactory<>("sales"));
+
+            while (response.next()) {
+                int day = response.getInt("day");
+                int date = response.getInt("date");
+                int week = response.getInt("week");
+                int year = response.getInt("year");
+                boolean game_day = response.getBoolean("game_day");
+                double sales = response.getDouble("sales");
+                if(date >= startDate && date <= endDate) {
+                    SalesItem item = new SalesItem(day, date, week, year, game_day, sales);
+                    items.add(item);
+                }
+            }
+
+            salesTable.setItems(items);
 
 
+        }
+        catch(SQLException e){
+            e.printStackTrace();
+            System.err.println(e.getClass().getName() + ": " + e.getMessage());
+//            System.exit(0);
+        }
 
-
-        /*
-
-        root = FXMLLoader.load(getClass().getResource("sales-gui.fxml"));
-        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-        scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
-        */
     }
 
+    protected void clickSalesFromTo(ActionEvent event) throws IOException{
+
+    }
     /**
      * Called to initialize a controller after its root element has been
      * completely processed.
@@ -160,4 +196,6 @@ public class SalesController implements Initializable {
         }
 
     }
+
+
 }
