@@ -137,8 +137,11 @@ public class LowStockItemsController implements Initializable {
                 double quantity = response.getDouble("quantity");
                 int lastStocked = response.getInt("last_stocked");
                 double costs = response.getDouble("costs");
-                InventoryItem item = new InventoryItem(id, name, quantity, lastStocked, costs);
-                items.add(item);
+
+                if (quantity <= 25.0) {
+                    InventoryItem item = new InventoryItem(id, name, quantity, lastStocked, costs);
+                    items.add(item);
+                }
             }
 
             inventoryTable.setItems(items);
