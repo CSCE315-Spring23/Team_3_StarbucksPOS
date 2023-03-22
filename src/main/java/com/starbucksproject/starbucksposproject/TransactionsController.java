@@ -141,4 +141,58 @@ public class TransactionsController implements Initializable {
         }
 
     }
+
+    private void processQuery(String query) {
+        try {
+            Statement stmt = conn.createStatement();
+            stmt.executeUpdate(query);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.err.println(e.getClass().getName() + ": " + e.getMessage());
+            System.exit(0);
+        }
+    }
+
+    private String requestQuery(String query, String columnName) {
+        String returnString = "";
+        try {
+            Statement stmt = conn.createStatement();
+            ResultSet resSet = stmt.executeQuery(query);
+            if (resSet.next()) {
+                returnString = resSet.getString(columnName);
+            } else {
+                System.out.println("No results returned in requestQuery.");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.err.println(e.getClass().getName() + ": " + e.getMessage());
+            System.exit(0);
+        }
+        return returnString;
+    }
+
+    public void updateSalesForDay() {
+        // Create the query
+        String query = updateSalesQuery();
+        // request the query
+        String total = requestQuery(query, "total");
+        // update the total to the DB (SAM)
+
+        processQuery("INSERT INTO sales (day, date, week, year, game_day, sales) VALUES (total)");
+    }
+
+    private String updateSalesQuery() {
+        String latestDateQuery = "SELECT MAX(transaction_date) from transactions";// write query to get the latest date
+        // request the query
+        String latestDate = requestQuery(latestDateQuery, "transaction_date");
+        // total for that latestDate (SAM)
+        return "SELECT SUM(total) from transactions WHERE transaction_Date =" + latestDate;
+    }
+
+
+
+    public void updateInventoryForDay() {
+
+    }
+
 }

@@ -28,7 +28,7 @@ public class DBConnection {
 
         System.out.println("INFO: Opened database successfully");
     }
-
+    //Creates a connection instance
     public static DBConnection getInstance() {
         if (instance == null) {
             instance = new DBConnection();
