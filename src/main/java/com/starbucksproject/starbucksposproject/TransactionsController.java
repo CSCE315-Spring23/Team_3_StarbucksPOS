@@ -240,7 +240,22 @@ public class TransactionsController implements Initializable {
         return result;
     }
 
-    public float[] getExcessReport(String beginDate, String endDate) throws ParseException {
+    public HashMap<String, Float> getExcessReport(String beginDate, String endDate) throws ParseException {
+        String[] ingredientsList = getIngredientsList();
+        float[] amountsList = getFloatArray(beginDate, endDate);
+
+        HashMap<String, Float> hashMap = new HashMap<String, Float>();
+
+        for (int i = 0; i < ingredientsList.length; i++) {
+            String key = ingredientsList[i];
+            Float value = amountsList[i];
+            hashMap.put(key, value);
+        }
+
+        return hashMap;
+    }
+
+    public float[] getFloatArray(String beginDate, String endDate) throws ParseException {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyMMdd");
         Date startDate = dateFormat.parse(beginDate);
         Date endDateObj = dateFormat.parse(endDate);
@@ -263,6 +278,29 @@ public class TransactionsController implements Initializable {
         System.out.println(dateFormat.format(endDateObj));
 
         return returnAmount;
+    }
+
+    public String[] getIngredientsList() {
+        String[] inventoryArray = new String[84];
+        try {
+            Statement stmt = conn.createStatement();
+
+            String sql = "SELECT inventory_name FROM inventory";
+            ResultSet rs = stmt.executeQuery(sql);
+
+            ArrayList<String> inventoryNames = new ArrayList<String>();
+            while (rs.next()) {
+                String inventoryName = rs.getString("inventory_name");
+                inventoryNames.add(inventoryName);
+            }
+
+            inventoryArray = inventoryNames.toArray(new String[inventoryNames.size()]);
+
+            conn.close();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return inventoryArray;
     }
 
     public float[] getInventoryForDay(String day) {
