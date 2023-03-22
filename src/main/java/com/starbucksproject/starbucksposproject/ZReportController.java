@@ -181,6 +181,8 @@ public class ZReportController{// implements Initializable {
 //            System.exit(0);
 		}
 	}
+
+	@FXML
 	protected void clickZEnter(ActionEvent event) throws  IOException{
 			try {
 				searchZDate(event);
