@@ -170,7 +170,7 @@ public class LowStockItemsController implements Initializable {
         stage.setScene(scene);
         stage.show();
     }
-    @FXML protected void clickChangeFillAmount(ActionEvent event) throws IOException {
+    @FXML protected void clickChangeMinimumAmount(ActionEvent event) throws IOException {
 
     }
 
