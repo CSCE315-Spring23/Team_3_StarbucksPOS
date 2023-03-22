@@ -17,6 +17,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.*;
+import java.text.SimpleDateFormat;
 import java.util.ResourceBundle;
 
 public class TransactionsController implements Initializable {
@@ -182,12 +183,11 @@ public class TransactionsController implements Initializable {
     }
 
     private String createNewDate() {
-        String query = "SELECT MAX(transaction_date) FROM transactions";
-        String latestDate = requestQuery(query, "transaction_date");
-        int latestDateInt = Integer.parseInt(latestDate) + 1;
-
-        processQuery("INSERT INTO sales (date) VALUES (" + latestDateInt + ")");
-        return Integer.toString(latestDateInt);
+        Date today = new Date();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyMMdd");
+        String formattedDate = dateFormat.format(today);
+        processQuery("INSERT INTO sales (date) VALUES (" + formattedDate + ")");
+        return formattedDate;
     }
 
     private void updateDay(String currDate) {
