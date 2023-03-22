@@ -190,20 +190,21 @@ public class TransactionsController implements Initializable {
         return formattedDate;
     }
 
-    private void updateDay(String currDate) {
+//    private void updateDay(String currDate) {
+//        processQuery("INSERT INTO sales (day) VALUES (");
+//    }
 
-    }
-
-    private void updateWeek(String currDate) {
-
-    }
+//    private void updateWeek(String currDate) {
+//        processQuery("INSERT INTO sales (week) VALUES ("+);
+//    }
 
     private void updateYear(String currDate) {
-
+        processQuery("INSERT INTO sales (year) VALUES (20"+currDate.substring(0,2)+")");
     }
 
     private void updateGameDay(String currDate) {
         // Just make it false
+        processQuery("INSERT INTO sales (game_day) VALUES (false)");
     }
 
     private void updateSales(String currDate) {
