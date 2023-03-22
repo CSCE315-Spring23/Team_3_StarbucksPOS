@@ -19,6 +19,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.*;
 import java.text.SimpleDateFormat;
+import java.util.HashMap;
 import java.util.ResourceBundle;
 
 public class TransactionsController implements Initializable {
@@ -225,8 +226,16 @@ public class TransactionsController implements Initializable {
         return "SELECT SUM(total) from transactions WHERE transaction_Date =" + latestDate;
     }
 
-    public void updateInventoryForDay() {
+    public HashMap<Integer, Float> getExcessReport(String begin, String end) {
+
 
     }
 
+    public float getInventoryForDay(String day) {
+
+    }
+
+    public HashMap<String, Integer> getSalesReportByItem(String begin, String end) {
+
+    }
 }
