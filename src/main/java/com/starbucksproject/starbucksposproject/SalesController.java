@@ -146,8 +146,8 @@ public class SalesController implements Initializable {
         ChoiceBox<String> inventoryChoiceBox = new ChoiceBox<>();
         TextField fromDate = new TextField();
         TextField toDate = new TextField();
-        fromDate.setText("000000");
-        toDate.setText("000000");
+        fromDate.setText("YYMMDD");
+        toDate.setText("YYMMDD");
 
         // Creates the pop-up box
         GridPane grid = new GridPane();
@@ -242,7 +242,6 @@ public class SalesController implements Initializable {
             PreparedStatement tableQuery = conn.prepareStatement(query);
             ResultSet response = tableQuery.executeQuery();
             ObservableList<SalesItem> items = FXCollections.observableArrayList();
-
             // Populates table with columns
             ObservableList<TableColumn> columns = salesTable.getColumns();
             columns.get(0).setCellValueFactory(new PropertyValueFactory<>("day"));
