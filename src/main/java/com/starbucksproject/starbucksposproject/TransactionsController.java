@@ -256,6 +256,8 @@ public class TransactionsController implements Initializable {
         return result;
     }
 
+
+
     public HashMap<String, Float> getExcessReport(String beginDate, String endDate) throws ParseException {
         String[] ingredientsList = getIngredientsList();
         float[] amountsList = getFloatArray(beginDate, endDate);

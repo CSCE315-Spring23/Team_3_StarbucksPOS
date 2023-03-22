@@ -21,6 +21,8 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.*;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Optional;
@@ -322,5 +324,48 @@ public class SalesController implements Initializable {
             System.err.println(e.getClass().getName() + ": " + e.getMessage());
 //            System.exit(0);
         }
+    }
+
+    public static float[] getZReport() {
+        float[] returnArray = {230322f, 13462.98f};
+        TransactionsController newTrans = new TransactionsController();
+        newTrans.updateSalesForDay();
+
+        returnArray[0] = getCurrentDate();
+        returnArray[1] = getSalesForDay(returnArray[0]);
+
+        return returnArray;
+    }
+
+    private static float getCurrentDate() {
+        LocalDate now = LocalDate.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyMMdd");
+        String dateStr = now.format(formatter);
+        float dateInt = Float.parseFloat(dateStr);
+        return dateInt;
+    }
+
+    private static float getSalesForDay(float date) {
+        String query = "SELECT sales FROM sales WHERE date=" + (int) date;
+
+
+        Connection conn=DBConnection.getInstance().getConnection();
+        float returnFloat = 0f;
+        try {
+            Statement stmt = conn.createStatement();
+            ResultSet resSet = stmt.executeQuery(query);
+            if (resSet.next()) {
+                returnFloat = resSet.getFloat("sales");
+            } else {
+                System.out.println("No results returned in requestQuery.");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.err.println(e.getClass().getName() + ": " + e.getMessage());
+            System.exit(0);
+        }
+
+        return returnFloat;
+
     }
 }
