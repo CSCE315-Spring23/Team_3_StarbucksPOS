@@ -145,7 +145,7 @@ public class LowStockItemsController implements Initializable {
     }
 
     /**
-     * Changes the current page to the main POS page.
+     * Changes the current page to the Z report page.
      *
      * @param event An ActionEvent that represents the button being clicked.
      * @throws IOException An exception caused if the input value is not expected.
@@ -159,6 +159,14 @@ public class LowStockItemsController implements Initializable {
         stage.setScene(scene);
         stage.show();
     }
+
+    /**
+     * Changes the current page to the excess report page.
+     *
+     * @param event An ActionEvent that represents the button being clicked.
+     * @throws IOException An exception caused if the input value is not expected.
+     *
+     */
     @FXML
     protected void clickExcessReport(ActionEvent event) throws IOException {
         root = FXMLLoader.load(getClass().getResource("excess-report-gui.fxml"));
@@ -167,6 +175,14 @@ public class LowStockItemsController implements Initializable {
         stage.setScene(scene);
         stage.show();
     }
+
+    /**
+     * Changes the current page to the login page.
+     *
+     * @param event An ActionEvent that represents the button being clicked.
+     * @throws IOException An exception caused if the input value is not expected.
+     *
+     */
     @FXML
     protected void clickBack(ActionEvent event) throws IOException {
         root = FXMLLoader.load(getClass().getResource("pos-view.fxml"));
@@ -176,7 +192,13 @@ public class LowStockItemsController implements Initializable {
         stage.show();
     }
 
-    // changes the maximum amount an item is in stock for it to appear on the low stock table
+    /**
+     * Changes the minimum quantity of an item before needing to restock.
+     *
+     *  @param event An ActionEvent that represents the button being clicked.
+     *  @throws IOException An exception caused if the input value is not expected.
+     *
+     */
     @FXML protected void clickChangeMinimumAmount(ActionEvent event) throws IOException {
         ArrayList<String> inventoryNames = new ArrayList<>();
         conn = DBConnection.getInstance().getConnection();
