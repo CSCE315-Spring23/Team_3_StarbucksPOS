@@ -57,7 +57,18 @@ public class CurrentOrderList {
 	}
 
 	private int getIngredientID(String ingredient_name) {
-
+		int id = 0;
+		try(Statement statement = conn.createStatement()) {
+			String sql = "SELECT inventory_id FROM inventory WHERE inventory_name=" + ingredient_name;
+			ResultSet result = statement.executeQuery(sql);
+			id = Integer.parseInt(result.getString("inventory_id"));
+			result.next();
+		} catch (Exception e) {
+		e.printStackTrace();
+		System.err.println(e.getClass().getName() + ": " + e.getMessage());
+		System.exit(0);
+	}
+		return id;
 	}
 
 	public void addItem(String menuID) {
