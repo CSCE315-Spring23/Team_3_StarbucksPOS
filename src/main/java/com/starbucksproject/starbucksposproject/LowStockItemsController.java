@@ -6,16 +6,21 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
+import javafx.util.Pair;
 
 import java.io.IOException;
 import java.net.URL;
 import java.sql.*;
+import java.util.Optional;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class LowStockItemsController implements Initializable {
@@ -170,8 +175,122 @@ public class LowStockItemsController implements Initializable {
         stage.setScene(scene);
         stage.show();
     }
-    @FXML protected void clickChangeMinimumAmount(ActionEvent event) throws IOException {
 
+    // changes the maximum amount an item is in stock for it to appear on the low stock table
+    @FXML protected void clickChangeMinimumAmount(ActionEvent event) throws IOException {
+        ArrayList<String> inventoryNames = new ArrayList<>();
+        conn = DBConnection.getInstance().getConnection();
+
+        Dialog<Pair<String, String>> dialog = new Dialog<>();
+        dialog.setTitle("Low Stock Threshold");
+        dialog.setHeaderText("Select an inventory item and a new minimum quantity.");
+        ButtonType confirmButtonType = new ButtonType("Confirm", ButtonBar.ButtonData.OK_DONE);
+        dialog.getDialogPane().getButtonTypes().addAll(confirmButtonType, ButtonType.CANCEL);
+        ChoiceBox<String> inventoryChoiceBox = new ChoiceBox<>();
+        TextField minimumAmountTextField = new TextField();
+        minimumAmountTextField.setText("25");
+
+        try {
+            Statement statement = conn.createStatement();
+            ResultSet result_set = statement.executeQuery("SELECT inventory_name FROM inventory ORDER BY inventory_name");
+
+            while (result_set.next()) {
+                String inventoryName = result_set.getString("inventory_name");
+                inventoryChoiceBox.getItems().add(inventoryName);
+            }
+
+            result_set.close();
+            statement.close();
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        GridPane grid = new GridPane();
+        grid.setHgap(10);
+        grid.setVgap(10);
+        grid.setPadding(new Insets(20, 150, 10, 10));
+        grid.add(new Label("Inventory Item: "), 0, 0);
+        grid.add(inventoryChoiceBox, 1, 0);
+        grid.add(new Label("Minimum Quantity: "), 0, 1);
+        grid.add(minimumAmountTextField, 1, 1);
+
+        Node confirmButton = dialog.getDialogPane().lookupButton(confirmButtonType);
+        confirmButton.setDisable(true);
+        inventoryChoiceBox.getSelectionModel().selectedItemProperty().addListener((observableValue, oldValue, newValue) -> {
+            try {
+                Statement statement = conn.createStatement();
+                ResultSet result_set = statement.executeQuery("SELECT minimum_quantity FROM inventory WHERE inventory_name = '" + inventoryChoiceBox.getSelectionModel().getSelectedItem() + "'");
+                result_set.next();
+                double minimumAmount = result_set.getDouble("minimum_quantity");
+                statement.close();
+                result_set.close();
+                confirmButton.setDisable(newValue == null);
+            }
+            catch (Exception e) {
+                confirmButton.setDisable(true);
+            }
+        });
+
+        minimumAmountTextField.textProperty().addListener((observableValue, oldValue, newValue) -> {
+            try {
+                Statement statement = conn.createStatement();
+                ResultSet result_set = statement.executeQuery("SELECT  minimum_quantity FROM inventory WHERE inventory_name = '" + inventoryChoiceBox.getSelectionModel().getSelectedItem() + "'");
+                result_set.next();
+                Double minimumAmount = result_set.getDouble("minimum_quantity");
+                statement.close();
+                result_set.close();
+                confirmButton.setDisable(Double.parseDouble(newValue) <= 0 || inventoryChoiceBox.getSelectionModel().getSelectedItem() == null);
+            }
+            catch (Exception e) {
+                confirmButton.setDisable(true);
+            }
+        });
+
+        dialog.setResultConverter(dialogButton -> {
+            if (dialogButton == confirmButtonType) {
+                String selectedInventory = inventoryChoiceBox.getSelectionModel().getSelectedItem();
+                double minimumAmount = Double.parseDouble(minimumAmountTextField.getText());
+
+                return new Pair<>(selectedInventory, Double.toString(minimumAmount));
+            }
+            return null;
+        });
+
+        Optional<Pair<String, String>> result = dialog.showAndWait();
+        result.ifPresent(pair -> {
+           String selectedInventory = pair.getKey();
+           String minimumAmount = pair.getValue();
+           String updateMinimumAmount = "UPDATE inventory SET minimum_quantity = " + minimumAmount + " WHERE inventory_name = '" + selectedInventory + "'";
+
+           try {
+               Statement statement = conn.createStatement();
+               statement.executeUpdate(updateMinimumAmount);
+               statement.close();
+
+               final String query = "SELECT * FROM inventory ORDER BY inventory_name";
+               PreparedStatement tableQuery = conn.prepareStatement(query);
+               ResultSet response = tableQuery.executeQuery();
+               ObservableList<LowStockInventoryItem> items = FXCollections.observableArrayList();
+
+               while (response.next()) {
+                   int id = response.getInt("inventory_id");
+                   String name = response.getString("inventory_name");
+                   double quantity = response.getDouble("quantity");
+                   double minimum_quantity = response.getDouble("minimum_quantity");
+                   int lastStocked = response.getInt("last_stocked");
+
+                   if (quantity < minimum_quantity) {
+                       LowStockInventoryItem item = new LowStockInventoryItem(id, name, quantity, minimum_quantity, lastStocked);
+                       items.add(item);
+                   }
+               }
+               lowStockTable.setItems(items);
+           }
+           catch (Exception e) {
+               e.printStackTrace();
+           }
+        });
     }
 
     /**
@@ -198,14 +317,14 @@ public class LowStockItemsController implements Initializable {
             columns.get(0).setCellValueFactory(new PropertyValueFactory<>("inventory_id"));
             columns.get(1).setCellValueFactory(new PropertyValueFactory<>("inventory_name"));
             columns.get(2).setCellValueFactory(new PropertyValueFactory<>("quantity"));
-            columns.get(3).setCellValueFactory(new PropertyValueFactory<>("quantity_required"));
+            columns.get(3).setCellValueFactory(new PropertyValueFactory<>("minimum_quantity"));
             columns.get(4).setCellValueFactory(new PropertyValueFactory<>("last_stocked"));
 
             while (response.next()) {
                 int id = response.getInt("inventory_id");
                 String name = response.getString("inventory_name");
                 double quantity = response.getDouble("quantity");
-                double minimum_quantity = 25.0;
+                double minimum_quantity = response.getDouble("minimum_quantity");
                 int lastStocked = response.getInt("last_stocked");
 
                 if (quantity < minimum_quantity) {
