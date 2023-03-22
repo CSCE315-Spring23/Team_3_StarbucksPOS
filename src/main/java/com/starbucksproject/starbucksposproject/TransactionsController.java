@@ -13,6 +13,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
+import java.util.Date;
 
 import java.io.IOException;
 import java.net.URL;
@@ -175,8 +176,8 @@ public class TransactionsController implements Initializable {
     public void updateSalesForDay() {
         // update the total to the DB (SAM)
         String currDate = createNewDate();
-        updateDay(currDate);
-        updateWeek(currDate);
+//        updateDay(currDate);
+//        updateWeek(currDate);
         updateYear(currDate);
         updateGameDay(currDate);
         updateSales(currDate);
