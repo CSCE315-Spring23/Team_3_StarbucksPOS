@@ -8,11 +8,11 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.starbucksproject.starbucksposproject.ZReportController">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1920" prefWidth="1080" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.starbucksproject.starbucksposproject.ZReportController">
    <children>
       <VBox alignment="CENTER" prefHeight="800.0" prefWidth="1000.0">
          <children>
-            <HBox alignment="CENTER" prefHeight="62.0" prefWidth="950" spacing="25.0">
+            <HBox alignment="CENTER" prefHeight="62.0" prefWidth="1000.0" spacing="25.0">
                <children>
                   <Button fx:id="serverMenu" mnemonicParsing="false" onAction="#clickServer" prefHeight="37.0" prefWidth="108.0" text="Server Menu">
                      <padding>

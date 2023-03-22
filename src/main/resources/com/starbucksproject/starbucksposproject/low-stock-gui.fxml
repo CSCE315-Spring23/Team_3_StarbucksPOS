@@ -12,7 +12,7 @@
    <children>
       <VBox alignment="CENTER" prefHeight="1080.0" prefWidth="1920.0">
          <children>
-            <HBox alignment="CENTER" prefHeight="62.0" prefWidth="805.0" spacing="25.0">
+            <HBox alignment="CENTER" prefHeight="62.0" prefWidth="1000.0" spacing="25.0">
                <children>
                   <Button fx:id="serverMenu" mnemonicParsing="false" onAction="#clickServer" prefHeight="37.0" prefWidth="108.0" text="Server Menu">
                      <padding>
