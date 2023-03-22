@@ -27,6 +27,7 @@ public class CurrentOrderList {
 	private CurrentOrderList(){
 		currentOrder = new ArrayList<String>();
 	}
+	//Menu item button click -> Add menu item to array list
 
 	private Connection conn = DBConnection.getInstance().getConnection();
 
@@ -193,7 +194,9 @@ public class CurrentOrderList {
 	public void setCurrentEmployee(String currentEmployee){
 		this.CurrentEmployee = currentEmployee;
 	}
-
+	public void setCurrentOrder(ArrayList<String> currentOrder){
+		this.currentOrder = currentOrder;
+	}
 	public void resetOrder(){
 		currentOrder.clear();
 	}

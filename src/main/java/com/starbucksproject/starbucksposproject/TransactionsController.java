@@ -177,14 +177,16 @@ public class TransactionsController implements Initializable {
         // request the query
         String total = requestQuery(query, "total");
         // update the total to the DB (SAM)
+
+        processQuery("INSERT INTO sales (day, date, week, year, game_day, sales) VALUES (total)");
     }
 
     private String updateSalesQuery() {
-        String latestDateQuery = "";// write query to get the latest date
+        String latestDateQuery = "SELECT MAX(transaction_date) from transactions";// write query to get the latest date
         // request the query
         String latestDate = requestQuery(latestDateQuery, "transaction_date");
         // total for that latestDate (SAM)
-        return "";
+        return "SELECT SUM(total) from transactions WHERE transaction_Date =" + latestDate;
     }
 
 
@@ -192,4 +194,5 @@ public class TransactionsController implements Initializable {
     public void updateInventoryForDay() {
 
     }
+
 }
