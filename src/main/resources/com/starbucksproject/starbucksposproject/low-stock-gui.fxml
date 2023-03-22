@@ -64,13 +64,13 @@
             </HBox>
             <HBox alignment="CENTER" prefHeight="417.0" prefWidth="805.0">
                <children>
-                  <TableView fx:id="inventoryTable" prefHeight="398.0" prefWidth="826.0">
+                  <TableView fx:id="lowStockTable" prefHeight="398.0" prefWidth="850.0">
                     <columns>
-                      <TableColumn prefWidth="162.5" text="Inventory ID" />
-                      <TableColumn prefWidth="284.0" text="Inventory Name" />
-                        <TableColumn prefWidth="85.0" text="Quantity" />
-                        <TableColumn prefWidth="184.5" text="Last Stocked" />
-                        <TableColumn prefWidth="109.0" text="Cost" />
+                       <TableColumn prefWidth="162.5" text="Inventory ID" />
+                       <TableColumn prefWidth="284.0" text="Inventory Name" />
+                       <TableColumn prefWidth="85.0" text="Quantity" />
+                       <TableColumn prefWidth="110.0" text="Quantity Needed" />
+                       <TableColumn prefWidth="184.5" text="Last Stocked" />
                     </columns>
                   </TableView>
                </children>
