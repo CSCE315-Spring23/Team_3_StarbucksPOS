@@ -200,12 +200,12 @@ public class TransactionsController implements Initializable {
 //    }
 
     private void updateYear(String currDate) {
-        processQuery("INSERT INTO sales (year) VALUES (20"+currDate.substring(0,2)+")");
+        processQuery("UPDATE sales SET year = 20"+currDate.substring(0,2)+" WHERE date=" + currDate);
     }
 
     private void updateGameDay(String currDate) {
         // Just make it false
-        processQuery("INSERT INTO sales (game_day) VALUES (false)");
+        processQuery("INSERT INTO sales (game_day) VALUES (false) WHERE date=" + currDate);
     }
 
     private void updateSales(String currDate) {
