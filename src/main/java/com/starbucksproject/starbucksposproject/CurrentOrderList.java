@@ -74,7 +74,7 @@ public class CurrentOrderList {
 			try (Statement statement = conn.createStatement()) {
 				System.out.println("Calling the sql to update the DBInventory");
 				String sql = "UPDATE inventory SET quantity = quantity - " + amt + " WHERE inventory_name = " + '\'' + ingredient + '\'';
-				int index = getIngredientID(ingredient) - 1000;
+				int index = getIngredientID(ingredient) - 999;
 				updateInventoryHistory(index, amt);
 				statement.executeUpdate(sql);
 			} catch (Exception e) {
@@ -127,10 +127,6 @@ public class CurrentOrderList {
 		// UPDATE my_table SET my_array[i] = new_value WHERE id = row_id;
 		String query = "UPDATE inventory_history SET ingredient_array[" + index + "] = " + amt + " WHERE date=" + date;
 		processQuery(query);
-	}
-
-	private void addNewDate() {
-
 	}
 
 	public void addItem(String menuID) {
