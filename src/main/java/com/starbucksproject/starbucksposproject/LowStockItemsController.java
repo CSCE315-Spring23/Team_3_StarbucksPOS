@@ -92,13 +92,11 @@ public class LowStockItemsController implements Initializable {
         stage.show();
     }
 
-
-
     /**
      * Called to initialize a controller after its root element has been
      * completely processed.
      *
-     * Loads the table to include all inventory items
+     * Loads the table to include inventory items with 25 or less in stock.
      *
      * @param location  The location used to resolve relative paths for the root object, or
      *                  {@code null} if the location is not known.
@@ -141,7 +139,6 @@ public class LowStockItemsController implements Initializable {
         catch(SQLException e){
             e.printStackTrace();
             System.err.println(e.getClass().getName() + ": " + e.getMessage());
-//            System.exit(0);
         }
 
     }
