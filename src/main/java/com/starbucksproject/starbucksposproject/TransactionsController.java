@@ -172,13 +172,47 @@ public class TransactionsController implements Initializable {
     }
 
     public void updateSalesForDay() {
+        // update the total to the DB (SAM)
+        String currDate = createNewDate();
+        updateDay(currDate);
+        updateWeek(currDate);
+        updateYear(currDate);
+        updateGameDay(currDate);
+        updateSales(currDate);
+    }
+
+    private String createNewDate() {
+        String query = "SELECT MAX(transaction_date) FROM transactions";
+        String latestDate = requestQuery(query, "transaction_date");
+        int latestDateInt = Integer.parseInt(latestDate) + 1;
+
+
+        processQuery("INSERT INTO sales (date) VALUES (" + latestDate + ")");
+    }
+
+    private void updateDay(String currDate) {
+
+    }
+
+    private void updateWeek(String currDate) {
+
+    }
+
+    private void updateYear(String currDate) {
+
+    }
+
+    private void updateGameDay(String currDate) {
+        // Just make it false
+    }
+
+    private void updateSales(String currDate) {
         // Create the query
         String query = updateSalesQuery();
         // request the query
         String total = requestQuery(query, "total");
-        // update the total to the DB (SAM)
-
-        processQuery("INSERT INTO sales (day, date, week, year, game_day, sales) VALUES (total)");
+        // Update it to the table ROW ALREADY EXIST
+        processQuery("UPDATE transactions SET total=" + total + " WHERE transaction_date=" + currDate);
     }
 
     private String updateSalesQuery() {
@@ -188,8 +222,6 @@ public class TransactionsController implements Initializable {
         // total for that latestDate (SAM)
         return "SELECT SUM(total) from transactions WHERE transaction_Date =" + latestDate;
     }
-
-
 
     public void updateInventoryForDay() {
 
