@@ -32,6 +32,23 @@ public class CurrentOrderList {
 	private Connection conn = DBConnection.getInstance().getConnection();
 
 
+	private String requestQuery(String query, String columnName) {
+		String returnString = "";
+		try {
+			Statement stmt = conn.createStatement();
+			ResultSet resSet = stmt.executeQuery(query);
+			if (resSet.next()) {
+				returnString = resSet.getString(columnName);
+			} else {
+				System.out.println("No results returned in requestQuery.");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			System.err.println(e.getClass().getName() + ": " + e.getMessage());
+			System.exit(0);
+		}
+		return returnString;
+	}
 	/**
 	 *
 	 * @param ingredients_list
@@ -46,6 +63,8 @@ public class CurrentOrderList {
 			try (Statement statement = conn.createStatement()) {
 				System.out.println("Calling the sql to update the DBInventory");
 				String sql = "UPDATE inventory SET quantity = quantity - " + amt + " WHERE inventory_name = " + '\'' + ingredient + '\'';
+				int index = getIngredientID(ingredient) - 1000;
+				updateInventoryHistory(index, amt);
 				statement.executeUpdate(sql);
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -69,6 +88,31 @@ public class CurrentOrderList {
 		System.exit(0);
 	}
 		return id;
+	}
+
+	private int updateInventoryHistory(int index, float amt) {
+		Date date = new Date();
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyMMdd");
+		String dateString = dateFormat.format(date);
+		String getLatestDateQuery = "SELECT MAX(date) FROM inventory_history";
+		String latestDate = requestQuery(getLatestDateQuery, "date");
+		if (latestDate.equals(dateString) == false) {
+			String createNewDateQuery = "INSERT INTO inventory_history (date) VALUES (" + latestDate + ')';
+		}
+
+
+	}
+
+	private float getAmtFromIndex(String date, int index) {
+		// SELECT my_array[i] FROM my_table WHERE id = row_id;
+	}
+
+	private void updateAmtAtIndex(String date, int index, float amt) {
+		// UPDATE my_table SET my_array[i] = new_value WHERE id = row_id;
+	}
+
+	private void addNewDate() {
+
 	}
 
 	public void addItem(String menuID) {
