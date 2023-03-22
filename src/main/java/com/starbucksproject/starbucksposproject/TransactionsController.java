@@ -271,7 +271,7 @@ public class TransactionsController implements Initializable {
         return hashMap;
     }
 
-    public float[] getFloatArray(String beginDate, String endDate) throws ParseException {
+    private float[] getFloatArray(String beginDate, String endDate) throws ParseException {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyMMdd");
         Date startDate = dateFormat.parse(beginDate);
         Date endDateObj = dateFormat.parse(endDate);
@@ -296,7 +296,7 @@ public class TransactionsController implements Initializable {
         return returnAmount;
     }
 
-    public String[] getIngredientsList() {
+    private String[] getIngredientsList() {
         String[] inventoryArray = new String[84];
         try {
             Statement stmt = conn.createStatement();
