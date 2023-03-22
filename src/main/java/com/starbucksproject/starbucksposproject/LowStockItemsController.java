@@ -183,7 +183,7 @@ public class LowStockItemsController implements Initializable {
 
         Dialog<Pair<String, String>> dialog = new Dialog<>();
         dialog.setTitle("Low Stock Threshold");
-        dialog.setHeaderText("Select an inventory item and a new minimum amount.");
+        dialog.setHeaderText("Select an inventory item and a new minimum quantity.");
         ButtonType confirmButtonType = new ButtonType("Confirm", ButtonBar.ButtonData.OK_DONE);
         dialog.getDialogPane().getButtonTypes().addAll(confirmButtonType, ButtonType.CANCEL);
         ChoiceBox<String> inventoryChoiceBox = new ChoiceBox<>();
@@ -212,7 +212,7 @@ public class LowStockItemsController implements Initializable {
         grid.setPadding(new Insets(20, 150, 10, 10));
         grid.add(new Label("Inventory Item: "), 0, 0);
         grid.add(inventoryChoiceBox, 1, 0);
-        grid.add(new Label("Minimum Amount: "), 0, 1);
+        grid.add(new Label("Minimum Quantity: "), 0, 1);
         grid.add(minimumAmountTextField, 1, 1);
 
         Node confirmButton = dialog.getDialogPane().lookupButton(confirmButtonType);
@@ -285,6 +285,7 @@ public class LowStockItemsController implements Initializable {
                        items.add(item);
                    }
                }
+               lowStockTable.setItems(items);
            }
            catch (Exception e) {
                e.printStackTrace();
@@ -316,7 +317,7 @@ public class LowStockItemsController implements Initializable {
             columns.get(0).setCellValueFactory(new PropertyValueFactory<>("inventory_id"));
             columns.get(1).setCellValueFactory(new PropertyValueFactory<>("inventory_name"));
             columns.get(2).setCellValueFactory(new PropertyValueFactory<>("quantity"));
-            columns.get(3).setCellValueFactory(new PropertyValueFactory<>("quantity_required"));
+            columns.get(3).setCellValueFactory(new PropertyValueFactory<>("minimum_quantity"));
             columns.get(4).setCellValueFactory(new PropertyValueFactory<>("last_stocked"));
 
             while (response.next()) {
