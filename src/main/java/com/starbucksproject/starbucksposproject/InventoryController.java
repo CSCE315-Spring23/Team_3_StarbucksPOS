@@ -323,7 +323,7 @@ public class InventoryController implements Initializable {
         selectButton.setDisable(true);
         ChangeListener<String> action = (observable, oldValue, newValue) -> {
             try {
-                selectButton.setDisable(Integer.parseInt(quantityTextField.getText()) < 0 || newNameField.getText().equals("") || costTextField.getText().substring(costTextField.getText().indexOf('.')+1).length() > 2);
+                selectButton.setDisable(Integer.parseInt(quantityTextField.getText()) < 0 || newNameField.getText().equals("") || (costTextField.getText().indexOf('.') != -1 && costTextField.getText().substring(costTextField.getText().indexOf('.')+1).length() > 2));
             }
             catch (Exception e){
                 selectButton.setDisable(true);

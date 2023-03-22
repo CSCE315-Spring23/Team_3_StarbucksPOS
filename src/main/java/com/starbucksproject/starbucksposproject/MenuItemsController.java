@@ -12,19 +12,21 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.CheckBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import javafx.util.Pair;
+import javafx.util.StringConverter;
+import org.w3c.dom.Text;
 
 import java.io.IOException;
 import java.net.URL;
 import java.sql.*;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
+import java.util.*;
 import java.util.Date;
-import java.util.Optional;
-import java.util.ResourceBundle;
 
 public class MenuItemsController implements Initializable {
     Connection conn = null;
@@ -99,6 +101,218 @@ public class MenuItemsController implements Initializable {
         scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
+    }
+
+    /**
+     * @throws SQLException
+     */
+    @FXML
+    protected void updateSpecialMenuItems() throws SQLException {
+        conn = DBConnection.getInstance().getConnection();
+        Dialog<ArrayList<Pair<String, Double>>> dialog = new Dialog<>();
+        dialog.setTitle("Update Special Menu");
+        dialog.setHeaderText("Update names, prices, and ingredients:");
+        ButtonType done = new ButtonType("Done", ButtonBar.ButtonData.OK_DONE);
+        dialog.getDialogPane().getButtonTypes().addAll(done, ButtonType.CANCEL);
+        GridPane grid = new GridPane();
+        grid.setHgap(10);
+        grid.setVgap(10);
+        grid.setPadding(new Insets(20, 150, 10, 10));
+        grid.add(new Label("Enabled"), 0, 0);
+        grid.add(new Label("Display Name"), 1, 0);
+        grid.add(new Label("Item Base Name"), 2, 0);
+        grid.add(new Label("Ingredients"), 3, 0);
+        grid.add(new Label("Price"), 4, 0);
+        List<ArrayList<Pair<String, Double>>> ingredientArray = new ArrayList<ArrayList<Pair<String,Double>>>(10);
+        Statement stmt = conn.createStatement();
+        ResultSet rs = stmt.executeQuery("SELECT * FROM inventory");
+        ArrayList<String> ingredients_list = new ArrayList<>();
+        while (rs.next()){
+            ingredients_list.add(rs.getString("inventory_name"));
+        }
+        rs.close();
+        stmt.close();
+        stmt = conn.createStatement();
+        rs = stmt.executeQuery("SELECT * FROM special_menu_items WHERE enabled=true and (size='NA' or size='grande')");
+        MenuItemsItem[] currSpecials = new MenuItemsItem[10];
+        while (rs.next()){
+            currSpecials[((rs.getInt("item_id")/10)%100)-1] = new MenuItemsItem(rs.getString("inventory_name").contains("-grande") ? rs.getString("inventory_name").substring(0, rs.getString("inventory_name").indexOf("-grande")) : rs.getString("inventory_name"), rs.getString("display_name"), rs.getString("category"), rs.getDouble("price"), true);
+        }
+        Node[][] gridArr = new Node[10][6];
+        for (int i = 1; i <= 10; i++) {
+            CheckBox checkBox = new CheckBox("");
+//            checkBox.setContentDisplay(ContentDisplay.RIGHT);
+            TextField dispName = new TextField();
+            TextField baseName = new TextField();
+            Button ingredients = new Button("Select Ingredients");
+            TextField price = new TextField();
+            ChoiceBox<String> category = new ChoiceBox<>(FXCollections.observableArrayList(
+                    "coffee-hot-iced", "espresso-drink", "frappuccino-and-blended", "tea-hot-iced", "coffee-alternatives", "add-on", "bakery-coremark"
+            ));
+            if (currSpecials[i-1] != null){
+                checkBox.setSelected(true);
+                dispName.setText(currSpecials[i-1].getDisplay_name());
+                baseName.setText(currSpecials[i-1].getItem_name());
+                price.setText(Double.toString(currSpecials[i-1].getPrice()));
+                category.getSelectionModel().select(currSpecials[i-1].getCategory());
+            }
+
+
+            checkBox.setOnAction(event -> {
+                dispName.setDisable(!checkBox.isSelected());
+                ingredients.setDisable(!checkBox.isSelected());
+                price.setDisable(!checkBox.isSelected());
+            });
+            ingredients.setOnAction(event -> {
+//                IngredientDialog ingredientDialog = new IngredientDialog();
+            });
+            grid.add(checkBox, 0, i);
+            grid.add(dispName, 1, i);
+            grid.add(baseName, 2, i);
+            grid.add(ingredients, 3, i);
+            grid.add(price, 4, i);
+            grid.add(category, 5, i);
+            gridArr[i-1][0] = checkBox;
+            gridArr[i-1][1] = dispName;
+            gridArr[i-1][2] = baseName;
+            gridArr[i-1][3] = ingredients;
+            gridArr[i-1][4] = price;
+            gridArr[i-1][5] = category;
+        }
+        dialog.getDialogPane().setContent(grid);
+        dialog.setResultConverter(dialogButton -> {
+            if (dialogButton == done) {
+//                String selectedInventory = inventoryChoiceBox.getSelectionModel().getSelectedItem();
+//                String quantity = quantityTextField.getText();
+//                return new Pair<>(selectedInventory, new Pair<>(quantity, costTextField.getText()));
+                try {
+                    ArrayList<PreparedStatement> stmts = new ArrayList<>(10);
+                    String sql = "UPDATE special_menu_items SET inventory_name=?,display_name=?,category=?,ingredients=?,amounts=?,price=?,size=?,enabled=? WHERE item_id = ?";
+                    for (int i = 0; i < 10; i++) {
+                        CheckBox currCheckBox = (CheckBox) gridArr[i][0];
+                        TextField currDispName = (TextField) gridArr[i][1];
+                        TextField currBaseName = (TextField) gridArr[i][2];
+//                        Button currIngredients = (Button) gridArr[i][3];
+                        TextField currPrice = (TextField) gridArr[i][4];
+                        ChoiceBox<String> currCategory = (ChoiceBox<String>) gridArr[i][5];
+                        ArrayList<String> ingredients = new ArrayList<>();
+                        ArrayList<Double> amounts = new ArrayList<>();
+                        try {
+                            ingredientArray.get(i).forEach(pair -> {
+                                ingredients.add(pair.getKey());
+                                amounts.add(pair.getValue());
+                            });
+                        }
+                        catch(Exception e){
+                            //do nothing intentionally
+                        }
+                        if (currCheckBox.isSelected()) {
+                            if(currCategory.getSelectionModel().getSelectedItem().equals("add-on") || currCategory.getSelectionModel().getSelectedItem().equals("bakery-coremark")){
+                                PreparedStatement prepped = conn.prepareStatement(sql);
+                                prepped.setString(1, currBaseName.getText());
+                                prepped.setString(2, currDispName.getText());
+                                prepped.setString(3, currCategory.getSelectionModel().getSelectedItem());
+//                                Array sqlIngredients = conn.createArrayOf("text", ingredients.toArray());
+//                                prepped.setArray(4, sqlIngredients);
+                                prepped.setArray(4, null);
+//                                Array sqlAmounts = conn.createArrayOf("double precision", amounts.toArray());
+//                                prepped.setArray(5, sqlAmounts);
+                                prepped.setArray(5, null);
+                                prepped.setDouble(6, Double.parseDouble(currPrice.getText()));
+                                prepped.setString(7, "NA");
+                                prepped.setInt(9, Integer.parseInt("999" + String.format("%02d",i+1) + "0"));
+                                prepped.setBoolean(8, true);
+//                                prepped.executeUpdate();
+                                PreparedStatement preppedTall = conn.prepareStatement("UPDATE special_menu_items SET enabled=false WHERE item_id = 999" + String.format("%02d", i+1) + "1");
+//                                preppedTall.executeUpdate();
+                                PreparedStatement preppedGrande = conn.prepareStatement("UPDATE special_menu_items SET enabled=false WHERE item_id = 999" + String.format("%02d", i+1) + "2");
+//                                preppedGrande.executeUpdate();
+                                PreparedStatement preppedVenti = conn.prepareStatement("UPDATE special_menu_items SET enabled=false WHERE item_id = 999" + String.format("%02d", i+1) + "3");
+                                preppedVenti.executeUpdate();
+                                stmts.add(prepped);
+                                stmts.add(preppedGrande);
+                                stmts.add(preppedTall);
+                                stmts.add(preppedVenti);
+                            }
+                            else{
+                                PreparedStatement preppedDisableNoSize = conn.prepareStatement("UPDATE special_menu_items SET enabled=false WHERE item_id = 999" + String.format("%02d", i+1) + "0");
+                                ArrayList<Double> tallAmounts = new ArrayList<>(amounts);
+                                tallAmounts.forEach(amount -> {amount*=.75;});
+                                ArrayList<Double> ventiAmounts = new ArrayList<>(amounts);
+                                ventiAmounts.forEach(amount -> {amount*=1.5;});
+                                Array sqlIngredients = conn.createArrayOf("text", ingredients.toArray());
+                                ///TODO: Modify ingredient amount to scale
+                                PreparedStatement preppedTall = conn.prepareStatement(sql);
+                                preppedTall.setString(1, currBaseName.getText() + "-tall");
+                                preppedTall.setString(2, currDispName.getText());
+                                preppedTall.setString(3, currCategory.getSelectionModel().getSelectedItem());
+                                preppedTall.setArray(4, sqlIngredients);
+                                Array sqlAmountsTall = conn.createArrayOf("double precision", tallAmounts.toArray());
+                                preppedTall.setArray(5, sqlAmountsTall);
+                                preppedTall.setDouble(6, Math.max(Double.parseDouble(currPrice.getText())-.4, 0));
+                                preppedTall.setString(7, "tall");
+                                preppedTall.setInt(9, Integer.parseInt("999" + String.format("%02d",i+1) + "1"));
+                                preppedTall.setBoolean(8, true);
+
+                                PreparedStatement preppedGrande = conn.prepareStatement(sql);
+                                preppedGrande.setString(1, currBaseName.getText() + "-grande");
+                                preppedGrande.setString(2, currDispName.getText());
+                                preppedGrande.setString(3, currCategory.getSelectionModel().getSelectedItem());
+                                preppedGrande.setArray(4, sqlIngredients);
+                                Array sqlAmounts = conn.createArrayOf("double precision", amounts.toArray());
+                                preppedGrande.setArray(5, sqlAmounts);
+                                preppedGrande.setDouble(6, Double.parseDouble(currPrice.getText()));
+                                preppedGrande.setString(7, "grande");
+                                preppedGrande.setInt(9, Integer.parseInt("999" + String.format("%02d",i+1) + "2"));
+                                preppedGrande.setBoolean(8, true);
+                                ///TODO: Modify ingredient amount to scale
+                                PreparedStatement preppedVenti = conn.prepareStatement(sql);
+                                preppedVenti.setString(1, currBaseName.getText() + "-venti");
+                                preppedVenti.setString(2, currDispName.getText());
+                                preppedVenti.setString(3, currCategory.getSelectionModel().getSelectedItem());
+                                preppedVenti.setArray(4, sqlIngredients);
+                                Array sqlAmountsVenti = conn.createArrayOf("double precision", ventiAmounts.toArray());
+                                preppedVenti.setArray(5, sqlAmountsVenti);
+                                preppedVenti.setDouble(6, Double.parseDouble(currPrice.getText())+.8);
+                                preppedVenti.setString(7, "NA");
+                                preppedVenti.setInt(9, Integer.parseInt("999" + String.format("%02d",i+1) + "3"));
+                                preppedVenti.setBoolean(8, true);
+                                stmts.add(preppedDisableNoSize);
+                                stmts.add(preppedGrande);
+                                stmts.add(preppedTall);
+                                stmts.add(preppedVenti);
+                            }
+                        } else {
+//                            stmts.add("UPDATE special_menu_items SET enabled=false WHERE item_id LIKE 99" + String.format("%02d", i) + "%");
+                            PreparedStatement prepped0 = conn.prepareStatement("UPDATE special_menu_items SET enabled=false WHERE item_id = 999" + String.format("%02d", i+1) + "0");
+                            PreparedStatement prepped1 = conn.prepareStatement("UPDATE special_menu_items SET enabled=false WHERE item_id = 999" + String.format("%02d", i+1) + "1");
+                            PreparedStatement prepped2 = conn.prepareStatement("UPDATE special_menu_items SET enabled=false WHERE item_id = 999" + String.format("%02d", i+1) + "2");
+                            PreparedStatement prepped3 = conn.prepareStatement("UPDATE special_menu_items SET enabled=false WHERE item_id = 999" + String.format("%02d", i+1) + "3");
+
+                            stmts.add(prepped0);
+                            stmts.add(prepped1);
+                            stmts.add(prepped2);
+                            stmts.add(prepped3);
+                        }
+                    }
+                    stmts.forEach(preppedStatement -> {
+                        try {
+                            preppedStatement.executeUpdate();
+                            System.out.println("Executed successfully: " + preppedStatement.toString());
+                        } catch (SQLException e) {
+                            System.out.println("failed statement: " + preppedStatement.toString());
+                            System.out.println(e.getMessage());
+                        }
+                    });
+                } catch(SQLException e){
+                    return null;
+                }
+            }
+            return null;
+        });
+        Optional<ArrayList<Pair<String, Double>>> result = dialog.showAndWait();
+
+
     }
 
     @FXML
@@ -183,8 +397,9 @@ public class MenuItemsController implements Initializable {
                         String category = response.getString("category");
                         String size = response.getString("size");
                         String ingredients = response.getString("ingredients");
+                        String amounts = response.getString("amounts");
                         double price = response.getDouble("price");
-                        MenuItemsItem item = new MenuItemsItem(item_id, item_name, display_name, category, size, ingredients, price);
+                        MenuItemsItem item = new MenuItemsItem(item_id, item_name, display_name, category, size, ingredients, amounts, price);
                         items.add(item);
                     }
 
@@ -196,6 +411,7 @@ public class MenuItemsController implements Initializable {
             });
 
     }
+
 
     /**
      * Called to initialize a controller after its root element has been
@@ -222,7 +438,8 @@ public class MenuItemsController implements Initializable {
             columns.get(3).setCellValueFactory(new PropertyValueFactory<>("category"));
             columns.get(4).setCellValueFactory(new PropertyValueFactory<>("size"));
             columns.get(5).setCellValueFactory(new PropertyValueFactory<>("ingredients"));
-            columns.get(6).setCellValueFactory(new PropertyValueFactory<>("price"));
+            columns.get(6).setCellValueFactory(new PropertyValueFactory<>("amounts"));
+            columns.get(7).setCellValueFactory(new PropertyValueFactory<>("price"));
 
             while (response.next()) {
                 int item_id = response.getInt("item_id");
@@ -231,8 +448,9 @@ public class MenuItemsController implements Initializable {
                 String category = response.getString("category");
                 String size = response.getString("size");
                 String ingredients = response.getString("ingredients");
+                String amounts = response.getString("amounts");
                 double price = response.getDouble("price");
-                MenuItemsItem item = new MenuItemsItem(item_id, item_name, display_name, category, size, ingredients, price);
+                MenuItemsItem item = new MenuItemsItem(item_id, item_name, display_name, category, size, ingredients, amounts, price);
                 items.add(item);
             }
 
