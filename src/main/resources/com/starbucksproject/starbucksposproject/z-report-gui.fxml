@@ -57,6 +57,16 @@
                   </Button>
                </children>
             </HBox>
+            <HBox alignment="CENTER" prefHeight="417.0" prefWidth="805.0">
+               <children>
+                  <TableView fx:id="zReportTable" prefHeight="350.0" prefWidth="450.0">
+                     <columns>
+                        <TableColumn prefWidth="162.5" text="Date" />
+                        <TableColumn prefWidth="284.0" text="Total Sales" />
+                     </columns>
+                  </TableView>
+               </children>
+            </HBox>
          </children>
       </VBox>
    </children>
