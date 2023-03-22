@@ -240,9 +240,7 @@ public class TransactionsController implements Initializable {
         while (calendar.getTime().before(endDateObj)) {
             Date currentDate = calendar.getTime();
             String dateString = dateFormat.format(currentDate);
-            for () {
 
-            }
             calendar.add(Calendar.DATE, 1);
         }
 
