@@ -25,7 +25,7 @@ public class LowStockItemsController implements Initializable {
     private Parent root;
 
     @FXML
-    private TableView inventoryTable;
+    private TableView lowStockTable;
 
     /**
      * Changes the current page to the default server page (coffee GUI).
@@ -170,6 +170,9 @@ public class LowStockItemsController implements Initializable {
         stage.setScene(scene);
         stage.show();
     }
+    @FXML protected void clickChangeMinimumAmount(ActionEvent event) throws IOException {
+
+    }
 
     /**
      * Called to initialize a controller after its root element has been
@@ -189,29 +192,29 @@ public class LowStockItemsController implements Initializable {
             final String query = "SELECT * FROM inventory ORDER BY inventory_name";
             PreparedStatement tableQuery = conn.prepareStatement(query);
             ResultSet response = tableQuery.executeQuery();
-            ObservableList<InventoryItem> items = FXCollections.observableArrayList();
+            ObservableList<LowStockInventoryItem> items = FXCollections.observableArrayList();
 
-            ObservableList<TableColumn> columns = inventoryTable.getColumns();
+            ObservableList<TableColumn> columns = lowStockTable.getColumns();
             columns.get(0).setCellValueFactory(new PropertyValueFactory<>("inventory_id"));
             columns.get(1).setCellValueFactory(new PropertyValueFactory<>("inventory_name"));
             columns.get(2).setCellValueFactory(new PropertyValueFactory<>("quantity"));
-            columns.get(3).setCellValueFactory(new PropertyValueFactory<>("last_stocked"));
-            columns.get(4).setCellValueFactory(new PropertyValueFactory<>("costs"));
+            columns.get(3).setCellValueFactory(new PropertyValueFactory<>("quantity_required"));
+            columns.get(4).setCellValueFactory(new PropertyValueFactory<>("last_stocked"));
 
             while (response.next()) {
                 int id = response.getInt("inventory_id");
                 String name = response.getString("inventory_name");
                 double quantity = response.getDouble("quantity");
+                double minimum_quantity = 25.0;
                 int lastStocked = response.getInt("last_stocked");
-                double costs = response.getDouble("costs");
 
-                if (quantity <= 25.0) {
-                    InventoryItem item = new InventoryItem(id, name, quantity, lastStocked, costs);
+                if (quantity < minimum_quantity) {
+                    LowStockInventoryItem item = new LowStockInventoryItem(id, name, quantity, minimum_quantity, lastStocked);
                     items.add(item);
                 }
             }
 
-            inventoryTable.setItems(items);
+            lowStockTable.setItems(items);
 
 
         }
