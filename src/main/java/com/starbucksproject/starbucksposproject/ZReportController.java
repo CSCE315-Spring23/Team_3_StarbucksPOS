@@ -28,14 +28,14 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.concurrent.atomic.AtomicBoolean;
 
-public class ZReportController {
+public class ZReportController implements Initializable {
 	Connection conn = null;
 	private Stage stage;
 	private Scene scene;
 	private Parent root;
 
 	@FXML
-	private TableView inventoryTable;
+	private TableView zReportTable;
 
 	/**
 	 * Changes the current page to the default server page (coffee GUI).
@@ -131,6 +131,40 @@ public class ZReportController {
 		scene = new Scene(root);
 		stage.setScene(scene);
 		stage.show();
+	}
+
+
+	@Override
+	public void initialize(URL location, ResourceBundle resources) {
+		conn = DBConnection.getInstance().getConnection();
+		try {
+			String query = "SELECT * FROM sales ORDER BY date DESC";
+			PreparedStatement tableQuery = conn.prepareStatement(query);
+			ResultSet response = tableQuery.executeQuery();
+			ObservableList<ZReportItem> items = FXCollections.observableArrayList();
+
+			ObservableList<TableColumn> columns = zReportTable.getColumns();
+			columns.get(0).setCellValueFactory(new PropertyValueFactory<>("date"));
+			columns.get(1).setCellValueFactory(new PropertyValueFactory<>("sales"));
+
+
+			while (response.next()) {
+				int date = response.getInt("date");
+				double sales = response.getDouble("sales");
+				ZReportItem item = new ZReportItem(date, sales);
+				items.add(item);
+			}
+
+			zReportTable.setItems(items);
+
+
+		}
+		catch(SQLException e){
+			e.printStackTrace();
+			System.err.println(e.getClass().getName() + ": " + e.getMessage());
+//            System.exit(0);
+		}
+
 	}
 }
 
