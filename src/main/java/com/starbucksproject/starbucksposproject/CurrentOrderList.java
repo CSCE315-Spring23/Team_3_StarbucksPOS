@@ -49,6 +49,17 @@ public class CurrentOrderList {
 		}
 		return returnString;
 	}
+
+	private void processQuery(String query) {
+		try {
+			Statement stmt = conn.createStatement();
+			stmt.executeUpdate(query);
+		} catch (SQLException e) {
+			e.printStackTrace();
+			System.err.println(e.getClass().getName() + ": " + e.getMessage());
+			System.exit(0);
+		}
+	}
 	/**
 	 *
 	 * @param ingredients_list
@@ -83,14 +94,14 @@ public class CurrentOrderList {
 			id = Integer.parseInt(result.getString("inventory_id"));
 			result.next();
 		} catch (Exception e) {
-		e.printStackTrace();
-		System.err.println(e.getClass().getName() + ": " + e.getMessage());
-		System.exit(0);
-	}
+			e.printStackTrace();
+			System.err.println(e.getClass().getName() + ": " + e.getMessage());
+			System.exit(0);
+		}
 		return id;
 	}
 
-	private int updateInventoryHistory(int index, float amt) {
+	private void updateInventoryHistory(int index, float amt) {
 		Date date = new Date();
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyMMdd");
 		String dateString = dateFormat.format(date);
@@ -100,7 +111,9 @@ public class CurrentOrderList {
 			String createNewDateQuery = "INSERT INTO inventory_history (date) VALUES (" + latestDate + ')';
 		}
 
-
+		float currAmt = getAmtFromIndex(latestDate, index);
+		float newAmt = currAmt + amt;
+		updateAmtAtIndex(latestDate, index, newAmt);
 	}
 
 	private float getAmtFromIndex(String date, int index) {
@@ -112,6 +125,8 @@ public class CurrentOrderList {
 
 	private void updateAmtAtIndex(String date, int index, float amt) {
 		// UPDATE my_table SET my_array[i] = new_value WHERE id = row_id;
+		String query = "UPDATE inventory_history SET ingredient_array[" + index + "] = " + amt + " WHERE date=" + date;
+		processQuery(query);
 	}
 
 	private void addNewDate() {
@@ -249,7 +264,6 @@ public class CurrentOrderList {
 	 * @author Devon Kelly
 	 * @param currentEmployee
 	 * @return N/A
-	 * @throws N/A
 	 *
 	 * The function sets the CurrentEmployee object within the class to the parameter value currentEmployee.
 	 */
