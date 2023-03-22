@@ -64,10 +64,11 @@
             </HBox>
             <HBox alignment="CENTER" prefHeight="417.0" prefWidth="805.0">
                <children>
-                  <TableView fx:id="zReportTable" prefHeight="350.0" prefWidth="450.0">
+                  <TableView fx:id="excessReportTable" prefHeight="350.0" prefWidth="550.0">
                      <columns>
                         <TableColumn prefWidth="162.5" text="Date" />
-                        <TableColumn prefWidth="284.0" text="Total Sales" />
+                        <TableColumn prefWidth="284.0" text="Inventory Name" />
+                        <TableColumn prefWidth="100.0" text="Quantity"/>
                      </columns>
                   </TableView>
                </children>
