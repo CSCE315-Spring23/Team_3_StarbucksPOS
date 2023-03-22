@@ -229,8 +229,24 @@ public class TransactionsController implements Initializable {
         return "SELECT SUM(total) from transactions WHERE transaction_Date =" + latestDate;
     }
 
-    public float[] getExcessReport(String beginDate, String endDate) {
+    public float[] getExcessReport(String beginDate, String endDate) throws ParseException {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyMMdd");
+        Date startDate = dateFormat.parse(beginDate);
+        Date endDateObj = dateFormat.parse(endDate);
 
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(startDate);
+
+        while (calendar.getTime().before(endDateObj)) {
+            Date currentDate = calendar.getTime();
+            String dateString = dateFormat.format(currentDate);
+            for () {
+
+            }
+            calendar.add(Calendar.DATE, 1);
+        }
+
+        System.out.println(dateFormat.format(endDateObj));
 
         return returnArray;
     }
