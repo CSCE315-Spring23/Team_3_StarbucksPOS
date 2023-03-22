@@ -3,6 +3,7 @@ package com.starbucksproject.starbucksposproject;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -12,6 +13,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
 import java.io.IOException;
+import java.net.URL;
 import java.security.NoSuchAlgorithmException;
 import java.sql.*;
 import java.security.MessageDigest;
@@ -20,9 +22,11 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 import java.util.HexFormat;
+import java.util.ResourceBundle;
+
 import javafx.scene.input.KeyEvent;
 
-public class CoffeeController {
+public class CoffeeController implements Initializable {
 
     Connection conn = null;
     private Stage stage;
@@ -31,6 +35,26 @@ public class CoffeeController {
 
     int drinkSize = 0;
 
+    @FXML
+    private Button menuItemSpecial1;
+    @FXML
+    private Button menuItemSpecial2;
+    @FXML
+    private Button menuItemSpecial3;
+    @FXML
+    private Button menuItemSpecial4;
+    @FXML
+    private Button menuItemSpecial5;
+    @FXML
+    private Button menuItemSpecial6;
+    @FXML
+    private Button menuItemSpecial7;
+    @FXML
+    private Button menuItemSpecial8;
+    @FXML
+    private Button menuItemSpecial9;
+    @FXML
+    private Button menuItemSpecial10;
     @FXML
     protected void clickTall() {
         drinkSize = 0;
@@ -164,6 +188,137 @@ public class CoffeeController {
     }
 
     @FXML
+    protected void clickSpecial1() {
+        if (drinkSize == 0) {
+            CurrentOrderList.getInstance().addItem("999011");
+        }
+        else if(drinkSize == 1){
+
+            CurrentOrderList.getInstance().addItem("999012");
+        } else{
+            CurrentOrderList.getInstance().addItem("999013");
+        }
+        System.out.println(CurrentOrderList.getInstance().getCurrentOrder());
+    }
+    @FXML
+    protected void clickSpecial2() {
+        if (drinkSize == 0) {
+            CurrentOrderList.getInstance().addItem("999021");
+        }
+        else if(drinkSize == 1){
+
+            CurrentOrderList.getInstance().addItem("999022");
+        } else{
+            CurrentOrderList.getInstance().addItem("999023");
+        }
+        System.out.println(CurrentOrderList.getInstance().getCurrentOrder());
+    }
+    @FXML
+    protected void clickSpecial3() {
+        if (drinkSize == 0) {
+            CurrentOrderList.getInstance().addItem("999031");
+        }
+        else if(drinkSize == 1){
+
+            CurrentOrderList.getInstance().addItem("999032");
+        } else{
+            CurrentOrderList.getInstance().addItem("999033");
+        }
+        System.out.println(CurrentOrderList.getInstance().getCurrentOrder());
+    }
+    @FXML
+    protected void clickSpecial4() {
+        if (drinkSize == 0) {
+            CurrentOrderList.getInstance().addItem("999041");
+        }
+        else if(drinkSize == 1){
+
+            CurrentOrderList.getInstance().addItem("999042");
+        } else{
+            CurrentOrderList.getInstance().addItem("999043");
+        }
+        System.out.println(CurrentOrderList.getInstance().getCurrentOrder());
+    }
+    @FXML
+    protected void clickSpecial5() {
+        if (drinkSize == 0) {
+            CurrentOrderList.getInstance().addItem("999051");
+        }
+        else if(drinkSize == 1){
+
+            CurrentOrderList.getInstance().addItem("999052");
+        } else{
+            CurrentOrderList.getInstance().addItem("999053");
+        }
+        System.out.println(CurrentOrderList.getInstance().getCurrentOrder());
+    }
+    @FXML
+    protected void clickSpecial6() {
+        if (drinkSize == 0) {
+            CurrentOrderList.getInstance().addItem("999061");
+        }
+        else if(drinkSize == 1){
+
+            CurrentOrderList.getInstance().addItem("999062");
+        } else{
+            CurrentOrderList.getInstance().addItem("999063");
+        }
+        System.out.println(CurrentOrderList.getInstance().getCurrentOrder());
+    }
+    @FXML
+    protected void clickSpecial7() {
+        if (drinkSize == 0) {
+            CurrentOrderList.getInstance().addItem("999071");
+        }
+        else if(drinkSize == 1){
+
+            CurrentOrderList.getInstance().addItem("999072");
+        } else{
+            CurrentOrderList.getInstance().addItem("999073");
+        }
+        System.out.println(CurrentOrderList.getInstance().getCurrentOrder());
+    }
+    @FXML
+    protected void clickSpecial8() {
+        if (drinkSize == 0) {
+            CurrentOrderList.getInstance().addItem("999081");
+        }
+        else if(drinkSize == 1){
+
+            CurrentOrderList.getInstance().addItem("999082");
+        } else{
+            CurrentOrderList.getInstance().addItem("999083");
+        }
+        System.out.println(CurrentOrderList.getInstance().getCurrentOrder());
+    }
+    @FXML
+    protected void clickSpecial9() {
+        if (drinkSize == 0) {
+            CurrentOrderList.getInstance().addItem("999091");
+        }
+        else if(drinkSize == 1){
+
+            CurrentOrderList.getInstance().addItem("999092");
+        } else{
+            CurrentOrderList.getInstance().addItem("999093");
+        }
+        System.out.println(CurrentOrderList.getInstance().getCurrentOrder());
+    }
+    @FXML
+    protected void clickSpecial10() {
+        if (drinkSize == 0) {
+            CurrentOrderList.getInstance().addItem("999101");
+        }
+        else if(drinkSize == 1){
+
+            CurrentOrderList.getInstance().addItem("999102");
+        } else{
+            CurrentOrderList.getInstance().addItem("999103");
+        }
+        System.out.println(CurrentOrderList.getInstance().getCurrentOrder());
+    }
+
+    @FXML
     protected void clickCoffee() {
         if (drinkSize == 0) {
             CurrentOrderList.getInstance().addItem("101001");
@@ -221,6 +376,75 @@ public class CoffeeController {
     protected void clickCoffeeRefill() {
         CurrentOrderList.getInstance().addItem("101013");
         System.out.println(CurrentOrderList.getInstance().getCurrentOrder());
+
+    }
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        menuItemSpecial1.setDisable(true);
+        menuItemSpecial2.setDisable(true);
+        menuItemSpecial3.setDisable(true);
+        menuItemSpecial4.setDisable(true);
+        menuItemSpecial5.setDisable(true);
+        menuItemSpecial6.setDisable(true);
+        menuItemSpecial7.setDisable(true);
+        menuItemSpecial8.setDisable(true);
+        menuItemSpecial9.setDisable(true);
+        menuItemSpecial10.setDisable(true);
+        conn = DBConnection.getInstance().getConnection();
+        try {
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT * FROM special_menu_items WHERE enabled=true and category='coffee_hot_iced'");
+            while(rs.next()){
+                switch((rs.getInt("item_id")/10)%100){
+                    case 1:
+                        menuItemSpecial1.setDisable(false);
+                        menuItemSpecial1.setText(rs.getString("display_name"));
+                        break;
+                    case 2:
+                        menuItemSpecial2.setDisable(false);
+                        menuItemSpecial2.setText(rs.getString("display_name"));
+                        break;
+                    case 3:
+                        menuItemSpecial3.setDisable(false);
+                        menuItemSpecial3.setText(rs.getString("display_name"));
+                        break;
+                    case 4:
+                        menuItemSpecial4.setDisable(false);
+                        menuItemSpecial4.setText(rs.getString("display_name"));
+                        break;
+                    case 5:
+                        menuItemSpecial5.setDisable(false);
+                        menuItemSpecial5.setText(rs.getString("display_name"));
+                        break;
+                    case 6:
+                        menuItemSpecial6.setDisable(false);
+                        menuItemSpecial6.setText(rs.getString("display_name"));
+                        break;
+                    case 7:
+                        menuItemSpecial7.setDisable(false);
+                        menuItemSpecial7.setText(rs.getString("display_name"));
+                        break;
+                    case 8:
+                        menuItemSpecial8.setDisable(false);
+                        menuItemSpecial8.setText(rs.getString("display_name"));
+                        break;
+                    case 9:
+                        menuItemSpecial9.setDisable(false);
+                        menuItemSpecial9.setText(rs.getString("display_name"));
+                        break;
+                    case 10:
+                        menuItemSpecial10.setDisable(false);
+                        menuItemSpecial10.setText(rs.getString("display_name"));
+                        break;
+
+                }
+            }
+            stmt.close();
+            rs.close();
+        } catch (SQLException e) {
+
+        }
 
     }
 }

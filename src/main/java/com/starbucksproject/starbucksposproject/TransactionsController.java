@@ -229,7 +229,8 @@ public class TransactionsController implements Initializable {
         return "SELECT SUM(total) from transactions WHERE transaction_Date =" + latestDate;
     }
 
-    public float[] getExcessReport(String beginDate, String endDate) throws ParseException {
+    public HashMap<Integer, Double> getExcessReport(String beginDate, String endDate) throws ParseException {
+        HashMap<Integer, Double> map = new HashMap<Integer, Double>();
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyMMdd");
         Date startDate = dateFormat.parse(beginDate);
         Date endDateObj = dateFormat.parse(endDate);
@@ -237,26 +238,30 @@ public class TransactionsController implements Initializable {
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(startDate);
 
+        double currAmt = 0;
+
         while (calendar.getTime().before(endDateObj)) {
             Date currentDate = calendar.getTime();
+            currAmt = getInventoryForDay(currentDate);
             String dateString = dateFormat.format(currentDate);
-            for () {
-
-            }
+            int dateInt = Integer.parseInt(dateString);
+            map.put(dateInt, currAmt);
             calendar.add(Calendar.DATE, 1);
         }
+        currAmt = getInventoryForDay(endDateObj);
+        String dateString = dateFormat.format(endDateObj);
+        int dateInt = Integer.parseInt(dateString);
+        map.put(dateInt, currAmt);
 
-        System.out.println(dateFormat.format(endDateObj));
-
-        return returnArray;
+        return map;
     }
 
-    public float getInventoryForDay(Date day, String inventory_name) {
+    public double getInventoryForDay(Date day) {
 
-
+        return 0.0;
     }
 
     public HashMap<String, Integer> getSalesReportByItem(String begin, String end) {
-
+        return null;
     }
 }

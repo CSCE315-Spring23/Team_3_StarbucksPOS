@@ -142,6 +142,26 @@
                         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                      </padding>
                   </Button>
+                  <Button fx:id="menuItemSpecial1" mnemonicParsing="false" onAction="#clickSpecial1" prefHeight="37.0" prefWidth="125.0">
+                     <padding>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </padding>
+                  </Button>
+                  <Button fx:id="menuItemSpecial7" mnemonicParsing="false" onAction="#clickSpecial7" prefHeight="37.0" prefWidth="125.0">
+                     <padding>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </padding>
+                  </Button>
+                  <Button fx:id="menuItemSpecial4" mnemonicParsing="false" onAction="#clickSpecial4" prefHeight="37.0" prefWidth="125.0">
+                     <padding>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </padding>
+                  </Button>
+                  <Button fx:id="menuItemSpecial10" mnemonicParsing="false" onAction="#clickSpecial10" prefHeight="37.0" prefWidth="125.0">
+                     <padding>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </padding>
+                  </Button>
                </children>
             </VBox>
             <VBox prefHeight="200.0" prefWidth="100.0">
@@ -174,6 +194,21 @@
                         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                      </padding>
                   </Button>
+                  <Button fx:id="menuItemSpecial6" mnemonicParsing="false" onAction="#clickSpecial6" prefHeight="37.0" prefWidth="125.0">
+                     <padding>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </padding>
+                  </Button>
+                  <Button fx:id="menuItemSpecial3" mnemonicParsing="false" onAction="#clickSpecial3" prefHeight="37.0" prefWidth="125.0">
+                     <padding>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </padding>
+                  </Button>
+                  <Button fx:id="menuItemSpecial9" mnemonicParsing="false" onAction="#clickSpecial9" prefHeight="37.0" prefWidth="125.0">
+                     <padding>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </padding>
+                  </Button>
                </children>
             </VBox>
             <VBox prefHeight="200.0" prefWidth="100.0">
@@ -199,6 +234,21 @@
                      </padding>
                   </Button>
                   <Button fx:id="menuItemQuadEspresso" mnemonicParsing="false" onAction="#clickQuad" prefHeight="37.0" prefWidth="125.0" text="Quad">
+                     <padding>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </padding>
+                  </Button>
+                  <Button fx:id="menuItemSpecial2" mnemonicParsing="false" onAction="#clickSpecial2" prefHeight="37.0" prefWidth="125.0">
+                     <padding>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </padding>
+                  </Button>
+                  <Button fx:id="menuItemSpecial8" mnemonicParsing="false" onAction="#clickSpecial8" prefHeight="37.0" prefWidth="125.0">
+                     <padding>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </padding>
+                  </Button>
+                  <Button fx:id="menuItemSpecial5" mnemonicParsing="false" onAction="#clickSpecial5" prefHeight="37.0" prefWidth="125.0">
                      <padding>
                         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                      </padding>

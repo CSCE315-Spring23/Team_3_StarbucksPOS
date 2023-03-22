@@ -69,15 +69,26 @@ public class CurrentOrderList {
 	 */
 	private boolean UpdateDBForInventory(String[] ingredients_list, String[] ingredients_amt) {
 		for (int i=0; i < ingredients_list.length && i < ingredients_amt.length; i++) {
-			float amt = Float.parseFloat(ingredients_amt[i]);
+			double amt = Double.parseDouble(ingredients_amt[i]);
 			String ingredient = ingredients_list[i];
 			try (Statement statement = conn.createStatement()) {
+//				PreparedStatement prepped = conn.prepareStatement("SELECT inventory_name,quantity FROM inventory where inventory_name=?");
+//				prepped.setString(1, ingredient);
+//				ResultSet amountResult = prepped.executeQuery();
+//				amountResult.next();
+//				double currAmount = amountResult.getDouble("quantity");
+//				String currName = amountResult.getString("inventory_name");
+//				amountResult.close();
+//				prepped.close();
+//				if (currAmount < amt){
+//					throw new IllegalArgumentException("Ran out of " + currName);
+//				}
 				System.out.println("Calling the sql to update the DBInventory");
 				String sql = "UPDATE inventory SET quantity = quantity - " + amt + " WHERE inventory_name = " + '\'' + ingredient + '\'';
 				int index = getIngredientID(ingredient) - 999;
 				updateInventoryHistory(index, amt);
 				statement.executeUpdate(sql);
-			} catch (Exception e) {
+			} catch (SQLException e) {
 				e.printStackTrace();
 				System.err.println(e.getClass().getName() + ": " + e.getMessage());
 				System.exit(0);
@@ -143,7 +154,7 @@ public class CurrentOrderList {
 			String[] ingredientsList = GetList("ingredients", Integer.parseInt(order));
 			String[] amountsList = GetList("amounts", Integer.parseInt(order));
 			for (int i=0; i < ingredientsList.length && i < amountsList.length; i++) {
-				if (CheckIngredientInventory(ingredientsList[i], Float.parseFloat(amountsList[i])) == false) {
+				if (CheckIngredientInventory(ingredientsList[i], Double.parseDouble(amountsList[i])) == false) {
 					return false;
 				}
 			}
@@ -154,7 +165,7 @@ public class CurrentOrderList {
 		return true;
 	}
 
-	private boolean CheckIngredientInventory(String ingredient, float amt) throws SQLException {
+	private boolean CheckIngredientInventory(String ingredient, double amt) throws SQLException {
 		String sql = "SELECT quantity FROM inventory WHERE inventory_name=" + '\'' + ingredient + '\'';
 		try (Statement stat = conn.createStatement()) {
 			ResultSet resultSet = stat.executeQuery(sql);
@@ -164,7 +175,7 @@ public class CurrentOrderList {
 				return true;
 			}
 		} catch (SQLException e) {
-			throw new SQLException();
+			throw new SQLException(e);
 		}
 
 		return false;
