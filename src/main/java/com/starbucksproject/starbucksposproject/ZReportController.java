@@ -31,6 +31,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import javafx.util.Pair;
+import org.controlsfx.control.action.Action;
 
 import java.io.IOException;
 import java.net.URL;
@@ -191,6 +192,15 @@ public class ZReportController implements Initializable {
 			}
 
 	}
+	@FXML
+	protected void clickXEnter(ActionEvent event) throws  IOException{
+		try {
+			searchXReport(event);
+		} catch (Exception e){
+			System.out.println("Could not search for date.");
+		}
+
+	}
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		conn = DBConnection.getInstance().getConnection();
@@ -255,6 +265,45 @@ public class ZReportController implements Initializable {
 //            System.exit(0);
 		}
 
+	}
+
+	private String createNewDate() {
+		Date today = new Date();
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyMMdd");
+		String formattedDate = dateFormat.format(today);
+		return formattedDate;
+	}
+	protected void searchXReport(ActionEvent event) throws IOException{
+
+		String inputDate = zDate.getText();
+		conn = DBConnection.getInstance().getConnection();
+		try {
+			String query = "SELECT * FROM transactions WHERE transaction_date >" + inputDate;
+			PreparedStatement tableQuery = conn.prepareStatement(query);
+			ResultSet response = tableQuery.executeQuery();
+			ObservableList<ZReportItem> items = FXCollections.observableArrayList();
+
+			ObservableList<TableColumn> columns = zReportTable.getColumns();
+			columns.get(0).setCellValueFactory(new PropertyValueFactory<>("transaction_date"));
+			columns.get(1).setCellValueFactory(new PropertyValueFactory<>("total"));
+
+
+			while (response.next()) {
+				int transaction_date = response.getInt("transaction_date");
+				double total = response.getDouble("total");
+				ZReportItem item = new ZReportItem(transaction_date, total);
+				items.add(item);
+			}
+
+			zReportTable.setItems(items);
+
+
+		}
+		catch(SQLException e){
+			e.printStackTrace();
+			System.err.println(e.getClass().getName() + ": " + e.getMessage());
+//            System.exit(0);
+		}
 	}
 }
 
