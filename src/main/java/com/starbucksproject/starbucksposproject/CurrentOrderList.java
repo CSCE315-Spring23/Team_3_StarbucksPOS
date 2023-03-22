@@ -56,6 +56,10 @@ public class CurrentOrderList {
 		return true;
 	}
 
+	private int getIngredientID(String ingredient_name) {
+
+	}
+
 	public void addItem(String menuID) {
 		if (CheckItemAvailability(menuID)) {
 			currentOrder.add(menuID);
