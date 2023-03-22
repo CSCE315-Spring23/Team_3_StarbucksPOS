@@ -13,10 +13,12 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
+import java.util.Date;
 
 import java.io.IOException;
 import java.net.URL;
 import java.sql.*;
+import java.text.SimpleDateFormat;
 import java.util.ResourceBundle;
 
 public class TransactionsController implements Initializable {
@@ -174,36 +176,36 @@ public class TransactionsController implements Initializable {
     public void updateSalesForDay() {
         // update the total to the DB (SAM)
         String currDate = createNewDate();
-        updateDay(currDate);
-        updateWeek(currDate);
+//        updateDay(currDate);
+//        updateWeek(currDate);
         updateYear(currDate);
         updateGameDay(currDate);
         updateSales(currDate);
     }
 
     private String createNewDate() {
-        String query = "SELECT MAX(transaction_date) FROM transactions";
-        String latestDate = requestQuery(query, "transaction_date");
-        int latestDateInt = Integer.parseInt(latestDate) + 1;
-
-        processQuery("INSERT INTO sales (date) VALUES (" + latestDateInt + ")");
-        return Integer.toString(latestDateInt);
+        Date today = new Date();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyMMdd");
+        String formattedDate = dateFormat.format(today);
+        processQuery("INSERT INTO sales (date) VALUES (" + formattedDate + ")");
+        return formattedDate;
     }
 
-    private void updateDay(String currDate) {
+//    private void updateDay(String currDate) {
+//        processQuery("INSERT INTO sales (day) VALUES (");
+//    }
 
-    }
-
-    private void updateWeek(String currDate) {
-
-    }
+//    private void updateWeek(String currDate) {
+//        processQuery("INSERT INTO sales (week) VALUES ("+);
+//    }
 
     private void updateYear(String currDate) {
-
+        processQuery("UPDATE sales SET year = 20"+currDate.substring(0,2)+" WHERE date=" + currDate);
     }
 
     private void updateGameDay(String currDate) {
         // Just make it false
+        processQuery("INSERT INTO sales (game_day) VALUES (false) WHERE date=" + currDate);
     }
 
     private void updateSales(String currDate) {
