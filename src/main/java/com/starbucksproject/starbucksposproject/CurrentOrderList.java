@@ -32,6 +32,34 @@ public class CurrentOrderList {
 	private Connection conn = DBConnection.getInstance().getConnection();
 
 
+	private String requestQuery(String query, String columnName) {
+		String returnString = "";
+		try {
+			Statement stmt = conn.createStatement();
+			ResultSet resSet = stmt.executeQuery(query);
+			if (resSet.next()) {
+				returnString = resSet.getString(columnName);
+			} else {
+				System.out.println("No results returned in requestQuery.");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			System.err.println(e.getClass().getName() + ": " + e.getMessage());
+			System.exit(0);
+		}
+		return returnString;
+	}
+
+	private void processQuery(String query) {
+		try {
+			Statement stmt = conn.createStatement();
+			stmt.executeUpdate(query);
+		} catch (SQLException e) {
+			e.printStackTrace();
+			System.err.println(e.getClass().getName() + ": " + e.getMessage());
+			System.exit(0);
+		}
+	}
 	/**
 	 *
 	 * @param ingredients_list
@@ -57,6 +85,8 @@ public class CurrentOrderList {
 //				}
 				System.out.println("Calling the sql to update the DBInventory");
 				String sql = "UPDATE inventory SET quantity = quantity - " + amt + " WHERE inventory_name = " + '\'' + ingredient + '\'';
+				int index = getIngredientID(ingredient) - 999;
+				updateInventoryHistory(index, amt);
 				statement.executeUpdate(sql);
 			} catch (SQLException e) {
 				e.printStackTrace();
@@ -65,6 +95,49 @@ public class CurrentOrderList {
 			}
 		}
 		return true;
+	}
+
+	private int getIngredientID(String ingredient_name) {
+		int id = 0;
+		try(Statement statement = conn.createStatement()) {
+			String sql = "SELECT inventory_id FROM inventory WHERE inventory_name=" + ingredient_name;
+			ResultSet result = statement.executeQuery(sql);
+			id = Integer.parseInt(result.getString("inventory_id"));
+			result.next();
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.err.println(e.getClass().getName() + ": " + e.getMessage());
+			System.exit(0);
+		}
+		return id;
+	}
+
+	private void updateInventoryHistory(int index, float amt) {
+		Date date = new Date();
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyMMdd");
+		String dateString = dateFormat.format(date);
+		String getLatestDateQuery = "SELECT MAX(date) FROM inventory_history";
+		String latestDate = requestQuery(getLatestDateQuery, "date");
+		if (latestDate.equals(dateString) == false) {
+			String createNewDateQuery = "INSERT INTO inventory_history (date) VALUES (" + latestDate + ')';
+		}
+
+		float currAmt = getAmtFromIndex(latestDate, index);
+		float newAmt = currAmt + amt;
+		updateAmtAtIndex(latestDate, index, newAmt);
+	}
+
+	private float getAmtFromIndex(String date, int index) {
+		// SELECT my_array[i] FROM my_table WHERE id = row_id;
+		//table called inventory_history array called ingredient_amounts column date given by date.
+		return Float.parseFloat(requestQuery("SELECT ingredient_amount["+index+"] FROM inventory_history WHERE date="+date, "ingredient_amounts"));
+
+	}
+
+	private void updateAmtAtIndex(String date, int index, float amt) {
+		// UPDATE my_table SET my_array[i] = new_value WHERE id = row_id;
+		String query = "UPDATE inventory_history SET ingredient_array[" + index + "] = " + amt + " WHERE date=" + date;
+		processQuery(query);
 	}
 
 	public void addItem(String menuID) {
