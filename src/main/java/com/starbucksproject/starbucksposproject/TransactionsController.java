@@ -15,18 +15,16 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
 import java.text.ParseException;
-import java.util.Calendar;
-import java.util.Date;
+import java.util.*;
 
 import java.io.IOException;
 import java.net.URL;
 import java.sql.*;
 import java.text.SimpleDateFormat;
-import java.util.HashMap;
-import java.util.ResourceBundle;
+import java.util.Date;
 
 public class TransactionsController implements Initializable {
-    Connection conn = null;
+    Connection conn = DBConnection.getInstance().getConnection();
     private Stage stage;
     private Scene scene;
     private Parent root;
@@ -229,6 +227,19 @@ public class TransactionsController implements Initializable {
         return "SELECT SUM(total) from transactions WHERE transaction_Date =" + latestDate;
     }
 
+    private static float[] addArrays(float[] arr1, float[] arr2) {
+        if (arr1.length != arr2.length) {
+            throw new IllegalArgumentException("Input arrays must have the same length");
+        }
+
+        float[] result = new float[arr1.length];
+        for (int i = 0; i < arr1.length; i++) {
+            result[i] = arr1[i] + arr2[i];
+        }
+
+        return result;
+    }
+
     public float[] getExcessReport(String beginDate, String endDate) throws ParseException {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyMMdd");
         Date startDate = dateFormat.parse(beginDate);
@@ -237,24 +248,44 @@ public class TransactionsController implements Initializable {
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(startDate);
 
+        float[] returnAmount = new float[84];
+        Arrays.fill(returnAmount, 0.0f);
+
         while (calendar.getTime().before(endDateObj)) {
             Date currentDate = calendar.getTime();
             String dateString = dateFormat.format(currentDate);
+            float[] currAmount = getInventoryForDay(dateString);
+            returnAmount = addArrays(currAmount, returnAmount);
 
             calendar.add(Calendar.DATE, 1);
         }
 
         System.out.println(dateFormat.format(endDateObj));
 
-        return returnArray;
+        return returnAmount;
     }
 
-    public float getInventoryForDay(Date day, String inventory_name) {
+    public float[] getInventoryForDay(String day) {
+        float[] floatArray = new float[85];
+        Arrays.fill(floatArray, 0f);
+        try {
+            String sql = "SELECT ingredient_amounts FROM inventory_history WHERE date = ?"; // Replace with your SQL query
+            PreparedStatement statement = conn.prepareStatement(sql);
+            statement.setString(1, day); // Replace with the date you want to retrieve the ingredient amounts for
 
+            ResultSet result = statement.executeQuery();
+            if (result.next()) {
+                Array ingredientArray = result.getArray("ingredient_amounts");
+                floatArray = (float[]) ingredientArray.getArray();
 
-    }
+                // Do something with the float array here...
 
-    public HashMap<String, Integer> getSalesReportByItem(String begin, String end) {
-
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.err.println(e.getClass().getName() + ": " + e.getMessage());
+            System.exit(0);
+        }
+        return floatArray;
     }
 }
