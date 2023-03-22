@@ -36,6 +36,14 @@ public class InventoryController implements Initializable {
 
     @FXML
     private TableView inventoryTable;
+
+    /**
+     * Changes the current page to the default server page (coffee GUI).
+     *
+     * @param event An ActionEvent that represents the button being clicked.
+     * @throws IOException An exception caused if the input value is not expected.
+     *
+     */
     @FXML
     protected void clickServer(ActionEvent event) throws IOException {
         root = FXMLLoader.load(getClass().getResource("coffee-gui.fxml"));
@@ -45,6 +53,13 @@ public class InventoryController implements Initializable {
         stage.show();
     }
 
+    /**
+     * Changes the current page to the inventory page.
+     *
+     * @param event An ActionEvent that represents the button being clicked.
+     * @throws IOException An exception caused if the input value is not expected.
+     *
+     */
     @FXML
     protected void clickInventory(ActionEvent event) throws IOException {
         root = FXMLLoader.load(getClass().getResource("inventory-gui.fxml"));
@@ -102,6 +117,9 @@ public class InventoryController implements Initializable {
         stage.show();
     }
 
+    /**
+     * Changes quantity of an inventory item.
+     */
     @FXML
     protected void clickChangeInventory() {
         ArrayList<String> inventoryNames = new ArrayList<>();
@@ -110,8 +128,8 @@ public class InventoryController implements Initializable {
             Dialog<Pair<String, String>> dialog = new Dialog<>();
             dialog.setTitle("Inventory Dialog");
             dialog.setHeaderText("Select an inventory item and quantity");
-        ButtonType quickRoundDown = new ButtonType("Round Down", ButtonBar.ButtonData.APPLY);
-        ButtonType selectButtonType = new ButtonType("Select", ButtonBar.ButtonData.OK_DONE);
+            ButtonType quickRoundDown = new ButtonType("Round Down", ButtonBar.ButtonData.APPLY);
+            ButtonType selectButtonType = new ButtonType("Select", ButtonBar.ButtonData.OK_DONE);
             dialog.getDialogPane().getButtonTypes().addAll(quickRoundDown, selectButtonType, ButtonType.CANCEL);
             ChoiceBox<String> inventoryChoiceBox = new ChoiceBox<>();
             ChoiceBox<String> addSubChoiceBox = new ChoiceBox<>();
@@ -281,6 +299,10 @@ public class InventoryController implements Initializable {
             });
 
     }
+
+    /**
+     * Adds a new inventory item to the database.
+     */
     @FXML
     protected void clickAddInventoryItem() {
         ArrayList<String> inventoryNames = new ArrayList<>();
@@ -417,6 +439,9 @@ public class InventoryController implements Initializable {
 
     }
 
+    /**
+     * Removes an inventory item from the list of all inventory items.
+     */
     @FXML
     protected void clickRemoveInventoryItem() {
         ArrayList<String> inventoryNames = new ArrayList<>();
@@ -500,6 +525,9 @@ public class InventoryController implements Initializable {
 
     }
 
+    /**
+     * Changes the price of a selected inventory item.
+     */
     @FXML
     protected void clickChangeInventoryCost() {
         ArrayList<String> inventoryNames = new ArrayList<>();

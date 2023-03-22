@@ -14,9 +14,15 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
+import java.text.ParseException;
+import java.util.Calendar;
+import java.util.Date;
+
 import java.io.IOException;
 import java.net.URL;
 import java.sql.*;
+import java.text.SimpleDateFormat;
+import java.util.HashMap;
 import java.util.ResourceBundle;
 
 public class TransactionsController implements Initializable {
@@ -172,13 +178,47 @@ public class TransactionsController implements Initializable {
     }
 
     public void updateSalesForDay() {
+        // update the total to the DB (SAM)
+        String currDate = createNewDate();
+//        updateDay(currDate);
+//        updateWeek(currDate);
+        updateYear(currDate);
+        updateGameDay(currDate);
+        updateSales(currDate);
+    }
+
+    private String createNewDate() {
+        Date today = new Date();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyMMdd");
+        String formattedDate = dateFormat.format(today);
+        processQuery("INSERT INTO sales (date) VALUES (" + formattedDate + ")");
+        return formattedDate;
+    }
+
+//    private void updateDay(String currDate) {
+//        processQuery("INSERT INTO sales (day) VALUES (");
+//    }
+
+//    private void updateWeek(String currDate) {
+//        processQuery("INSERT INTO sales (week) VALUES ("+);
+//    }
+
+    private void updateYear(String currDate) {
+        processQuery("UPDATE sales SET year = 20"+currDate.substring(0,2)+" WHERE date=" + currDate);
+    }
+
+    private void updateGameDay(String currDate) {
+        // Just make it false
+        processQuery("INSERT INTO sales (game_day) VALUES (false) WHERE date=" + currDate);
+    }
+
+    private void updateSales(String currDate) {
         // Create the query
         String query = updateSalesQuery();
         // request the query
         String total = requestQuery(query, "total");
-        // update the total to the DB (SAM)
-
-        processQuery("INSERT INTO sales (day, date, week, year, game_day, sales) VALUES (total)");
+        // Update it to the table ROW ALREADY EXIST
+        processQuery("UPDATE transactions SET total=" + total + " WHERE transaction_date=" + currDate);
     }
 
     private String updateSalesQuery() {
@@ -189,10 +229,39 @@ public class TransactionsController implements Initializable {
         return "SELECT SUM(total) from transactions WHERE transaction_Date =" + latestDate;
     }
 
+    public HashMap<Integer, Float> getExcessReport(String beginDate, String endDate) throws ParseException {
+        HashMap<Integer, Float> map = new HashMap<Integer, Float>();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyMMdd");
+        Date startDate = dateFormat.parse(beginDate);
+        Date endDateObj = dateFormat.parse(endDate);
 
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(startDate);
 
-    public void updateInventoryForDay() {
+        float currAmt = 0;
+
+        while (calendar.getTime().before(endDateObj)) {
+            Date currentDate = calendar.getTime();
+            currAmt = getInventoryForDay(currentDate);
+            String dateString = dateFormat.format(currentDate);
+            int dateInt = Integer.parseInt(dateString);
+            map.put(dateInt, currAmt);
+            calendar.add(Calendar.DATE, 1);
+        }
+        currAmt = getInventoryForDay(endDateObj);
+        String dateString = dateFormat.format(endDateObj);
+        int dateInt = Integer.parseInt(dateString);
+        map.put(dateInt, currAmt);
+
+        return map;
+    }
+
+    public float getInventoryForDay(Date day) {
+
 
     }
 
+    public HashMap<String, Integer> getSalesReportByItem(String begin, String end) {
+
+    }
 }

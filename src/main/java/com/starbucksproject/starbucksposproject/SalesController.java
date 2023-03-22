@@ -106,11 +106,20 @@ public class SalesController implements Initializable {
         stage.setScene(scene);
         stage.show();
     }
+
+    /**
+     * Allows the sales table to be updated to show only sales between two dates.
+     *
+     * @param event An ActionEvent that represents the button being clicked.
+     * @throws IOException An exception caused if the input value is not expected.
+     *
+     */
     @FXML
     protected void clickSalesBounded(ActionEvent event) throws IOException {
-        // Enter SalesReport actions here:
+        // Creates the connection to the database
         conn = DBConnection.getInstance().getConnection();
 
+        // Initialize the dialog for the sales report
         Dialog<Pair<String, String>> dialog = new Dialog<>();
         dialog.setTitle("Sales Report");
         dialog.setHeaderText("Select start date and end date:");
@@ -122,6 +131,7 @@ public class SalesController implements Initializable {
         fromDate.setText("000000");
         toDate.setText("000000");
 
+        // Creates the pop-up box
         GridPane grid = new GridPane();
         grid.setHgap(10);
         grid.setVgap(10);
@@ -134,6 +144,7 @@ public class SalesController implements Initializable {
         selectButton.setDisable(false);
         dialog.getDialogPane().setContent(grid);
 
+        // Gets start date and end date from entered text strings
         Platform.runLater(() -> fromDate.requestFocus());
         dialog.setResultConverter(dialogButton -> {
             if (dialogButton == selectButtonType) {
@@ -147,8 +158,6 @@ public class SalesController implements Initializable {
 
         Optional<Pair<String, String>> result = dialog.showAndWait();
         result.ifPresent(pair -> {
-
-
             int startDate = 0;
             int endDate = 0;
 
@@ -156,11 +165,13 @@ public class SalesController implements Initializable {
             endDate = Integer.parseInt(toDate.getText());
 
             try {
+                // Creates and executes query
                 final String query = "SELECT * FROM sales ORDER BY date DESC";
                 PreparedStatement tableQuery = conn.prepareStatement(query);
                 ResultSet response = tableQuery.executeQuery();
                 ObservableList<SalesItem> items = FXCollections.observableArrayList();
 
+                // Populates table with columns
                 ObservableList<TableColumn> columns = salesTable.getColumns();
                 columns.get(0).setCellValueFactory(new PropertyValueFactory<>("day"));
                 columns.get(1).setCellValueFactory(new PropertyValueFactory<>("date"));
@@ -169,6 +180,7 @@ public class SalesController implements Initializable {
                 columns.get(4).setCellValueFactory(new PropertyValueFactory<>("game_day"));
                 columns.get(5).setCellValueFactory(new PropertyValueFactory<>("sales"));
 
+                // Populates columns with cells
                 while (response.next()) {
                     int day = response.getInt("day");
                     int date = response.getInt("date");
@@ -177,6 +189,7 @@ public class SalesController implements Initializable {
                     boolean game_day = response.getBoolean("game_day");
                     double sales = response.getDouble("sales");
 
+                    // check date before adding to the table
                     if (date >= startDate && date <= endDate) {
                         SalesItem item = new SalesItem(day, date, week, year, game_day, sales);
                         items.add(item);
@@ -184,26 +197,35 @@ public class SalesController implements Initializable {
                 }
 
                 salesTable.setItems(items);
-
-
-            } catch (SQLException e) {
+            }
+            // catch exception if connection does not work
+            catch(SQLException e){
                 e.printStackTrace();
                 System.err.println(e.getClass().getName() + ": " + e.getMessage());
 //            System.exit(0);
             }
-
         });
     }
 
+    /**
+     * Resets the table to the full database value.
+     *
+     * @param event An ActionEvent that represents the button being clicked.
+     * @throws IOException An exception caused if the input value is not expected.
+     *
+     */
     @FXML
     protected void clickReset(ActionEvent event) throws IOException {
+        // Creates the connection to the database
         conn = DBConnection.getInstance().getConnection();
         try {
+            // Creates and executes query
             final String query = "SELECT * FROM sales ORDER BY date DESC";
             PreparedStatement tableQuery = conn.prepareStatement(query);
             ResultSet response = tableQuery.executeQuery();
             ObservableList<SalesItem> items = FXCollections.observableArrayList();
 
+            // Populates table with columns
             ObservableList<TableColumn> columns = salesTable.getColumns();
             columns.get(0).setCellValueFactory(new PropertyValueFactory<>("day"));
             columns.get(1).setCellValueFactory(new PropertyValueFactory<>("date"));
@@ -212,6 +234,7 @@ public class SalesController implements Initializable {
             columns.get(4).setCellValueFactory(new PropertyValueFactory<>("game_day"));
             columns.get(5).setCellValueFactory(new PropertyValueFactory<>("sales"));
 
+            // Populates columns with cells
             while (response.next()) {
                 int day = response.getInt("day");
                 int date = response.getInt("date");
@@ -225,9 +248,8 @@ public class SalesController implements Initializable {
             }
 
             salesTable.setItems(items);
-
-
         }
+        // catch exception if connection does not work
         catch(SQLException e){
             e.printStackTrace();
             System.err.println(e.getClass().getName() + ": " + e.getMessage());
@@ -245,13 +267,16 @@ public class SalesController implements Initializable {
      */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        // Creates the connection to the database
         conn = DBConnection.getInstance().getConnection();
         try {
+            // Creates and executes query
             final String query = "SELECT * FROM sales ORDER BY date DESC";
             PreparedStatement tableQuery = conn.prepareStatement(query);
             ResultSet response = tableQuery.executeQuery();
             ObservableList<SalesItem> items = FXCollections.observableArrayList();
 
+            // Populates table with columns
             ObservableList<TableColumn> columns = salesTable.getColumns();
             columns.get(0).setCellValueFactory(new PropertyValueFactory<>("day"));
             columns.get(1).setCellValueFactory(new PropertyValueFactory<>("date"));
@@ -260,6 +285,7 @@ public class SalesController implements Initializable {
             columns.get(4).setCellValueFactory(new PropertyValueFactory<>("game_day"));
             columns.get(5).setCellValueFactory(new PropertyValueFactory<>("sales"));
 
+            // Populates columns with cells
             while (response.next()) {
                 int day = response.getInt("day");
                 int date = response.getInt("date");
@@ -273,16 +299,12 @@ public class SalesController implements Initializable {
             }
 
             salesTable.setItems(items);
-
-
         }
+        // catch exception if connection does not work
         catch(SQLException e){
             e.printStackTrace();
             System.err.println(e.getClass().getName() + ": " + e.getMessage());
 //            System.exit(0);
         }
-
     }
-
-
 }
