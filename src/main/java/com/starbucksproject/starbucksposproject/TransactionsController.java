@@ -33,6 +33,7 @@ public class TransactionsController implements Initializable {
 
     @FXML
     private TableView transactionsTable;
+
     @FXML
     protected void clickServer(ActionEvent event) throws IOException {
         root = FXMLLoader.load(getClass().getResource("coffee-gui.fxml"));

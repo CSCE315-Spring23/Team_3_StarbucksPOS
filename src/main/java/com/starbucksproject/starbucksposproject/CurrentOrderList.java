@@ -112,7 +112,7 @@ public class CurrentOrderList {
 		return id;
 	}
 
-	private void updateInventoryHistory(int index, float amt) {
+	private void updateInventoryHistory(int index, double amt) {
 		Date date = new Date();
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyMMdd");
 		String dateString = dateFormat.format(date);
@@ -122,8 +122,8 @@ public class CurrentOrderList {
 			String createNewDateQuery = "INSERT INTO inventory_history (date) VALUES (" + latestDate + ')';
 		}
 
-		float currAmt = getAmtFromIndex(latestDate, index);
-		float newAmt = currAmt + amt;
+		double currAmt = getAmtFromIndex(latestDate, index);
+		double newAmt = currAmt + amt;
 		updateAmtAtIndex(latestDate, index, newAmt);
 	}
 
@@ -134,7 +134,7 @@ public class CurrentOrderList {
 
 	}
 
-	private void updateAmtAtIndex(String date, int index, float amt) {
+	private void updateAmtAtIndex(String date, int index, double amt) {
 		// UPDATE my_table SET my_array[i] = new_value WHERE id = row_id;
 		String query = "UPDATE inventory_history SET ingredient_array[" + index + "] = " + amt + " WHERE date=" + date;
 		processQuery(query);
