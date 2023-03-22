@@ -54,7 +54,7 @@
             </VBox>
             <VBox alignment="CENTER" prefHeight="456.0" prefWidth="125.0">
                <children>
-                  <Button fx:id="menuButton1" mnemonicParsing="false" onAction="#clickMenu" prefWidth="125.0" text="Show Menu Items">
+                  <Button fx:id="menuButton1" mnemonicParsing="false" onAction="#clickMenuItems" prefWidth="125.0" text="Show Menu Items">
                      <padding>
                         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                      </padding>
