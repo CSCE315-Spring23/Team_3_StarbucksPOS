@@ -42,7 +42,7 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.concurrent.atomic.AtomicBoolean;
 
-public class ZReportController{// implements Initializable {
+public class ZReportController implements Initializable {
 	Connection conn = null;
 	private Stage stage;
 	private Scene scene;
@@ -191,7 +191,38 @@ public class ZReportController{// implements Initializable {
 			}
 
 	}
+	@Override
+	public void initialize(URL location, ResourceBundle resources) {
+		conn = DBConnection.getInstance().getConnection();
+		try {
+			String query = "SELECT * FROM sales ORDER BY date DESC";
+			PreparedStatement tableQuery = conn.prepareStatement(query);
+			ResultSet response = tableQuery.executeQuery();
+			ObservableList<ZReportItem> items = FXCollections.observableArrayList();
 
+			ObservableList<TableColumn> columns = zReportTable.getColumns();
+			columns.get(0).setCellValueFactory(new PropertyValueFactory<>("date"));
+			columns.get(1).setCellValueFactory(new PropertyValueFactory<>("sales"));
+
+
+			while (response.next()) {
+				int date = response.getInt("date");
+				double sales = response.getDouble("sales");
+				ZReportItem item = new ZReportItem(date, sales);
+				items.add(item);
+			}
+
+			zReportTable.setItems(items);
+
+
+		}
+		catch(SQLException e){
+			e.printStackTrace();
+			System.err.println(e.getClass().getName() + ": " + e.getMessage());
+//            System.exit(0);
+		}
+
+	}
 
 	@FXML
 	protected void clickReset(ActionEvent event) throws IOException {
