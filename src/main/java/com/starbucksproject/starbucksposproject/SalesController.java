@@ -99,6 +99,22 @@ public class SalesController implements Initializable {
         stage.show();
     }
     @FXML
+    protected void clickZReport(ActionEvent event) throws IOException {
+        root = FXMLLoader.load(getClass().getResource("z-report-gui.fxml"));
+        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
+    @FXML
+    protected void clickExcessReport(ActionEvent event) throws IOException {
+        root = FXMLLoader.load(getClass().getResource("excess-report-gui.fxml"));
+        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
+    @FXML
     protected void clickBack(ActionEvent event) throws IOException{
         root = FXMLLoader.load(getClass().getResource("pos-view.fxml"));
         stage = (Stage)((Node)event.getSource()).getScene().getWindow();

@@ -87,6 +87,14 @@ public class MenuItemsController implements Initializable {
         stage.show();
     }
     @FXML
+    protected void clickZReport(ActionEvent event) throws IOException {
+        root = FXMLLoader.load(getClass().getResource("z-report-gui.fxml"));
+        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
+    @FXML
     protected void clickMenuItems(ActionEvent event) throws IOException {
         root = FXMLLoader.load(getClass().getResource("menu-items-gui.fxml"));
         stage = (Stage)((Node)event.getSource()).getScene().getWindow();
@@ -443,7 +451,7 @@ public class MenuItemsController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         conn = DBConnection.getInstance().getConnection();
         try {
-            final String query = "SELECT * FROM menu_items ORDER BY item_name";
+            String query = "SELECT * FROM menu_items ORDER BY item_name";
             PreparedStatement tableQuery = conn.prepareStatement(query);
             ResultSet response = tableQuery.executeQuery();
             ObservableList<MenuItemsItem> items = FXCollections.observableArrayList();
@@ -461,6 +469,23 @@ public class MenuItemsController implements Initializable {
             while (response.next()) {
                 int item_id = response.getInt("item_id");
                 String item_name = response.getString("item_name");
+                String display_name = response.getString("display_name");
+                String category = response.getString("category");
+                String size = response.getString("size");
+                String ingredients = response.getString("ingredients");
+                String amounts = response.getString("amounts");
+                double price = response.getDouble("price");
+                MenuItemsItem item = new MenuItemsItem(item_id, item_name, display_name, category, size, ingredients, amounts, price);
+                items.add(item);
+            }
+            response.close();
+            tableQuery.close();
+            query = "SELECT * FROM special_menu_items ORDER BY inventory_name";
+            tableQuery = conn.prepareStatement(query);
+            response = tableQuery.executeQuery();
+            while (response.next()) {
+                int item_id = response.getInt("item_id");
+                String item_name = response.getString("inventory_name");
                 String display_name = response.getString("display_name");
                 String category = response.getString("category");
                 String size = response.getString("size");
