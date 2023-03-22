@@ -9,6 +9,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
 
+import javafx.util.Pair;
+import java.util.Calendar;
 import java.io.IOException;
 import java.sql.*;
 
@@ -48,6 +50,9 @@ public class ZReportController implements Initializable {
 
 	@FXML
 	private TableView zReportTable;
+
+	@FXML
+	private TextField zDate;
 
 	/**
 	 * Changes the current page to the default server page (coffee GUI).
@@ -145,9 +150,82 @@ public class ZReportController implements Initializable {
 		stage.show();
 	}
 
+	protected void searchZDate(ActionEvent event){
+		String inputDate = zDate.getText();
+		conn = DBConnection.getInstance().getConnection();
+		try {
+			String query = "SELECT * FROM sales WHERE date=" + inputDate;
+			PreparedStatement tableQuery = conn.prepareStatement(query);
+			ResultSet response = tableQuery.executeQuery();
+			ObservableList<ZReportItem> items = FXCollections.observableArrayList();
 
+			ObservableList<TableColumn> columns = zReportTable.getColumns();
+			columns.get(0).setCellValueFactory(new PropertyValueFactory<>("date"));
+			columns.get(1).setCellValueFactory(new PropertyValueFactory<>("sales"));
+
+
+			while (response.next()) {
+				int date = response.getInt("date");
+				double sales = response.getDouble("sales");
+				ZReportItem item = new ZReportItem(date, sales);
+				items.add(item);
+			}
+
+			zReportTable.setItems(items);
+
+
+		}
+		catch(SQLException e){
+			e.printStackTrace();
+			System.err.println(e.getClass().getName() + ": " + e.getMessage());
+//            System.exit(0);
+		}
+	}
+
+	@FXML
+	protected void clickZEnter(ActionEvent event) throws  IOException{
+			try {
+				searchZDate(event);
+			} catch (Exception e){
+				System.out.println("Could not search for date.");
+			}
+
+	}
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+		conn = DBConnection.getInstance().getConnection();
+		try {
+			String query = "SELECT * FROM sales ORDER BY date DESC";
+			PreparedStatement tableQuery = conn.prepareStatement(query);
+			ResultSet response = tableQuery.executeQuery();
+			ObservableList<ZReportItem> items = FXCollections.observableArrayList();
+
+			ObservableList<TableColumn> columns = zReportTable.getColumns();
+			columns.get(0).setCellValueFactory(new PropertyValueFactory<>("date"));
+			columns.get(1).setCellValueFactory(new PropertyValueFactory<>("sales"));
+
+
+			while (response.next()) {
+				int date = response.getInt("date");
+				double sales = response.getDouble("sales");
+				ZReportItem item = new ZReportItem(date, sales);
+				items.add(item);
+			}
+
+			zReportTable.setItems(items);
+
+
+		}
+		catch(SQLException e){
+			e.printStackTrace();
+			System.err.println(e.getClass().getName() + ": " + e.getMessage());
+//            System.exit(0);
+		}
+
+	}
+
+	@FXML
+	protected void clickReset(ActionEvent event) throws IOException {
 		conn = DBConnection.getInstance().getConnection();
 		try {
 			String query = "SELECT * FROM sales ORDER BY date DESC";
