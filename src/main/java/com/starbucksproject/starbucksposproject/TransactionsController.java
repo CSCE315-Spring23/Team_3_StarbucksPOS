@@ -186,8 +186,8 @@ public class TransactionsController implements Initializable {
         String latestDate = requestQuery(query, "transaction_date");
         int latestDateInt = Integer.parseInt(latestDate) + 1;
 
-
         processQuery("INSERT INTO sales (date) VALUES (" + latestDateInt + ")");
+        return Integer.toString(latestDateInt);
     }
 
     private void updateDay(String currDate) {
