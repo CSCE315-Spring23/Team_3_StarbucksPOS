@@ -123,7 +123,7 @@ public class MenuItemsController implements Initializable {
         grid.add(new Label("Item Base Name"), 2, 0);
         grid.add(new Label("Ingredients"), 3, 0);
         grid.add(new Label("Price"), 4, 0);
-        List<ArrayList<Pair<String, Double>>> ingredientArray = new ArrayList<ArrayList<Pair<String,Double>>>(10);
+//        List<ObservableList<Pair<String, Double>>> ingredientArray = new ArrayList<>(10);
         Statement stmt = conn.createStatement();
         ResultSet rs = stmt.executeQuery("SELECT * FROM inventory");
         ArrayList<String> ingredients_list = new ArrayList<>();
@@ -139,6 +139,7 @@ public class MenuItemsController implements Initializable {
             currSpecials[((rs.getInt("item_id")/10)%100)-1] = new MenuItemsItem(rs.getString("inventory_name").contains("-grande") ? rs.getString("inventory_name").substring(0, rs.getString("inventory_name").indexOf("-grande")) : rs.getString("inventory_name"), rs.getString("display_name"), rs.getString("category"), rs.getDouble("price"), true);
         }
         Node[][] gridArr = new Node[10][6];
+        ObservableList<Pair<String, Double>>[] selectedIngredientLists = new ObservableList[10];
         for (int i = 1; i <= 10; i++) {
             CheckBox checkBox = new CheckBox("");
 //            checkBox.setContentDisplay(ContentDisplay.RIGHT);
@@ -163,8 +164,15 @@ public class MenuItemsController implements Initializable {
                 ingredients.setDisable(!checkBox.isSelected());
                 price.setDisable(!checkBox.isSelected());
             });
+            //Save to separate variable for the lambda function to operate separate from the loop
+            //Think of it like taking a snapshot
+            int finalI = i;
             ingredients.setOnAction(event -> {
-//                IngredientDialog ingredientDialog = new IngredientDialog();
+                IngredientDialog ingredientDialog = new IngredientDialog(ingredients_list);
+                Optional<ObservableList<Pair<String,Double>>> selectedIngredients = ingredientDialog.showAndWait();
+                selectedIngredients.ifPresent(pairs -> {
+                    selectedIngredientLists[finalI-1] = pairs;
+                });
             });
             grid.add(checkBox, 0, i);
             grid.add(dispName, 1, i);
@@ -198,7 +206,7 @@ public class MenuItemsController implements Initializable {
                         ArrayList<String> ingredients = new ArrayList<>();
                         ArrayList<Double> amounts = new ArrayList<>();
                         try {
-                            ingredientArray.get(i).forEach(pair -> {
+                            selectedIngredientLists[i].forEach(pair -> {
                                 ingredients.add(pair.getKey());
                                 amounts.add(pair.getValue());
                             });
@@ -212,12 +220,20 @@ public class MenuItemsController implements Initializable {
                                 prepped.setString(1, currBaseName.getText());
                                 prepped.setString(2, currDispName.getText());
                                 prepped.setString(3, currCategory.getSelectionModel().getSelectedItem());
-//                                Array sqlIngredients = conn.createArrayOf("text", ingredients.toArray());
-//                                prepped.setArray(4, sqlIngredients);
-                                prepped.setArray(4, null);
-//                                Array sqlAmounts = conn.createArrayOf("double precision", amounts.toArray());
-//                                prepped.setArray(5, sqlAmounts);
-                                prepped.setArray(5, null);
+                                if(ingredients.size() == 0){
+                                    prepped.setArray(4, null);
+                                }
+                                else{
+                                    Array sqlIngredients = conn.createArrayOf("text", ingredients.toArray());
+                                    prepped.setArray(4, sqlIngredients);
+                                }
+                                if(amounts.size() == 0){
+                                    prepped.setArray(5, null);
+                                }
+                                else {
+                                    Array sqlAmounts = conn.createArrayOf("double", amounts.toArray());
+                                    prepped.setArray(5, sqlAmounts);
+                                }
                                 prepped.setDouble(6, Double.parseDouble(currPrice.getText()));
                                 prepped.setString(7, "NA");
                                 prepped.setInt(9, Integer.parseInt("999" + String.format("%02d",i+1) + "0"));
@@ -237,9 +253,10 @@ public class MenuItemsController implements Initializable {
                             else{
                                 PreparedStatement preppedDisableNoSize = conn.prepareStatement("UPDATE special_menu_items SET enabled=false WHERE item_id = 999" + String.format("%02d", i+1) + "0");
                                 ArrayList<Double> tallAmounts = new ArrayList<>(amounts);
-                                tallAmounts.forEach(amount -> {amount*=.75;});
+//                                tallAmounts.forEach(amount -> {amount*=.75;});
+                                tallAmounts.replaceAll(amount -> amount * .75);
                                 ArrayList<Double> ventiAmounts = new ArrayList<>(amounts);
-                                ventiAmounts.forEach(amount -> {amount*=1.5;});
+                                ventiAmounts.replaceAll(amount -> amount*=1.5);
                                 Array sqlIngredients = conn.createArrayOf("text", ingredients.toArray());
                                 ///TODO: Modify ingredient amount to scale
                                 PreparedStatement preppedTall = conn.prepareStatement(sql);
@@ -247,7 +264,7 @@ public class MenuItemsController implements Initializable {
                                 preppedTall.setString(2, currDispName.getText());
                                 preppedTall.setString(3, currCategory.getSelectionModel().getSelectedItem());
                                 preppedTall.setArray(4, sqlIngredients);
-                                Array sqlAmountsTall = conn.createArrayOf("double precision", tallAmounts.toArray());
+                                Array sqlAmountsTall = conn.createArrayOf("double", tallAmounts.toArray());
                                 preppedTall.setArray(5, sqlAmountsTall);
                                 preppedTall.setDouble(6, Math.max(Double.parseDouble(currPrice.getText())-.4, 0));
                                 preppedTall.setString(7, "tall");
@@ -259,7 +276,7 @@ public class MenuItemsController implements Initializable {
                                 preppedGrande.setString(2, currDispName.getText());
                                 preppedGrande.setString(3, currCategory.getSelectionModel().getSelectedItem());
                                 preppedGrande.setArray(4, sqlIngredients);
-                                Array sqlAmounts = conn.createArrayOf("double precision", amounts.toArray());
+                                Array sqlAmounts = conn.createArrayOf("double", amounts.toArray());
                                 preppedGrande.setArray(5, sqlAmounts);
                                 preppedGrande.setDouble(6, Double.parseDouble(currPrice.getText()));
                                 preppedGrande.setString(7, "grande");
@@ -271,7 +288,7 @@ public class MenuItemsController implements Initializable {
                                 preppedVenti.setString(2, currDispName.getText());
                                 preppedVenti.setString(3, currCategory.getSelectionModel().getSelectedItem());
                                 preppedVenti.setArray(4, sqlIngredients);
-                                Array sqlAmountsVenti = conn.createArrayOf("double precision", ventiAmounts.toArray());
+                                Array sqlAmountsVenti = conn.createArrayOf("double", ventiAmounts.toArray());
                                 preppedVenti.setArray(5, sqlAmountsVenti);
                                 preppedVenti.setDouble(6, Double.parseDouble(currPrice.getText())+.8);
                                 preppedVenti.setString(7, "NA");
