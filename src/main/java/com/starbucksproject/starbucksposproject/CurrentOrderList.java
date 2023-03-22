@@ -100,8 +100,9 @@ public class CurrentOrderList {
 	private int getIngredientID(String ingredient_name) {
 		int id = 0;
 		try(Statement statement = conn.createStatement()) {
-			String sql = "SELECT inventory_id FROM inventory WHERE inventory_name=" + ingredient_name;
+			String sql = "SELECT inventory_id FROM inventory WHERE inventory_name=" + '\'' + ingredient_name + '\'';
 			ResultSet result = statement.executeQuery(sql);
+			result.next();
 			id = Integer.parseInt(result.getString("inventory_id"));
 			result.next();
 		} catch (Exception e) {
@@ -117,7 +118,7 @@ public class CurrentOrderList {
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyMMdd");
 		String dateString = dateFormat.format(date);
 		String getLatestDateQuery = "SELECT MAX(date) FROM inventory_history";
-		String latestDate = requestQuery(getLatestDateQuery, "date");
+		String latestDate = requestQuery(getLatestDateQuery, "max");
 		if (latestDate.equals(dateString) == false) {
 			String createNewDateQuery = "INSERT INTO inventory_history (date) VALUES (" + latestDate + ')';
 		}
@@ -130,13 +131,13 @@ public class CurrentOrderList {
 	private float getAmtFromIndex(String date, int index) {
 		// SELECT my_array[i] FROM my_table WHERE id = row_id;
 		//table called inventory_history array called ingredient_amounts column date given by date.
-		return Float.parseFloat(requestQuery("SELECT ingredient_amount["+index+"] FROM inventory_history WHERE date="+date, "ingredient_amounts"));
+		return Float.parseFloat(requestQuery("SELECT ingredient_amounts["+index+"] FROM inventory_history WHERE date="+date, "ingredient_amounts"));
 
 	}
 
 	private void updateAmtAtIndex(String date, int index, double amt) {
 		// UPDATE my_table SET my_array[i] = new_value WHERE id = row_id;
-		String query = "UPDATE inventory_history SET ingredient_array[" + index + "] = " + amt + " WHERE date=" + date;
+		String query = "UPDATE inventory_history SET ingredient_amounts[" + index + "] = " + amt + " WHERE date=" + date;
 		processQuery(query);
 	}
 
