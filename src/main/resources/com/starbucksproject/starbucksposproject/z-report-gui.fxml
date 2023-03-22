@@ -71,6 +71,7 @@
                   <TextField fx:id="zDate" promptText="Date (YYMMDD)" />
                   <Button fx:id="zEnterButton" mnemonicParsing="false" onAction="#clickZEnter" text="Enter" />
                   <Button fx:id="resetButton" mnemonicParsing="false" onAction="#clickReset" text="Reset" />
+                  <Button mnemonicParsing="false" onAction="#clickXEnter" text="X Report" fx:id="xReportButton" />
                </children>
             </HBox>
             <HBox alignment="CENTER" prefHeight="417.0" prefWidth="805.0">
