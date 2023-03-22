@@ -106,6 +106,14 @@ public class SalesController implements Initializable {
         stage.setScene(scene);
         stage.show();
     }
+
+    /**
+     * Allows the sales table to be updated to show only sales between two dates.
+     *
+     * @param event An ActionEvent that represents the button being clicked.
+     * @throws IOException An exception caused if the input value is not expected.
+     *
+     */
     @FXML
     protected void clickSalesBounded(ActionEvent event) throws IOException {
         // Enter SalesReport actions here:
@@ -195,6 +203,13 @@ public class SalesController implements Initializable {
         });
     }
 
+    /**
+     * Resets the table to the full database value.
+     *
+     * @param event An ActionEvent that represents the button being clicked.
+     * @throws IOException An exception caused if the input value is not expected.
+     *
+     */
     @FXML
     protected void clickReset(ActionEvent event) throws IOException {
         conn = DBConnection.getInstance().getConnection();
