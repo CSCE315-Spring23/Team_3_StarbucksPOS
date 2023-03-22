@@ -170,6 +170,9 @@ public class LowStockItemsController implements Initializable {
         stage.setScene(scene);
         stage.show();
     }
+    @FXML protected void clickChangeFillAmount(ActionEvent event) throws IOException {
+
+    }
 
     /**
      * Called to initialize a controller after its root element has been
@@ -202,11 +205,11 @@ public class LowStockItemsController implements Initializable {
                 int id = response.getInt("inventory_id");
                 String name = response.getString("inventory_name");
                 double quantity = response.getDouble("quantity");
-                double quantity_required = 25.0;
+                double minimum_quantity = 25.0;
                 int lastStocked = response.getInt("last_stocked");
 
-                if (quantity < 25.0) {
-                    LowStockInventoryItem item = new LowStockInventoryItem(id, name, quantity, quantity_required, lastStocked);
+                if (quantity < minimum_quantity) {
+                    LowStockInventoryItem item = new LowStockInventoryItem(id, name, quantity, minimum_quantity, lastStocked);
                     items.add(item);
                 }
             }

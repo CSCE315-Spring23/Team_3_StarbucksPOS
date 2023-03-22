@@ -5,15 +5,15 @@ public class LowStockInventoryItem {
 	private String inventory_name;
 	private double quantity;
 
-	private double quantity_required;
+	private double minimum_quantity;
 
 	private int last_stocked;
 
-	public LowStockInventoryItem(int inventory_id, String inventory_name, double quantity, double quantity_required, int last_stocked) {
+	public LowStockInventoryItem(int inventory_id, String inventory_name, double quantity, double minimum_quantity, int last_stocked) {
 		this.inventory_id = inventory_id;
 		this.inventory_name = inventory_name;
 		this.quantity = quantity;
-		this.quantity_required = quantity_required;
+		this.minimum_quantity = minimum_quantity;
 		this.last_stocked = last_stocked;
 	}
 
@@ -41,9 +41,9 @@ public class LowStockInventoryItem {
 		this.quantity = quantity;
 	}
 
-	public double getQuantity_required() { return quantity_required; }
+	public double getMinimum_quantity() { return minimum_quantity; }
 
-	public void setQuantity_required(double quantity_required) { this.quantity_required = quantity_required; }
+	public void setMinimum_quantity(double minimum_quantity) { this.minimum_quantity = minimum_quantity; }
 
 	public int getLast_stocked(){
 		return last_stocked;
