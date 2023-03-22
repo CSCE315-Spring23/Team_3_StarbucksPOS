@@ -105,6 +105,9 @@ public class CurrentOrderList {
 
 	private float getAmtFromIndex(String date, int index) {
 		// SELECT my_array[i] FROM my_table WHERE id = row_id;
+		//table called inventory_history array called ingredient_amounts column date given by date.
+		return Float.parseFloat(requestQuery("SELECT ingredient_amount["+index+"] FROM inventory_history WHERE date="+date, "ingredient_amounts"));
+
 	}
 
 	private void updateAmtAtIndex(String date, int index, float amt) {
