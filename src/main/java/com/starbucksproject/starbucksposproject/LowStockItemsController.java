@@ -214,6 +214,7 @@ public class LowStockItemsController implements Initializable {
         grid.add(inventoryChoiceBox, 1, 0);
         grid.add(new Label("Minimum Quantity: "), 0, 1);
         grid.add(minimumAmountTextField, 1, 1);
+        dialog.getDialogPane().setContent(grid);
 
         Node confirmButton = dialog.getDialogPane().lookupButton(confirmButtonType);
         confirmButton.setDisable(true);
