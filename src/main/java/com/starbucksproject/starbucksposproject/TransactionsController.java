@@ -13,12 +13,16 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
+
+import java.text.ParseException;
+import java.util.Calendar;
 import java.util.Date;
 
 import java.io.IOException;
 import java.net.URL;
 import java.sql.*;
 import java.text.SimpleDateFormat;
+import java.util.HashMap;
 import java.util.ResourceBundle;
 
 public class TransactionsController implements Initializable {
@@ -225,8 +229,39 @@ public class TransactionsController implements Initializable {
         return "SELECT SUM(total) from transactions WHERE transaction_Date =" + latestDate;
     }
 
-    public void updateInventoryForDay() {
+    public HashMap<Integer, Float> getExcessReport(String beginDate, String endDate) throws ParseException {
+        HashMap<Integer, Float> map = new HashMap<Integer, Float>();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyMMdd");
+        Date startDate = dateFormat.parse(beginDate);
+        Date endDateObj = dateFormat.parse(endDate);
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(startDate);
+
+        float currAmt = 0;
+
+        while (calendar.getTime().before(endDateObj)) {
+            Date currentDate = calendar.getTime();
+            currAmt = getInventoryForDay(currentDate);
+            String dateString = dateFormat.format(currentDate);
+            int dateInt = Integer.parseInt(dateString);
+            map.put(dateInt, currAmt);
+            calendar.add(Calendar.DATE, 1);
+        }
+        currAmt = getInventoryForDay(endDateObj);
+        String dateString = dateFormat.format(endDateObj);
+        int dateInt = Integer.parseInt(dateString);
+        map.put(dateInt, currAmt);
+
+        return map;
+    }
+
+    public float getInventoryForDay(Date day) {
+
 
     }
 
+    public HashMap<String, Integer> getSalesReportByItem(String begin, String end) {
+
+    }
 }
