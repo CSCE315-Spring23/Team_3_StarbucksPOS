@@ -1,6 +1,8 @@
 package com.starbucksproject.starbucksposproject;
 
 import javafx.application.Platform;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -19,14 +21,17 @@ import javafx.stage.Stage;
 import javafx.util.Pair;
 
 import java.io.IOException;
+import java.net.Inet4Address;
 import java.net.URL;
 import java.sql.*;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 import java.util.*;
 import java.util.Date;
 import java.util.concurrent.atomic.AtomicBoolean;
+
 
 /**
  * Sales Controller implements the buttons and other functions for the Sales page, including the
@@ -43,8 +48,10 @@ public class SalesController implements Initializable {
 
     @FXML
     private TextField fromDate;
+    private String startDatePrivate;
     @FXML
     private TextField toDate;
+    private String endDatePrivate;
 
     /**
      * Changes the current page to the main server page.
@@ -241,6 +248,8 @@ public class SalesController implements Initializable {
             if (dialogButton == selectButtonType) {
                 int startDate = Integer.parseInt(fromDate.getText());
                 int endDate = Integer.parseInt(toDate.getText());
+                startDatePrivate = fromDate.getText();
+                endDatePrivate = toDate.getText();
 
                 return new Pair<>(String.format("%d", startDate), String.format("%d", endDate));
             }
@@ -512,6 +521,79 @@ public class SalesController implements Initializable {
         }
     }
 
+    public static HashMap<String, Integer> getSalesItemReport(String beginDate, String endDate) {
+        HashMap<String, Integer> hashMap = new HashMap<>();
+        ArrayList<String> orderList = getOrderList(beginDate, endDate);
+        String itemName;
+
+        for (String order : orderList) {
+            ArrayList<Integer> orderInID = splitOrderString(order);
+            for (int itemID : orderInID) {
+                try {
+                    itemName = CurrentOrderList.getInstance().getIdToNameMap().get(itemID);
+                    if (!hashMap.containsKey(itemName)) { hashMap.put(itemName, 0); }
+                    int appleCount = hashMap.get(itemName) + 1;
+                    hashMap.put(itemName, appleCount);
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return hashMap;
+    }
+
+    private static ArrayList<Integer> splitOrderString(String str) {
+        String[] strArr = str.split(","); // split the string on commas
+        strArr[0] = strArr[0].replace("{", "");
+        strArr[strArr.length-1] = strArr[strArr.length-1].replace("}", "");
+        ArrayList<Integer> intList = new ArrayList<>(); // create a new ArrayList to store the integers
+
+        for (String s : strArr) {
+            intList.add(Integer.parseInt(s)); // convert each string to an integer and add to the list
+        }
+
+        return intList;
+    }
+
+    private static ArrayList<String> getOrderList(String beginDate, String endDate) {
+        String query = "SELECT order_list FROM transactions WHERE transaction_date BETWEEN "+ beginDate +" AND " + endDate;
+        // Set 1 as beginDate and 2 as endDate
+        ArrayList<String> orderLists = new ArrayList<>();
+        try {
+            Connection conn = DBConnection.getInstance().getConnection();
+            Statement statement = conn.createStatement();
+            ResultSet rs = statement.executeQuery(query);
+
+            while (rs.next()) {
+                orderLists.add(rs.getString("order_list"));
+            }
+        } catch (SQLException e) {
+            // Handle any errors that might occur
+            e.printStackTrace();
+        }
+        return orderLists;
+    }
+
+    private static int[] getAllDates(String beginDate, String endDate) {
+        // Convert the input dates to LocalDate objects
+        LocalDate startDate = LocalDate.parse(beginDate, DateTimeFormatter.ofPattern("yyMMdd"));
+        LocalDate endDateObj = LocalDate.parse(endDate, DateTimeFormatter.ofPattern("yyMMdd"));
+
+        // Calculate the number of days between the start and end dates
+        int days = (int) ChronoUnit.DAYS.between(startDate, endDateObj);
+
+        // Create an array to store the dates
+        int[] allDates = new int[days + 1];
+
+        // Iterate through the dates and add them to the array
+        for (int i = 0; i <= days; i++) {
+            LocalDate currentDate = startDate.plusDays(i);
+            allDates[i] = Integer.parseInt(currentDate.format(DateTimeFormatter.ofPattern("yyMMdd")));
+        }
+
+        return allDates;
+    }
+
     public static float[] getZReport() {
         float[] returnArray = {230322f, 13462.98f};
         TransactionsController newTrans = new TransactionsController();
@@ -552,6 +634,11 @@ public class SalesController implements Initializable {
         }
 
         return returnFloat;
+    }
+
+    public void clickSalesItemReport(ActionEvent event) throws IOException {
+        HashMap<String, Integer> salesItemReport = getSalesItemReport(startDatePrivate, endDatePrivate);
+
 
     }
 }
