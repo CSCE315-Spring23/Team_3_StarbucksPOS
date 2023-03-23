@@ -18,6 +18,9 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ResourceBundle;
 
+/**
+ * This class implements functions for the food items page.
+ */
 public class FoodController implements Initializable {
     Connection conn = null;
     private Stage stage;

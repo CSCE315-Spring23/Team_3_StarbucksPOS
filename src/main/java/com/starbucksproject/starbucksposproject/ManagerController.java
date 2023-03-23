@@ -12,6 +12,9 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.sql.Connection;
 
+/**
+ * This class implements functions for the main manager page.
+ */
 public class ManagerController {
     Connection conn = null;
     private Stage stage;

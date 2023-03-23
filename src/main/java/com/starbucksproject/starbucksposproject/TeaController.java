@@ -18,6 +18,9 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ResourceBundle;
 
+/**
+ * This class implements functions for the teas page.
+ */
 public class TeaController implements Initializable {
     Connection conn = null;
     private Stage stage;
@@ -47,6 +50,9 @@ public class TeaController implements Initializable {
     @FXML
     private Button menuItemSpecial10;
 
+    /**
+     * One of various buttons for the page; this one changes the size of the drink to small.
+     */
     @FXML
     protected void clickTall() {
         drinkSize = 0;
@@ -59,6 +65,14 @@ public class TeaController implements Initializable {
     protected void clickVenti() {
         drinkSize = 2;
     }
+
+    /**
+     * Changes the current page to the addons page. One of several with similar page changing functions.
+     *
+     * @param event An ActionEvent that represents the button being clicked.
+     * @throws IOException An exception caused if the input value is not expected.
+     *
+     */
     @FXML
     public void clickAddons(ActionEvent event) throws IOException {
         root = FXMLLoader.load(getClass().getResource("addons-gui.fxml"));
@@ -160,6 +174,10 @@ public class TeaController implements Initializable {
         CurrentOrderList.getInstance().completeTransaction();
 
     }
+
+    /**
+     * Buttons that check the number of specials against the current button to see if the item should be available.
+     */
 
     @FXML
     protected void clickSpecial1() {
