@@ -380,7 +380,7 @@ public class InventoryController implements Initializable {
         dialog.setHeaderText("Select an inventory name and initial quantity ");
         ButtonType selectButtonType = new ButtonType("Select", ButtonBar.ButtonData.OK_DONE);
         dialog.getDialogPane().getButtonTypes().addAll(selectButtonType, ButtonType.CANCEL);
-        ChoiceBox<String> inventoryChoiceBox = new ChoiceBox<>();
+//        ChoiceBox<String> inventoryChoiceBox = new ChoiceBox<>();
         TextField newNameField = new TextField();
         TextField quantityTextField = new TextField();
         quantityTextField.setText("0");
@@ -441,12 +441,13 @@ public class InventoryController implements Initializable {
 //        });
         costTextField.textProperty().addListener(action);
         dialog.getDialogPane().setContent(grid);
-        Platform.runLater(() -> inventoryChoiceBox.requestFocus());
+//        Platform.runLater(() -> inventoryChoiceBox.requestFocus());
         dialog.setResultConverter(dialogButton -> {
             if (dialogButton == selectButtonType) {
-                String selectedInventory = inventoryChoiceBox.getSelectionModel().getSelectedItem();
+                String selectedInventory = newNameField.getText();
                 String quantity = quantityTextField.getText();
-                return new Pair<>(selectedInventory, new Pair<>(quantity, costTextField.getText()));
+                // System.out.println(selectedInventory);
+                return new Pair<String, Pair<String, String>>(selectedInventory, new Pair<>(quantity, costTextField.getText()));
             }
             return null;
         });
@@ -459,16 +460,18 @@ public class InventoryController implements Initializable {
             java.util.Date date = new Date();
             String currDate = formatter.format(date);
             int maxId = 1;
-            try{
+            try {
                 Statement stmt = conn.createStatement();
                 ResultSet rs = stmt.executeQuery("SELECT max(inventory_id) FROM inventory");
                 rs.next();
                 maxId += rs.getInt("max");
-            } catch (SQLException e) {
+            }
+            catch (SQLException e) {
                 e.printStackTrace();
             }
-//                System.out.println("Selected Inventory: " + selectedInventory);
-//                System.out.println("Quantity: " + quantity);
+
+            System.out.println("inventory name: " + inventoryName);
+
             String updateInventory = "INSERT INTO inventory VALUES (" + maxId + ",'" + inventoryName + "'," + quantity + "," + currDate + "," + cost + ")";
             try {
                 Statement stmt = conn.createStatement();
