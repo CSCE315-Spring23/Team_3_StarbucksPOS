@@ -12,6 +12,9 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.sql.Connection;
 
+/**
+ * This class implements functions for the excess report page.
+ */
 public class ExcessReportController {
 	Connection conn = null;
 	private Stage stage;
