@@ -754,7 +754,7 @@ public class SalesController implements Initializable {
         GridPane grid = new GridPane();
         TableView<excessReportItem> tableView = new TableView<>();
         TableColumn<excessReportItem, String> itemNameCol = new TableColumn<>("Inventory Name");
-        itemNameCol.setCellValueFactory(new PropertyValueFactory<>("inventory"));
+        itemNameCol.setCellValueFactory(new PropertyValueFactory<>("item"));
         itemNameCol.prefWidthProperty().bind(tableView.widthProperty().multiply(0.7));
         TableColumn<excessReportItem, String> soldCol = new TableColumn<>("Amount Usec");
         soldCol.setCellValueFactory(new PropertyValueFactory<>("num"));
