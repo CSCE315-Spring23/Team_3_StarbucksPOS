@@ -23,6 +23,7 @@ import java.util.HashMap;
 import java.util.ResourceBundle;
 
 public abstract class CommonPOSController implements Initializable {
+	protected int drinkSize = 0;
 	Connection conn = null;
 	protected Stage stage;
 	protected Scene scene;
@@ -98,48 +99,51 @@ public abstract class CommonPOSController implements Initializable {
 			Statement stmt = conn.createStatement();
 			ResultSet rs = stmt.executeQuery("SELECT * FROM special_menu_items WHERE enabled=true");
 			while(rs.next()){
-				switch((rs.getInt("item_id")/10)%100){
-					case 1:
-						menuItemSpecial1.setDisable(false);
-						menuItemSpecial1.setText(rs.getString("display_name"));
-						break;
-					case 2:
-						menuItemSpecial2.setDisable(false);
-						menuItemSpecial2.setText(rs.getString("display_name"));
-						break;
-					case 3:
-						menuItemSpecial3.setDisable(false);
-						menuItemSpecial3.setText(rs.getString("display_name"));
-						break;
-					case 4:
-						menuItemSpecial4.setDisable(false);
-						menuItemSpecial4.setText(rs.getString("display_name"));
-						break;
-					case 5:
-						menuItemSpecial5.setDisable(false);
-						menuItemSpecial5.setText(rs.getString("display_name"));
-						break;
-					case 6:
-						menuItemSpecial6.setDisable(false);
-						menuItemSpecial6.setText(rs.getString("display_name"));
-						break;
-					case 7:
-						menuItemSpecial7.setDisable(false);
-						menuItemSpecial7.setText(rs.getString("display_name"));
-						break;
-					case 8:
-						menuItemSpecial8.setDisable(false);
-						menuItemSpecial8.setText(rs.getString("display_name"));
-						break;
-					case 9:
-						menuItemSpecial9.setDisable(false);
-						menuItemSpecial9.setText(rs.getString("display_name"));
-						break;
-					case 10:
-						menuItemSpecial10.setDisable(false);
-						menuItemSpecial10.setText(rs.getString("display_name"));
-						break;
+				int sizeSelected = rs.getInt("item_id") % 10;
+				if ((drinkSize == -1 && sizeSelected == 0) || (drinkSize != -1 && sizeSelected % 10 == 2)) {
+					switch ((rs.getInt("item_id") / 10) % 100) {
+						case 1:
+							menuItemSpecial1.setDisable(false);
+							menuItemSpecial1.setText(rs.getString("display_name"));
+							break;
+						case 2:
+							menuItemSpecial2.setDisable(false);
+							menuItemSpecial2.setText(rs.getString("display_name"));
+							break;
+						case 3:
+							menuItemSpecial3.setDisable(false);
+							menuItemSpecial3.setText(rs.getString("display_name"));
+							break;
+						case 4:
+							menuItemSpecial4.setDisable(false);
+							menuItemSpecial4.setText(rs.getString("display_name"));
+							break;
+						case 5:
+							menuItemSpecial5.setDisable(false);
+							menuItemSpecial5.setText(rs.getString("display_name"));
+							break;
+						case 6:
+							menuItemSpecial6.setDisable(false);
+							menuItemSpecial6.setText(rs.getString("display_name"));
+							break;
+						case 7:
+							menuItemSpecial7.setDisable(false);
+							menuItemSpecial7.setText(rs.getString("display_name"));
+							break;
+						case 8:
+							menuItemSpecial8.setDisable(false);
+							menuItemSpecial8.setText(rs.getString("display_name"));
+							break;
+						case 9:
+							menuItemSpecial9.setDisable(false);
+							menuItemSpecial9.setText(rs.getString("display_name"));
+							break;
+						case 10:
+							menuItemSpecial10.setDisable(false);
+							menuItemSpecial10.setText(rs.getString("display_name"));
+							break;
 
+					}
 				}
 			}
 			stmt.close();
@@ -313,13 +317,12 @@ public abstract class CommonPOSController implements Initializable {
 		CurrentOrderList.getInstance().completeTransaction();
 
 	}
-
 	/**
 	 * This button is the menu item button for special item 1
 	 */
 	@FXML
 	protected void clickSpecial1() {
-		CurrentOrderList.getInstance().addItem("999010");
+		CurrentOrderList.getInstance().addItem("99901" + (drinkSize + 1));
 		UpdateOrderList();
 		System.out.println(CurrentOrderList.getInstance().getCurrentOrder());
 	}
@@ -328,7 +331,7 @@ public abstract class CommonPOSController implements Initializable {
 	 */
 	@FXML
 	protected void clickSpecial2() {
-		CurrentOrderList.getInstance().addItem("999020");
+		CurrentOrderList.getInstance().addItem("99902" + (drinkSize + 1));
 		UpdateOrderList();
 		System.out.println(CurrentOrderList.getInstance().getCurrentOrder());
 	}
@@ -337,7 +340,7 @@ public abstract class CommonPOSController implements Initializable {
 	 */
 	@FXML
 	protected void clickSpecial3() {
-		CurrentOrderList.getInstance().addItem("999030");
+		CurrentOrderList.getInstance().addItem("99903" + (drinkSize + 1));
 		UpdateOrderList();
 		System.out.println(CurrentOrderList.getInstance().getCurrentOrder());
 	}
@@ -346,7 +349,7 @@ public abstract class CommonPOSController implements Initializable {
 	 */
 	@FXML
 	protected void clickSpecial4() {
-		CurrentOrderList.getInstance().addItem("999040");
+		CurrentOrderList.getInstance().addItem("99904" + (drinkSize + 1));
 		UpdateOrderList();
 		System.out.println(CurrentOrderList.getInstance().getCurrentOrder());
 	}
@@ -355,7 +358,7 @@ public abstract class CommonPOSController implements Initializable {
 	 */
 	@FXML
 	protected void clickSpecial5() {
-		CurrentOrderList.getInstance().addItem("999050");
+		CurrentOrderList.getInstance().addItem("99905" + (drinkSize + 1));
 		UpdateOrderList();
 		System.out.println(CurrentOrderList.getInstance().getCurrentOrder());
 	}
@@ -364,7 +367,7 @@ public abstract class CommonPOSController implements Initializable {
 	 */
 	@FXML
 	protected void clickSpecial6() {
-		CurrentOrderList.getInstance().addItem("999060");
+		CurrentOrderList.getInstance().addItem("99906" + (drinkSize + 1));
 		UpdateOrderList();
 		System.out.println(CurrentOrderList.getInstance().getCurrentOrder());
 	}
@@ -373,7 +376,7 @@ public abstract class CommonPOSController implements Initializable {
 	 */
 	@FXML
 	protected void clickSpecial7() {
-		CurrentOrderList.getInstance().addItem("999070");
+		CurrentOrderList.getInstance().addItem("99907" + (drinkSize + 1));
 		UpdateOrderList();
 		System.out.println(CurrentOrderList.getInstance().getCurrentOrder());
 	}
@@ -382,7 +385,7 @@ public abstract class CommonPOSController implements Initializable {
 	 */
 	@FXML
 	protected void clickSpecial8() {
-		CurrentOrderList.getInstance().addItem("999080");
+		CurrentOrderList.getInstance().addItem("99908" + (drinkSize + 1));
 		UpdateOrderList();
 		System.out.println(CurrentOrderList.getInstance().getCurrentOrder());
 	}
@@ -391,7 +394,7 @@ public abstract class CommonPOSController implements Initializable {
 	 */
 	@FXML
 	protected void clickSpecial9() {
-		CurrentOrderList.getInstance().addItem("999090");
+		CurrentOrderList.getInstance().addItem("99909" + (drinkSize + 1));
 		UpdateOrderList();
 		System.out.println(CurrentOrderList.getInstance().getCurrentOrder());
 	}
@@ -400,9 +403,13 @@ public abstract class CommonPOSController implements Initializable {
 	 */
 	@FXML
 	protected void clickSpecial10() {
-		CurrentOrderList.getInstance().addItem("999100");
+		CurrentOrderList.getInstance().addItem("99910" + (drinkSize + 1));
 		UpdateOrderList();
 		System.out.println(CurrentOrderList.getInstance().getCurrentOrder());
+	}
+
+	protected void setDrinkSize(int newSize){
+		drinkSize = newSize;
 	}
 
 }

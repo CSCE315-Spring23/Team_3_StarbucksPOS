@@ -1,11 +1,29 @@
 package com.starbucksproject.starbucksposproject;
 
 import javafx.fxml.FXML;
+
+import java.net.URL;
+import java.util.ResourceBundle;
+
 /**
  * The AddonsController.java class is responsible for implementing javafx buttons for the addon items in our database.
  */
 public class AddonsController extends CommonPOSController {
-
+    /**
+     * Ensures drinkSize is set to -1 such that special menu items call the right size
+     * @param location
+     * The location used to resolve relative paths for the root object, or
+     * {@code null} if the location is not known.
+     *
+     * @param resources
+     * The resources used to localize the root object, or {@code null} if
+     * the root object was not localized.
+     */
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        setDrinkSize(-1);
+        super.initialize(location, resources);
+    }
     @FXML
     protected void clickEspressoShot() {
         CurrentOrderList.getInstance().addItem("102001");
