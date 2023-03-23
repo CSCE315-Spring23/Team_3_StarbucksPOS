@@ -243,6 +243,11 @@ public class ZReportController implements Initializable {
 		}
 	}
 
+	/**This implements button functionality when a user enters a date they want the see report for and hits
+	 * enter, it will attempt to get the Z-report on that day.
+	 * @param event
+	 * @throws IOException
+	 */
 	@FXML
 	protected void clickZEnter(ActionEvent event) throws  IOException{
 			try {
@@ -252,6 +257,12 @@ public class ZReportController implements Initializable {
 			}
 
 	}
+
+	/**This implements button functionality when a user enters a date they want the see report for and hits
+	 * enter, it will attempt to get the X-report on that day.
+	 * @param event
+	 * @throws IOException
+	 */
 	@FXML
 	protected void clickXEnter(ActionEvent event) throws  IOException{
 		try {
@@ -348,6 +359,9 @@ public class ZReportController implements Initializable {
 
 	}
 
+	/**Gets the current date and transform it to yymmdd format
+	 * @return
+	 */
 	private String createNewDate() {
 		Date today = new Date();
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyMMdd");

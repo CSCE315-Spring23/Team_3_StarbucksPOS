@@ -18,22 +18,38 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ResourceBundle;
 
+/**
+ * This class implements button functionality of tea menu items.
+ */
 public class TeaController extends CommonPOSController {
 
     int drinkSize = 0;
 
+    /**
+     * This button lets the user specify the drink is size tall.
+     */
     @FXML
     protected void clickTall() {
         drinkSize = 0;
     }
+    /**
+     * This button lets the user specify the drink is size grande.
+     */
     @FXML
     protected void clickGrande() {
         drinkSize = 1;
     }
+    /**
+     * This button lets the user specify the drink is size venti.
+     */
     @FXML
     protected void clickVenti() {
         drinkSize = 2;
     }
+
+    /**
+     * This button lets the user add hot tea to the order in size tall, grande, or venti.
+     */
     @FXML
     protected void clickHotTea() {
         if (drinkSize == 0) {
@@ -46,6 +62,10 @@ public class TeaController extends CommonPOSController {
         UpdateOrderList();
         System.out.println(CurrentOrderList.getInstance().getCurrentOrder());
     }
+
+    /**
+     * This button lets the user add brewed tea to the order in size tall, grande, or venti.
+     */
     @FXML
     protected void clickBrewedTea() {
         if (drinkSize == 0) {
@@ -58,6 +78,9 @@ public class TeaController extends CommonPOSController {
         UpdateOrderList();
         System.out.println(CurrentOrderList.getInstance().getCurrentOrder());
     }
+    /**
+     * This button lets the user add green tea to the order in size tall, grande, or venti.
+     */
     @FXML
     protected void clickGreenTea() {
         if (drinkSize == 0) {
@@ -70,6 +93,9 @@ public class TeaController extends CommonPOSController {
         UpdateOrderList();
         System.out.println(CurrentOrderList.getInstance().getCurrentOrder());
     }
+    /**
+     * This button lets the user add ho chi minh tea to the order in size tall, grande, or venti.
+     */
     @FXML
     protected void clickHoChiMinhTea() {
         if (drinkSize == 0) {
@@ -82,6 +108,9 @@ public class TeaController extends CommonPOSController {
         UpdateOrderList();
         System.out.println(CurrentOrderList.getInstance().getCurrentOrder());
     }
+    /**
+     * This button lets the user add tazo chai tea to the order in size tall, grande, or venti.
+     */
     @FXML
     protected void clickTazoChaiTea() {
         if (drinkSize == 0) {
@@ -94,6 +123,9 @@ public class TeaController extends CommonPOSController {
         UpdateOrderList();
         System.out.println(CurrentOrderList.getInstance().getCurrentOrder());
     }
+    /**
+     * This button lets the user add iced tea lemonade to the order in size tall, grande, or venti.
+     */
     @FXML
     protected void clickIcedTeaLemonade() {
         if (drinkSize == 0) {
@@ -106,6 +138,9 @@ public class TeaController extends CommonPOSController {
         UpdateOrderList();
         System.out.println(CurrentOrderList.getInstance().getCurrentOrder());
     }
+    /**
+     * This button lets the user add tavalon black tea to the order in size tall, grande, or venti.
+     */
     @FXML
     protected void clickTavalonBlackTea() {
         if (drinkSize == 0) {
@@ -118,6 +153,9 @@ public class TeaController extends CommonPOSController {
         UpdateOrderList();
         System.out.println(CurrentOrderList.getInstance().getCurrentOrder());
     }
+    /**
+     * This button lets the user add tavalon green tea to the order in size tall, grande, or venti.
+     */
     @FXML
     protected void clickTavalonGreenTea() {
         if (drinkSize == 0) {
@@ -130,6 +168,9 @@ public class TeaController extends CommonPOSController {
         UpdateOrderList();
         System.out.println(CurrentOrderList.getInstance().getCurrentOrder());
     }
+    /**
+     * This button lets the user add strawberry refresher to the order in size tall, grande, or venti.
+     */
     @FXML
     protected void clickStrawberryRefresher() {
         if (drinkSize == 0) {
@@ -142,6 +183,9 @@ public class TeaController extends CommonPOSController {
         UpdateOrderList();
         System.out.println(CurrentOrderList.getInstance().getCurrentOrder());
     }
+    /**
+     * This button lets the user add strawberry lemonade refresher to the order in size tall, grande, or venti.
+     */
     @FXML
     protected void clickStrawberryLemonadeRefresher() {
         if (drinkSize == 0) {
@@ -154,6 +198,9 @@ public class TeaController extends CommonPOSController {
         UpdateOrderList();
         System.out.println(CurrentOrderList.getInstance().getCurrentOrder());
     }
+    /**
+     * This button lets the user add pink drink to the order in size tall, grande, or venti.
+     */
     @FXML
     protected void clickPinkDrink() {
         if (drinkSize == 0) {
@@ -166,6 +213,9 @@ public class TeaController extends CommonPOSController {
         UpdateOrderList();
         System.out.println(CurrentOrderList.getInstance().getCurrentOrder());
     }
+    /**
+     * This button lets the user add mango refresher to the order in size tall, grande, or venti.
+     */
     @FXML
     protected void clickMangoRefresher() {
         if (drinkSize == 0) {
@@ -178,6 +228,9 @@ public class TeaController extends CommonPOSController {
         UpdateOrderList();
         System.out.println(CurrentOrderList.getInstance().getCurrentOrder());
     }
+    /**
+     * This button lets the user add lemonade refresher to the order in size tall, grande, or venti.
+     */
     @FXML
     protected void clickMangoLemonadeRefresher() {
         if (drinkSize == 0) {
@@ -190,6 +243,9 @@ public class TeaController extends CommonPOSController {
         UpdateOrderList();
         System.out.println(CurrentOrderList.getInstance().getCurrentOrder());
     }
+    /**
+     * This button lets the user add dragon drink to the order in size tall, grande, or venti.
+     */
     @FXML
     protected void clickDragonDrink() {
         if (drinkSize == 0) {
@@ -202,6 +258,9 @@ public class TeaController extends CommonPOSController {
         UpdateOrderList();
         System.out.println(CurrentOrderList.getInstance().getCurrentOrder());
     }
+    /**
+     * This button lets the user add hibiscus refresher to the order in size tall, grande, or venti.
+     */
     @FXML
     protected void clickHibiscusRefresher() {
         if (drinkSize == 0) {

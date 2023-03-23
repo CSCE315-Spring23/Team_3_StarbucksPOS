@@ -416,6 +416,9 @@ public class MenuItemsController implements Initializable {
 
     }
 
+    /**
+     * This button will open a popup menu where the user can select a menu item and change its menu price
+     */
     @FXML
     protected void clickChangeMenuItem() {
 

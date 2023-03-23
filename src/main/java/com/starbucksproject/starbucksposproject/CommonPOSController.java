@@ -22,6 +22,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.ResourceBundle;
 
+/**
+ * This class implements functionally for creating and adding new menu items to the POS.
+ */
 public abstract class CommonPOSController implements Initializable {
 	protected int drinkSize = 0;
 	Connection conn = null;
@@ -154,6 +157,9 @@ public abstract class CommonPOSController implements Initializable {
 
 	}
 
+	/**
+	 * This function will update the order list each time a new item is added to the list.
+	 */
 	public void UpdateOrderList(){
 		try {
 			ArrayList<String> curr = CurrentOrderList.getInstance().getCurrentOrder();

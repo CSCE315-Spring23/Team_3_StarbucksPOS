@@ -244,6 +244,9 @@ public class TransactionsController implements Initializable {
 
     }
 
+    /**This function will execute a query given to it
+     * @param query
+     */
     private void processQuery(String query) {
         try {
             Statement stmt = conn.createStatement();
@@ -255,6 +258,11 @@ public class TransactionsController implements Initializable {
         }
     }
 
+    /**This function will request a query given the query and a column name
+     * @param query
+     * @param columnName
+     * @return
+     */
     private String requestQuery(String query, String columnName) {
         String returnString = "";
         try {
@@ -273,6 +281,9 @@ public class TransactionsController implements Initializable {
         return returnString;
     }
 
+    /**
+     * This function will update the sales row in the sales table for a given day.
+     */
     public void updateSalesForDay() {
         // update the total to the DB (SAM)
         String currDate = createNewDate();
@@ -283,6 +294,9 @@ public class TransactionsController implements Initializable {
         updateSales(currDate);
     }
 
+    /**This function will get today's date and transform it to yymmdd format and return it.
+     * @return
+     */
     private String createNewDate() {
         Date today = new Date();
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyMMdd");
@@ -299,15 +313,24 @@ public class TransactionsController implements Initializable {
 //        processQuery("INSERT INTO sales (week) VALUES ("+);
 //    }
 
+    /**This function will update the year column for a sale given the current date.
+     * @param currDate
+     */
     private void updateYear(String currDate) {
         processQuery("UPDATE sales SET year = 20"+currDate.substring(0,2)+" WHERE date=" + currDate);
     }
 
+    /**This function makes a new row in sales not a gameday
+     * @param currDate
+     */
     private void updateGameDay(String currDate) {
         // Just make it false
         processQuery("INSERT INTO sales (game_day) VALUES (false) WHERE date=" + currDate);
     }
 
+    /**This function adds a total to the total column for a new sale in the table
+     * @param currDate
+     */
     private void updateSales(String currDate) {
         // Create the query
         String query = updateSalesQuery();
@@ -317,6 +340,9 @@ public class TransactionsController implements Initializable {
         processQuery("UPDATE transactions SET total=" + total + " WHERE transaction_date=" + currDate);
     }
 
+    /**This function will total up all transactions that occured on a date
+     * @return
+     */
     private String updateSalesQuery() {
         String latestDateQuery = "SELECT MAX(transaction_date) from transactions";// write query to get the latest date
         // request the query
@@ -325,6 +351,11 @@ public class TransactionsController implements Initializable {
         return "SELECT SUM(total) from transactions WHERE transaction_Date =" + latestDate;
     }
 
+    /**This function will add two arrays and return the summed array
+     * @param arr1
+     * @param arr2
+     * @return
+     */
     private static float[] addArrays(float[] arr1, float[] arr2) {
         if (arr1.length != arr2.length) {
             throw new IllegalArgumentException("Input arrays must have the same length");
@@ -339,7 +370,13 @@ public class TransactionsController implements Initializable {
     }
 
 
-
+    /**This function will return a hashmap of items that are in excess between beginDate and endDate
+     * @param beginDate
+     * @param endDate
+     * @return
+     *
+     * @throws ParseException
+     */
     public HashMap<String, Float> getExcessReport(String beginDate, String endDate) throws ParseException {
         String[] ingredientsList = getIngredientsList();
         float[] amountsList = getFloatArray(beginDate, endDate);
@@ -355,6 +392,13 @@ public class TransactionsController implements Initializable {
         return hashMap;
     }
 
+    /**This function will return an array of dates that occur from beginDate to endDate
+     * @param beginDate
+     * @param endDate
+     * @return
+     *
+     * @throws ParseException
+     */
     private float[] getFloatArray(String beginDate, String endDate) throws ParseException {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyMMdd");
         Date startDate = dateFormat.parse(beginDate);
@@ -380,6 +424,9 @@ public class TransactionsController implements Initializable {
         return returnAmount;
     }
 
+    /**This function returns an array of ingredients that a specific menu item uses.
+     * @return
+     */
     private String[] getIngredientsList() {
         String[] inventoryArray = new String[84];
         try {
@@ -403,6 +450,10 @@ public class TransactionsController implements Initializable {
         return inventoryArray;
     }
 
+    /**This function will return an array of the amount of ingredients sold on a specific day
+     * @param day
+     * @return
+     */
     public float[] getInventoryForDay(String day) {
         float[] floatArray = new float[85];
         Arrays.fill(floatArray, 0f);

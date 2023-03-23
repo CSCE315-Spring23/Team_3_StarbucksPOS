@@ -523,6 +523,12 @@ public class SalesController implements Initializable {
         }
     }
 
+    /**This function returns a hashmap that has an item's primary key and how many times that item was sold
+     * between the two dates entered in the parameters.
+     * @param beginDate
+     * @param endDate
+     * @return
+     */
     public static HashMap<String, Integer> getSalesItemReport(String beginDate, String endDate) {
         HashMap<String, Integer> hashMap = new HashMap<>();
         ArrayList<String> orderList = getOrderList(beginDate, endDate);
@@ -544,6 +550,11 @@ public class SalesController implements Initializable {
         return hashMap;
     }
 
+    /**This function splits up the order list so it can be parsed. Order lists are primary keys separated by commas
+     * this function just removes the commas. It returns the parsed list
+     * @param str
+     * @return
+     */
     private static ArrayList<Integer> splitOrderString(String str) {
         String[] strArr = str.split(","); // split the string on commas
         strArr[0] = strArr[0].replace("{", "");
@@ -557,6 +568,11 @@ public class SalesController implements Initializable {
         return intList;
     }
 
+    /**This function retrieves the order lists between the beginDate and endDate and returns them in an arraylist.
+     * @param beginDate
+     * @param endDate
+     * @return
+     */
     private static ArrayList<String> getOrderList(String beginDate, String endDate) {
         String query = "SELECT order_list FROM transactions WHERE transaction_date BETWEEN "+ beginDate +" AND " + endDate;
         // Set 1 as beginDate and 2 as endDate
@@ -576,6 +592,11 @@ public class SalesController implements Initializable {
         return orderLists;
     }
 
+    /**This function returns all the dates between beginDate and endDate and puts them in an integer array
+     * @param beginDate
+     * @param endDate
+     * @return
+     */
     private static int[] getAllDates(String beginDate, String endDate) {
         // Convert the input dates to LocalDate objects
         LocalDate startDate = LocalDate.parse(beginDate, DateTimeFormatter.ofPattern("yyMMdd"));
@@ -596,6 +617,9 @@ public class SalesController implements Initializable {
         return allDates;
     }
 
+    /**This function returns a float array of Z-reports
+     * @return
+     */
     public static float[] getZReport() {
         float[] returnArray = {230322f, 13462.98f};
         TransactionsController newTrans = new TransactionsController();
@@ -607,6 +631,9 @@ public class SalesController implements Initializable {
         return returnArray;
     }
 
+    /**This gets today's date and converts it to yymmdd format and returns that value.
+     * @return
+     */
     private static float getCurrentDate() {
         LocalDate now = LocalDate.now();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyMMdd");
@@ -614,7 +641,10 @@ public class SalesController implements Initializable {
         float dateInt = Float.parseFloat(dateStr);
         return dateInt;
     }
-
+    /**This function calls a query that will get the sales of the date that was fed into the parameter.
+     * @param date
+     * @return
+     */
     private static float getSalesForDay(float date) {
         String query = "SELECT sales FROM sales WHERE date=" + (int) date;
 
@@ -662,6 +692,11 @@ public class SalesController implements Initializable {
             this.num = num;
         }
     }
+
+    /**This button will display a itemized sales report showing each item, and amount of it sold.
+     * @param event
+     * @throws IOException
+     */
     public void clickSalesItemReport(ActionEvent event) throws IOException {
         clickSalesBounded();
         HashMap<String, Integer> salesItemReport = getSalesItemReport(startDatePrivate, endDatePrivate);
@@ -724,6 +759,12 @@ public class SalesController implements Initializable {
             this.num = num;
         }
     }
+
+    /**This button will display the products that did not sell more than 10% of their inventory during a time period.
+     * Excess report deliverable
+     * @param event
+     * @throws IOException
+     */
     public void clickExcessReport(ActionEvent event) throws IOException {
         try {
             clickSalesBounded();
@@ -770,6 +811,11 @@ public class SalesController implements Initializable {
 
     }
 
+    /**This function returns a hashmap of each item that has an excess of inventory.
+     * @return
+     *
+     * @throws ParseException
+     */
     public HashMap<String, Double> getExcessReport() throws ParseException {
         ArrayList<String> ingredientsList = getIngredientsList();
         if (ingredientsList == null){
@@ -788,6 +834,13 @@ public class SalesController implements Initializable {
         return hashMap;
     }
 
+    /**This function takes in a start date and end date and returns a double array of dates from start to end
+     * @param beginDate
+     * @param endDate
+     * @return
+     *
+     * @throws ParseException
+     */
     private double[] getFloatArray(String beginDate, String endDate) throws ParseException {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyMMdd");
         Date startDate = dateFormat.parse(beginDate);
@@ -813,6 +866,9 @@ public class SalesController implements Initializable {
         return returnAmount;
     }
 
+    /**This returns a list of ingredients that a menu item uses
+     * @return
+     */
     private ArrayList<String> getIngredientsList() {
         try {
             Statement stmt = conn.createStatement();
@@ -835,6 +891,10 @@ public class SalesController implements Initializable {
         }
     }
 
+    /**This function returns a double array that shows the amount of inventory that was sold on a particular day.
+     * @param day
+     * @return
+     */
     public Double[] getInventoryForDay(String day) {
         conn = DBConnection.getInstance().getConnection();
         Double[] floatArray;
@@ -862,6 +922,11 @@ public class SalesController implements Initializable {
         return null;
     }
 
+    /**This function adds two array together.
+     * @param arr1
+     * @param arr2
+     * @return
+     */
     private static double[] addArrays(Double[] arr1, double[] arr2) {
         if (arr1.length != arr2.length) {
             throw new IllegalArgumentException("Input arrays must have the same length");

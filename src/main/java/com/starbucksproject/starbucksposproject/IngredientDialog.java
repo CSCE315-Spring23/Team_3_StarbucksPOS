@@ -17,11 +17,17 @@ import javafx.util.converter.DoubleStringConverter;
 
 import java.util.ArrayList;
 
+/**
+ * This class creates the dialog for adding ingredients to a menu item
+ */
 public class IngredientDialog extends Dialog<ObservableList<Pair<String, Double>>> {
 
 	private TableView<Pair<Boolean, Pair<String, Double>>> table;
 	private ButtonType okButton;
 
+	/**This function takes a menu item and prompts user to add the inventory and quantity of the menu item
+	 * @param ingredientList
+	 */
 	public IngredientDialog(ArrayList<String> ingredientList) {
 		setTitle("Ingredient Dialog");
 		setHeaderText("Please select the ingredients and quantities used:");
