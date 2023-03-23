@@ -15,18 +15,16 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
 import java.text.ParseException;
-import java.util.Calendar;
-import java.util.Date;
+import java.util.*;
 
 import java.io.IOException;
 import java.net.URL;
 import java.sql.*;
 import java.text.SimpleDateFormat;
-import java.util.HashMap;
-import java.util.ResourceBundle;
+import java.util.Date;
 
 public class TransactionsController implements Initializable {
-    Connection conn = null;
+    Connection conn = DBConnection.getInstance().getConnection();
     private Stage stage;
     private Scene scene;
     private Parent root;
@@ -84,6 +82,22 @@ public class TransactionsController implements Initializable {
     @FXML
     protected void clickEmployees(ActionEvent event) throws IOException {
         root = FXMLLoader.load(getClass().getResource("employees-gui.fxml"));
+        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
+    @FXML
+    protected void clickZReport(ActionEvent event) throws IOException {
+        root = FXMLLoader.load(getClass().getResource("z-report-gui.fxml"));
+        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
+    @FXML
+    protected void clickExcessReport(ActionEvent event) throws IOException {
+        root = FXMLLoader.load(getClass().getResource("excess-report-gui.fxml"));
         stage = (Stage)((Node)event.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
@@ -229,8 +243,37 @@ public class TransactionsController implements Initializable {
         return "SELECT SUM(total) from transactions WHERE transaction_Date =" + latestDate;
     }
 
-    public HashMap<Integer, Double> getExcessReport(String beginDate, String endDate) throws ParseException {
-        HashMap<Integer, Double> map = new HashMap<Integer, Double>();
+    private static float[] addArrays(float[] arr1, float[] arr2) {
+        if (arr1.length != arr2.length) {
+            throw new IllegalArgumentException("Input arrays must have the same length");
+        }
+
+        float[] result = new float[arr1.length];
+        for (int i = 0; i < arr1.length; i++) {
+            result[i] = arr1[i] + arr2[i];
+        }
+
+        return result;
+    }
+
+
+
+    public HashMap<String, Float> getExcessReport(String beginDate, String endDate) throws ParseException {
+        String[] ingredientsList = getIngredientsList();
+        float[] amountsList = getFloatArray(beginDate, endDate);
+
+        HashMap<String, Float> hashMap = new HashMap<String, Float>();
+
+        for (int i = 0; i < ingredientsList.length; i++) {
+            String key = ingredientsList[i];
+            Float value = amountsList[i];
+            hashMap.put(key, value);
+        }
+
+        return hashMap;
+    }
+
+    private float[] getFloatArray(String beginDate, String endDate) throws ParseException {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyMMdd");
         Date startDate = dateFormat.parse(beginDate);
         Date endDateObj = dateFormat.parse(endDate);
@@ -238,30 +281,67 @@ public class TransactionsController implements Initializable {
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(startDate);
 
-        double currAmt = 0;
+        float[] returnAmount = new float[84];
+        Arrays.fill(returnAmount, 0.0f);
 
         while (calendar.getTime().before(endDateObj)) {
             Date currentDate = calendar.getTime();
-            currAmt = getInventoryForDay(currentDate);
             String dateString = dateFormat.format(currentDate);
-            int dateInt = Integer.parseInt(dateString);
-            map.put(dateInt, currAmt);
+            float[] currAmount = getInventoryForDay(dateString);
+            returnAmount = addArrays(currAmount, returnAmount);
+
             calendar.add(Calendar.DATE, 1);
         }
-        currAmt = getInventoryForDay(endDateObj);
-        String dateString = dateFormat.format(endDateObj);
-        int dateInt = Integer.parseInt(dateString);
-        map.put(dateInt, currAmt);
 
-        return map;
+        System.out.println(dateFormat.format(endDateObj));
+
+        return returnAmount;
     }
 
-    public double getInventoryForDay(Date day) {
+    private String[] getIngredientsList() {
+        String[] inventoryArray = new String[84];
+        try {
+            Statement stmt = conn.createStatement();
 
-        return 0.0;
+            String sql = "SELECT inventory_name FROM inventory";
+            ResultSet rs = stmt.executeQuery(sql);
+
+            ArrayList<String> inventoryNames = new ArrayList<String>();
+            while (rs.next()) {
+                String inventoryName = rs.getString("inventory_name");
+                inventoryNames.add(inventoryName);
+            }
+
+            inventoryArray = inventoryNames.toArray(new String[inventoryNames.size()]);
+
+            conn.close();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return inventoryArray;
     }
 
-    public HashMap<String, Integer> getSalesReportByItem(String begin, String end) {
-        return null;
+    public float[] getInventoryForDay(String day) {
+        float[] floatArray = new float[85];
+        Arrays.fill(floatArray, 0f);
+        try {
+            String sql = "SELECT ingredient_amounts FROM inventory_history WHERE date = ?"; // Replace with your SQL query
+            PreparedStatement statement = conn.prepareStatement(sql);
+            statement.setString(1, day); // Replace with the date you want to retrieve the ingredient amounts for
+
+            ResultSet result = statement.executeQuery();
+            if (result.next()) {
+                Array ingredientArray = result.getArray("ingredient_amounts");
+                floatArray = (float[]) ingredientArray.getArray();
+
+                // Do something with the float array here...
+
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.err.println(e.getClass().getName() + ": " + e.getMessage());
+            System.exit(0);
+        }
+        return floatArray;
     }
 }

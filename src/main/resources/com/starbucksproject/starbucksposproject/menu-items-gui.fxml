@@ -47,6 +47,16 @@
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </padding>
             </Button>
+            <Button fx:id="ZReportButton" mnemonicParsing="false" onAction="#clickZReport" prefHeight="37.0" prefWidth="154.0" text="Z Report">
+               <padding>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </padding>
+            </Button>
+            <Button fx:id="excessReportButton" mnemonicParsing="false" onAction="#clickExcessReport" prefHeight="37.0" prefWidth="154.0" text="Excess Report">
+               <padding>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </padding>
+            </Button>
             <Button fx:id="backButton" mnemonicParsing="false" onAction="#clickBack" text="Logout">
                <padding>
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />

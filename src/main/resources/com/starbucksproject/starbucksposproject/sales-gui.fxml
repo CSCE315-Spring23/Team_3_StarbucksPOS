@@ -10,7 +10,7 @@
 
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.starbucksproject.starbucksposproject.SalesController">
    <children>
-      <HBox alignment="CENTER" layoutX="297.0" layoutY="32.0" prefHeight="62.0" prefWidth="805.0" spacing="25.0">
+      <HBox alignment="CENTER" layoutX="297.0" layoutY="32.0" prefHeight="62.0" prefWidth="1000.0" spacing="25.0">
          <children>
             <Button fx:id="serverMenu" mnemonicParsing="false" onAction="#clickServer" prefHeight="37.0" prefWidth="108.0" text="Server Menu">
                <padding>
@@ -27,18 +27,28 @@
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </padding>
             </Button>
-            <Button mnemonicParsing="false" onAction="#clickMenuItems" prefHeight="37.0" prefWidth="73.0" text="Menu Items" />
-            <Button fx:id="salesButton" mnemonicParsing="false" onAction="#clickSales" text="Sales" textFill="RED">
+            <Button mnemonicParsing="false" onAction="#clickMenuItems" prefHeight="37.0" prefWidth="107.0" text="Menu Items" />
+            <Button fx:id="salesButton" mnemonicParsing="false" onAction="#clickSales" prefHeight="37.0" prefWidth="107.0" text="Sales" textFill="RED">
                <padding>
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </padding>
             </Button>
-            <Button fx:id="transactionsButton" mnemonicParsing="false" onAction="#clickTransactions" text="Transactions">
+            <Button fx:id="transactionsButton" mnemonicParsing="false" onAction="#clickTransactions" prefHeight="37.0" prefWidth="107.0" text="Transactions">
                <padding>
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </padding>
             </Button>
-            <Button fx:id="employeesButton" mnemonicParsing="false" onAction="#clickEmployees" text="Employees">
+            <Button fx:id="employeesButton" mnemonicParsing="false" onAction="#clickEmployees" prefHeight="37.0" prefWidth="107.0" text="Employees">
+               <padding>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </padding>
+            </Button>
+            <Button fx:id="ZReportButton" mnemonicParsing="false" onAction="#clickZReport" prefHeight="37.0" prefWidth="154.0" text="Show Z Report">
+               <padding>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </padding>
+            </Button>
+            <Button fx:id="excessReportButton" mnemonicParsing="false" onAction="#clickExcessReport" prefHeight="37.0" prefWidth="154.0" text="Show Excess Report">
                <padding>
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </padding>

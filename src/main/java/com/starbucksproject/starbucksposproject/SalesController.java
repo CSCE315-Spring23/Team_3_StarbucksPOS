@@ -21,6 +21,8 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.*;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Optional;
@@ -99,6 +101,22 @@ public class SalesController implements Initializable {
         stage.show();
     }
     @FXML
+    protected void clickZReport(ActionEvent event) throws IOException {
+        root = FXMLLoader.load(getClass().getResource("z-report-gui.fxml"));
+        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
+    @FXML
+    protected void clickExcessReport(ActionEvent event) throws IOException {
+        root = FXMLLoader.load(getClass().getResource("excess-report-gui.fxml"));
+        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
+    @FXML
     protected void clickBack(ActionEvent event) throws IOException{
         root = FXMLLoader.load(getClass().getResource("pos-view.fxml"));
         stage = (Stage)((Node)event.getSource()).getScene().getWindow();
@@ -128,8 +146,8 @@ public class SalesController implements Initializable {
         ChoiceBox<String> inventoryChoiceBox = new ChoiceBox<>();
         TextField fromDate = new TextField();
         TextField toDate = new TextField();
-        fromDate.setText("000000");
-        toDate.setText("000000");
+        fromDate.setText("YYMMDD");
+        toDate.setText("YYMMDD");
 
         // Creates the pop-up box
         GridPane grid = new GridPane();
@@ -224,7 +242,6 @@ public class SalesController implements Initializable {
             PreparedStatement tableQuery = conn.prepareStatement(query);
             ResultSet response = tableQuery.executeQuery();
             ObservableList<SalesItem> items = FXCollections.observableArrayList();
-
             // Populates table with columns
             ObservableList<TableColumn> columns = salesTable.getColumns();
             columns.get(0).setCellValueFactory(new PropertyValueFactory<>("day"));
@@ -306,5 +323,48 @@ public class SalesController implements Initializable {
             System.err.println(e.getClass().getName() + ": " + e.getMessage());
 //            System.exit(0);
         }
+    }
+
+    public static float[] getZReport() {
+        float[] returnArray = {230322f, 13462.98f};
+        TransactionsController newTrans = new TransactionsController();
+        newTrans.updateSalesForDay();
+
+        returnArray[0] = getCurrentDate();
+        returnArray[1] = getSalesForDay(returnArray[0]);
+
+        return returnArray;
+    }
+
+    private static float getCurrentDate() {
+        LocalDate now = LocalDate.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyMMdd");
+        String dateStr = now.format(formatter);
+        float dateInt = Float.parseFloat(dateStr);
+        return dateInt;
+    }
+
+    private static float getSalesForDay(float date) {
+        String query = "SELECT sales FROM sales WHERE date=" + (int) date;
+
+
+        Connection conn=DBConnection.getInstance().getConnection();
+        float returnFloat = 0f;
+        try {
+            Statement stmt = conn.createStatement();
+            ResultSet resSet = stmt.executeQuery(query);
+            if (resSet.next()) {
+                returnFloat = resSet.getFloat("sales");
+            } else {
+                System.out.println("No results returned in requestQuery.");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.err.println(e.getClass().getName() + ": " + e.getMessage());
+            System.exit(0);
+        }
+
+        return returnFloat;
+
     }
 }
