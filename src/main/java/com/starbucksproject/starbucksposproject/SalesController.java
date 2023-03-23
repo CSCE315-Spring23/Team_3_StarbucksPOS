@@ -557,6 +557,19 @@ public class SalesController implements Initializable {
         return intList;
     }
 
+    private static ArrayList<Float> splitAmtString(String str) {
+        String[] strArr = str.split(","); // split the string on commas
+        strArr[0] = strArr[0].replace("{", "");
+        strArr[strArr.length-1] = strArr[strArr.length-1].replace("}", "");
+        ArrayList<Float> intList = new ArrayList<>(); // create a new ArrayList to store the integers
+
+        for (String s : strArr) {
+            intList.add(Float.parseFloat(s)); // convert each string to an integer and add to the list
+        }
+
+        return intList;
+    }
+
     private static ArrayList<String> getOrderList(String beginDate, String endDate) {
         String query = "SELECT order_list FROM transactions WHERE transaction_date BETWEEN "+ beginDate +" AND " + endDate;
         // Set 1 as beginDate and 2 as endDate
@@ -713,103 +726,79 @@ public class SalesController implements Initializable {
     }
 
     public HashMap<String, Float> getExcessReport() throws ParseException {
-        String[] ingredientsList = getIngredientsList();
-        double[] amountsList = getFloatArray(startDatePrivate, endDatePrivate);
+        ArrayList<String> ingredientsList = getIngredientsList();
+        HashMap<String, Float> hashMap = new HashMap<>();
+        String key;
+        ArrayList<Float> amtInventory = getAmtInventory();
+        for (String str : ingredientsList) { hashMap.put(str, 0f); }
 
-        HashMap<String, Float> hashMap = new HashMap<String, Float>();
+        conn = DBConnection.getInstance().getConnection();
+        try {
+            Statement statement = conn.createStatement();
+            String query = "SELECT ingredient_amounts FROM inventory_history WHERE date BETWEEN "+startDatePrivate+" AND " + endDatePrivate;
+            ResultSet itr = statement.executeQuery(query);
+            while (itr.next()) {
+                ArrayList<Float> amounts = splitAmtString(itr.getString("ingredient_amounts"));
+                for (int i=0; i < amounts.size(); i++) {
+                    key = hashMap.keySet().toArray()[i].toString();
+                    float currAmt = hashMap.get(key);
+                    hashMap.put(key, currAmt + amounts.get(i));
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.err.println(e.getClass().getName() + ": " + e.getMessage());
+        }
 
-        for (int i = 0; i < ingredientsList.length; i++) {
-            String key = ingredientsList[i];
-            Float value = (float) amountsList[i];
-            hashMap.put(key, value);
+        Iterator<Map.Entry<String, Float>> iterator = hashMap.entrySet().iterator();
+        int i=0;
+        while (iterator.hasNext()) {
+            Map.Entry<String, Float> entry = iterator.next();
+            float ratio = entry.getValue() / amtInventory.get(i);
+            ratio = Math.round(ratio * 10)/10;
+            if (ratio > 0.1 || amtInventory.get(i) == 0) {
+                iterator.remove();
+            }
+            i++;
         }
 
         return hashMap;
     }
 
-    private double[] getFloatArray(String beginDate, String endDate) throws ParseException {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyMMdd");
-        Date startDate = dateFormat.parse(beginDate);
-        Date endDateObj = dateFormat.parse(endDate);
+    private ArrayList<Float> getAmtInventory() {
+        ArrayList<Float> inventoryNames = new ArrayList<>();;
+        try {
+            Statement stmt = conn.createStatement();
 
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTime(startDate);
+            String sql = "SELECT quantity FROM inventory";
+            ResultSet rs = stmt.executeQuery(sql);
 
-        double[] returnAmount = new double[84];
-        Arrays.fill(returnAmount, 0.0f);
-
-        while (calendar.getTime().before(endDateObj)) {
-            Date currentDate = calendar.getTime();
-            String dateString = dateFormat.format(currentDate);
-            double[] currAmount = getInventoryForDay(dateString);
-            returnAmount = addArrays(currAmount, returnAmount);
-
-            calendar.add(Calendar.DATE, 1);
+            while (rs.next()) {
+                float inventoryAmt = rs.getFloat("quantity");
+                inventoryNames.add(inventoryAmt);
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
         }
+        return inventoryNames;
 
-        System.out.println(dateFormat.format(endDateObj));
-
-        return returnAmount;
     }
 
-    private String[] getIngredientsList() {
-        String[] inventoryArray = new String[84];
+    private ArrayList<String> getIngredientsList() {
+        ArrayList<String> inventoryNames = new ArrayList<>();;
         try {
             Statement stmt = conn.createStatement();
 
             String sql = "SELECT inventory_name FROM inventory";
             ResultSet rs = stmt.executeQuery(sql);
 
-            ArrayList<String> inventoryNames = new ArrayList<String>();
             while (rs.next()) {
                 String inventoryName = rs.getString("inventory_name");
                 inventoryNames.add(inventoryName);
             }
-
-            inventoryArray = inventoryNames.toArray(new String[inventoryNames.size()]);
-
-//            conn.close();
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
-        return inventoryArray;
+        return inventoryNames;
     }
-
-    public double[] getInventoryForDay(String day) {
-        conn = DBConnection.getInstance().getConnection();
-        double[] floatArray = new double[85];
-        Arrays.fill(floatArray, 0f);
-        try {
-            String sql = "SELECT ingredient_amounts FROM inventory_history WHERE date = " + day;
-            Statement statement = conn.createStatement();
-
-            ResultSet result = statement.executeQuery(sql);
-            if (result.next()) {
-                Array ingredientArray = result.getArray("ingredient_amounts");
-                floatArray = (double[]) ingredientArray.getArray();
-            }
-
-            statement.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-            System.err.println(e.getClass().getName() + ": " + e.getMessage());
-            System.exit(0);
-        }
-        return floatArray;
-    }
-
-    private static double[] addArrays(double[] arr1, double[] arr2) {
-        if (arr1.length != arr2.length) {
-            throw new IllegalArgumentException("Input arrays must have the same length");
-        }
-
-        double[] result = new double[arr1.length];
-        for (int i = 0; i < arr1.length; i++) {
-            result[i] = arr1[i] + arr2[i];
-        }
-
-        return result;
-    }
-
-
 }
