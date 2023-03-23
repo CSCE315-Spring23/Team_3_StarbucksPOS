@@ -134,18 +134,7 @@ public class EmployeesController implements Initializable {
         stage.setScene(scene);
         stage.show();
     }
-    /**This button opens the excess report scene
-     * @param event
-     * @throws IOException
-     */
-    @FXML
-    protected void clickExcessReport(ActionEvent event) throws IOException {
-        root = FXMLLoader.load(getClass().getResource("excess-report-gui.fxml"));
-        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-        scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
-    }
+
     /**This button takes the user to the login scene
      * @param event
      * @throws IOException
