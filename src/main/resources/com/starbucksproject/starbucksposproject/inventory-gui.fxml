@@ -8,9 +8,9 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1920" prefWidth="1080" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.starbucksproject.starbucksposproject.InventoryController">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080" prefWidth="1920" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.starbucksproject.starbucksposproject.InventoryController">
    <children>
-      <VBox alignment="CENTER" prefHeight="800.0" prefWidth="1000.0">
+      <VBox alignment="CENTER" layoutX="257.0" layoutY="74.0" prefHeight="800.0" prefWidth="1000.0">
          <children>
             <HBox alignment="CENTER" prefHeight="62.0" prefWidth="1000.0" spacing="25.0">
                <children>
@@ -45,12 +45,12 @@
                         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                      </padding>
                   </Button>
-                  <Button fx:id="ZReportButton" mnemonicParsing="false" onAction="#clickZReport" prefHeight="37.0" prefWidth="154.0" text="Show Z Report">
+                  <Button fx:id="ZReportButton" mnemonicParsing="false" onAction="#clickZReport" prefHeight="37.0" prefWidth="154.0" text="Z Report">
                      <padding>
                         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                      </padding>
                   </Button>
-                  <Button fx:id="excessReportButton" mnemonicParsing="false" onAction="#clickExcessReport" prefHeight="37.0" prefWidth="154.0" text="Show Excess Report">
+                  <Button fx:id="excessReportButton" mnemonicParsing="false" onAction="#clickExcessReport" prefHeight="37.0" prefWidth="154.0" text="Excess Report">
                      <padding>
                         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                      </padding>
@@ -80,11 +80,6 @@
                      </padding>
                   </Button>
                   <Button fx:id="menuItemChangeInventoryItemCost" mnemonicParsing="false" onAction="#clickChangeInventoryCost" prefHeight="37.0" prefWidth="175.0" text="Change Inventory Cost">
-                     <padding>
-                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                     </padding>
-                  </Button>
-                  <Button fx:id="menuItemExcessReport" mnemonicParsing="false" onAction="#clickExcessReport" prefHeight="37.0" prefWidth="125.0" text="Excess Report">
                      <padding>
                         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                      </padding>

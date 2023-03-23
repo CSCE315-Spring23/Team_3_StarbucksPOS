@@ -130,7 +130,7 @@ public class ManagerController {
     }
 
     /**
-     * Changes the current page to the inventory page.
+     * Changes the current page to the menu items page.
      *
      * @param event An ActionEvent that represents the button being clicked.
      * @throws IOException An exception caused if the input value is not expected.
@@ -176,6 +176,14 @@ public class ManagerController {
         stage.setScene(scene);
         stage.show();
     }
+
+    /**
+     * Changes the current page to the Z report page.
+     *
+     * @param event An ActionEvent that represents the button being clicked.
+     * @throws IOException An exception caused if the input value is not expected.
+     *
+     */
     @FXML
     protected void clickZReport(ActionEvent event) throws IOException {
         root = FXMLLoader.load(getClass().getResource("z-report-gui.fxml"));
@@ -185,6 +193,13 @@ public class ManagerController {
         stage.show();
     }
 
+    /**
+     * Changes the current page to the Excess Report page.
+     *
+     * @param event An ActionEvent that represents the button being clicked.
+     * @throws IOException An exception caused if the input value is not expected.
+     *
+     */
     @FXML
     protected void clickExcessReport(ActionEvent event) throws IOException {
         root = FXMLLoader.load(getClass().getResource("excess-report-gui.fxml"));

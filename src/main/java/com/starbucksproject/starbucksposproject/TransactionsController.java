@@ -23,6 +23,9 @@ import java.sql.*;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+/**
+ * Implements all functions for the Transactions page.
+ */
 public class TransactionsController implements Initializable {
     Connection conn = DBConnection.getInstance().getConnection();
     private Stage stage;
@@ -31,6 +34,14 @@ public class TransactionsController implements Initializable {
 
     @FXML
     private TableView transactionsTable;
+
+    /**
+     * Changes the current page to the main server page.
+     *
+     * @param event An ActionEvent that represents the button being clicked.
+     * @throws IOException An exception caused if the input value is not expected.
+     *
+     */
     @FXML
     protected void clickServer(ActionEvent event) throws IOException {
         root = FXMLLoader.load(getClass().getResource("coffee-gui.fxml"));
@@ -39,6 +50,14 @@ public class TransactionsController implements Initializable {
         stage.setScene(scene);
         stage.show();
     }
+
+    /**
+     * Changes the current page to the inventory page.
+     *
+     * @param event An ActionEvent that represents the button being clicked.
+     * @throws IOException An exception caused if the input value is not expected.
+     *
+     */
     @FXML
     protected void clickInventory(ActionEvent event) throws IOException {
         root = FXMLLoader.load(getClass().getResource("inventory-gui.fxml"));
@@ -47,6 +66,14 @@ public class TransactionsController implements Initializable {
         stage.setScene(scene);
         stage.show();
     }
+
+    /**
+     * Changes the current page to the low stock page.
+     *
+     * @param event An ActionEvent that represents the button being clicked.
+     * @throws IOException An exception caused if the input value is not expected.
+     *
+     */
     @FXML
     protected void clickLowStockItems(ActionEvent event) throws IOException {
         root = FXMLLoader.load(getClass().getResource("low-stock-gui.fxml"));
@@ -55,6 +82,14 @@ public class TransactionsController implements Initializable {
         stage.setScene(scene);
         stage.show();
     }
+
+    /**
+     * Changes the current page to the menu items page.
+     *
+     * @param event An ActionEvent that represents the button being clicked.
+     * @throws IOException An exception caused if the input value is not expected.
+     *
+     */
     @FXML
     protected void clickMenuItems(ActionEvent event) throws IOException {
         root = FXMLLoader.load(getClass().getResource("menu-items-gui.fxml"));
@@ -63,6 +98,13 @@ public class TransactionsController implements Initializable {
         stage.setScene(scene);
         stage.show();
     }
+    /**
+     * Changes the current page to the sales page.
+     *
+     * @param event An ActionEvent that represents the button being clicked.
+     * @throws IOException An exception caused if the input value is not expected.
+     *
+     */
     @FXML
     protected void clickSales(ActionEvent event) throws IOException {
         root = FXMLLoader.load(getClass().getResource("sales-gui.fxml"));
@@ -71,6 +113,14 @@ public class TransactionsController implements Initializable {
         stage.setScene(scene);
         stage.show();
     }
+
+    /**
+     * Changes the current page to the transactions page.
+     *
+     * @param event An ActionEvent that represents the button being clicked.
+     * @throws IOException An exception caused if the input value is not expected.
+     *
+     */
     @FXML
     protected void clickTransactions(ActionEvent event) throws IOException {
         root = FXMLLoader.load(getClass().getResource("transactions-gui.fxml"));
@@ -79,6 +129,14 @@ public class TransactionsController implements Initializable {
         stage.setScene(scene);
         stage.show();
     }
+
+    /**
+     * Changes the current page to the employees page.
+     *
+     * @param event An ActionEvent that represents the button being clicked.
+     * @throws IOException An exception caused if the input value is not expected.
+     *
+     */
     @FXML
     protected void clickEmployees(ActionEvent event) throws IOException {
         root = FXMLLoader.load(getClass().getResource("employees-gui.fxml"));
@@ -87,6 +145,14 @@ public class TransactionsController implements Initializable {
         stage.setScene(scene);
         stage.show();
     }
+
+    /**
+     * Changes the current page to the Z report page.
+     *
+     * @param event An ActionEvent that represents the button being clicked.
+     * @throws IOException An exception caused if the input value is not expected.
+     *
+     */
     @FXML
     protected void clickZReport(ActionEvent event) throws IOException {
         root = FXMLLoader.load(getClass().getResource("z-report-gui.fxml"));
@@ -95,6 +161,14 @@ public class TransactionsController implements Initializable {
         stage.setScene(scene);
         stage.show();
     }
+
+    /**
+     * Changes the current page to the excess report page.
+     *
+     * @param event An ActionEvent that represents the button being clicked.
+     * @throws IOException An exception caused if the input value is not expected.
+     *
+     */
     @FXML
     protected void clickExcessReport(ActionEvent event) throws IOException {
         root = FXMLLoader.load(getClass().getResource("excess-report-gui.fxml"));
@@ -103,6 +177,14 @@ public class TransactionsController implements Initializable {
         stage.setScene(scene);
         stage.show();
     }
+
+    /**
+     * Changes the current page to the main POS page.
+     *
+     * @param event An ActionEvent that represents the button being clicked.
+     * @throws IOException An exception caused if the input value is not expected.
+     *
+     */
     @FXML
     protected void clickBack(ActionEvent event) throws IOException {
         root = FXMLLoader.load(getClass().getResource("pos-view.fxml"));
