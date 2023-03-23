@@ -23,6 +23,9 @@ import java.util.Optional;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
+/**
+ * This class implements functions used on the Low Stock items controller.
+ */
 public class LowStockItemsController implements Initializable {
     Connection conn = null;
     private Stage stage;

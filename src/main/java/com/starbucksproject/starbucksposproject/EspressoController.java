@@ -10,10 +10,16 @@ public class EspressoController extends CommonPOSController {
     protected void clickTall() {
         drinkSize = 0;
     }
+    /**
+     * This button sets the drink size to grande
+     */
     @FXML
     protected void clickGrande() {
         drinkSize = 1;
     }
+    /**
+     * This button sets the drink size to venti
+     */
     @FXML
     protected void clickVenti() {
         drinkSize = 2;
@@ -29,6 +35,9 @@ public class EspressoController extends CommonPOSController {
         }
         System.out.println(CurrentOrderList.getInstance().getCurrentOrder());
     }
+    /**
+     * This button adds iced americano to the order list in either size tall, grande, or venti
+     */
     @FXML
     protected void clickIcedAmericano() {
         if (drinkSize == 0) {
@@ -40,6 +49,9 @@ public class EspressoController extends CommonPOSController {
         }
         System.out.println(CurrentOrderList.getInstance().getCurrentOrder());
     }
+    /**
+     * This button adds cappuccino to the order list in either size tall, grande, or venti
+     */
     @FXML
     protected void clickCappuccino() {
         if (drinkSize == 0) {
@@ -51,6 +63,9 @@ public class EspressoController extends CommonPOSController {
         }
         System.out.println(CurrentOrderList.getInstance().getCurrentOrder());
     }
+    /**
+     * This button adds latte to the order list in either size tall, grande, or venti
+     */
     @FXML
     protected void clickLatte() {
         if (drinkSize == 0) {
@@ -62,6 +77,9 @@ public class EspressoController extends CommonPOSController {
         }
         System.out.println(CurrentOrderList.getInstance().getCurrentOrder());
     }
+    /**
+     * This button adds iced latte to the order list in either size tall, grande, or venti
+     */
     @FXML
     protected void clickIcedLatte() {
         if (drinkSize == 0) {
@@ -73,6 +91,9 @@ public class EspressoController extends CommonPOSController {
         }
         System.out.println(CurrentOrderList.getInstance().getCurrentOrder());
     }
+    /**
+     * This button adds cinnamon dolce latte to the order list in either size tall, grande, or venti
+     */
     @FXML
     protected void clickCinnamonDolceLatte() {
         if (drinkSize == 0) {
@@ -84,6 +105,9 @@ public class EspressoController extends CommonPOSController {
         }
         System.out.println(CurrentOrderList.getInstance().getCurrentOrder());
     }
+    /**
+     * This button adds iced cinnamon dolce latte to the order list in either size tall, grande, or venti
+     */
     @FXML
     protected void clickIcedCinnamonDolceLatte() {
         if (drinkSize == 0) {
@@ -95,6 +119,9 @@ public class EspressoController extends CommonPOSController {
         }
         System.out.println(CurrentOrderList.getInstance().getCurrentOrder());
     }
+    /**
+     * This button adds caramel macchiato to the order list in either size tall, grande, or venti
+     */
     @FXML
     protected void clickCaramelMacchiato() {
         if (drinkSize == 0) {
@@ -106,6 +133,9 @@ public class EspressoController extends CommonPOSController {
         }
         System.out.println(CurrentOrderList.getInstance().getCurrentOrder());
     }
+    /**
+     * This button adds iced caramel macchiato to the order list in either size tall, grande, or venti
+     */
     @FXML
     protected void clickIcedCaramelMacchiato() {
         if (drinkSize == 0) {
@@ -117,6 +147,9 @@ public class EspressoController extends CommonPOSController {
         }
         System.out.println(CurrentOrderList.getInstance().getCurrentOrder());
     }
+    /**
+     * This button adds coconut macchiato to the order list in either size tall, grande, or venti
+     */
     @FXML
     protected void clickCoconutMacchiato() {
         if (drinkSize == 0) {
@@ -128,6 +161,9 @@ public class EspressoController extends CommonPOSController {
         }
         System.out.println(CurrentOrderList.getInstance().getCurrentOrder());
     }
+    /**
+     * This button adds iced cocounut macchiato to the order list in either size tall, grande, or venti
+     */
     @FXML
     protected void clickIcedCoconutMacchiato() {
         if (drinkSize == 0) {
@@ -139,6 +175,9 @@ public class EspressoController extends CommonPOSController {
         }
         System.out.println(CurrentOrderList.getInstance().getCurrentOrder());
     }
+    /**
+     * This button adds mocha drink to the order list in either size tall, grande, or venti
+     */
     @FXML
     protected void clickMocha() {
         if (drinkSize == 0) {
@@ -150,6 +189,9 @@ public class EspressoController extends CommonPOSController {
         }
         System.out.println(CurrentOrderList.getInstance().getCurrentOrder());
     }
+    /**
+     * This button adds iced mocha drink to the order list in either size tall, grande, or venti
+     */
     @FXML
     protected void clickIcedMocha() {
         if (drinkSize == 0) {
@@ -161,6 +203,9 @@ public class EspressoController extends CommonPOSController {
         }
         System.out.println(CurrentOrderList.getInstance().getCurrentOrder());
     }
+    /**
+     * This button adds white mocha drink to the order list in either size tall, grande, or venti
+     */
     @FXML
     protected void clickWhiteMocha() {
         if (drinkSize == 0) {
@@ -172,6 +217,9 @@ public class EspressoController extends CommonPOSController {
         }
         System.out.println(CurrentOrderList.getInstance().getCurrentOrder());
     }
+    /**
+     * This button adds iced white mocha drink to the order list in either size tall, grande, or venti
+     */
     @FXML
     protected void clickIcedWhiteMocha() {
         if (drinkSize == 0) {
@@ -183,6 +231,9 @@ public class EspressoController extends CommonPOSController {
         }
         System.out.println(CurrentOrderList.getInstance().getCurrentOrder());
     }
+    /**
+     * This button adds coconut mocha to the order list in either size tall, grande, or venti
+     */
     @FXML
     protected void clickCoconutMocha() {
         if (drinkSize == 0) {
@@ -194,6 +245,9 @@ public class EspressoController extends CommonPOSController {
         }
         System.out.println(CurrentOrderList.getInstance().getCurrentOrder());
     }
+    /**
+     * This button adds iced coconut mocha to the order list in either size tall, grande, or venti
+     */
     @FXML
     protected void clickIcedCoconutMocha() {
         if (drinkSize == 0) {
@@ -205,6 +259,9 @@ public class EspressoController extends CommonPOSController {
         }
         System.out.println(CurrentOrderList.getInstance().getCurrentOrder());
     }
+    /**
+     * This button adds black white mocha to the order list in either size tall, grande, or venti
+     */
     @FXML
     protected void clickBlackWhiteMocha() {
         if (drinkSize == 0) {
@@ -216,6 +273,9 @@ public class EspressoController extends CommonPOSController {
         }
         System.out.println(CurrentOrderList.getInstance().getCurrentOrder());
     }
+    /**
+     * This button adds iced black white mocha to the order list in either size tall, grande, or venti
+     */
     @FXML
     protected void clickIcedBlackWhiteMocha() {
         if (drinkSize == 0) {
@@ -227,21 +287,33 @@ public class EspressoController extends CommonPOSController {
         }
         System.out.println(CurrentOrderList.getInstance().getCurrentOrder());
     }
+    /**
+     * This button adds solo espresso to the order list
+     */
     @FXML
     protected void clickSolo() {
         CurrentOrderList.getInstance().addItem("103031");
         System.out.println(CurrentOrderList.getInstance().getCurrentOrder());
     }
+    /**
+     * This button adds double espresso to the order list
+     */
     @FXML
     protected void clickDouble() {
         CurrentOrderList.getInstance().addItem("103032");
         System.out.println(CurrentOrderList.getInstance().getCurrentOrder());
     }
+    /**
+     * This button adds triple espresso to the order list
+     */
     @FXML
     protected void clickTriple() {
         CurrentOrderList.getInstance().addItem("103033");
         System.out.println(CurrentOrderList.getInstance().getCurrentOrder());
     }
+    /**
+     * This button adds quad espresso to the order list
+     */
     @FXML
     protected void clickQuad() {
         CurrentOrderList.getInstance().addItem("103034");

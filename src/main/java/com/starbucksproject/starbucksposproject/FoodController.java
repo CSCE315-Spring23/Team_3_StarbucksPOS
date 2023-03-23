@@ -88,6 +88,7 @@ public class FoodController extends CommonPOSController {
         CurrentOrderList.getInstance().addItem("201016");
         System.out.println(CurrentOrderList.getInstance().getCurrentOrder());
     }
+
     @FXML
     protected void clickZoesCookie() {
         CurrentOrderList.getInstance().addItem("201020");

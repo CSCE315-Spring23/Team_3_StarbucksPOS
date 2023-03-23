@@ -10,12 +10,16 @@ public class CoffeeController extends CommonPOSController {
     protected void clickTall() {
         drinkSize = 0;
     }
-
+    /**
+     * This button makes the drink size grande
+     */
     @FXML
     protected void clickGrande() {
         drinkSize = 1;
     }
-
+    /**
+     * This button makes the drink size venti
+     */
     @FXML
     protected void clickVenti() {
         drinkSize = 2;
@@ -33,12 +37,17 @@ public class CoffeeController extends CommonPOSController {
         System.out.println(CurrentOrderList.getInstance().getCurrentOrder());
     }
 
+    /**
+     * This button adds coffee traveller to the order list
+     */
     @FXML
     protected void clickCoffeeTraveller() {
         CurrentOrderList.getInstance().addItem("101014");
         System.out.println(CurrentOrderList.getInstance().getCurrentOrder());
     }
-
+    /**
+     * This button adds iced coffee to the order list in either tall, grande, or venti
+     */
     @FXML
     protected void clickIcedCoffee() {
         if (drinkSize == 0) {
@@ -51,6 +60,9 @@ public class CoffeeController extends CommonPOSController {
         System.out.println(CurrentOrderList.getInstance().getCurrentOrder());
     }
 
+    /**
+     * This button adds cafe lait to the order list in either tall, grande, or venti
+     */
     @FXML
     protected void clickCafeLait() {
         if (drinkSize == 0) {
@@ -62,7 +74,9 @@ public class CoffeeController extends CommonPOSController {
         }
         System.out.println(CurrentOrderList.getInstance().getCurrentOrder());
     }
-
+    /**
+     * This button adds cold brew to the order list in either tall, grande, or venti
+     */
     @FXML
     protected void clickColdBrew() {
         if (drinkSize == 0) {
@@ -75,6 +89,9 @@ public class CoffeeController extends CommonPOSController {
         System.out.println(CurrentOrderList.getInstance().getCurrentOrder());
     }
 
+    /**
+     * This button adds coffee refill to the order list
+     */
     @FXML
     protected void clickCoffeeRefill() {
         CurrentOrderList.getInstance().addItem("101013");

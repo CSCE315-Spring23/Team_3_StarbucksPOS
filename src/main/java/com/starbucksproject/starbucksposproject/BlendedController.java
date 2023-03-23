@@ -10,10 +10,16 @@ public class BlendedController extends CommonPOSController {
     protected void clickTall() {
         drinkSize = 0;
     }
+    /**
+     * This button makes a drink grande size
+     */
     @FXML
     protected void clickGrande() {
         drinkSize = 1;
     }
+    /**
+     * This button makes a venti tall size
+     */
     @FXML
     protected void clickVenti() {
         drinkSize = 2;
@@ -29,6 +35,9 @@ public class BlendedController extends CommonPOSController {
         }
         System.out.println(CurrentOrderList.getInstance().getCurrentOrder());
     }
+    /**
+     * This button adds a espresso frap to order list of either size tall, grande, venti
+     */
     @FXML
     protected void  clickEspressoFrappuccino() {
         if (drinkSize == 0) {
@@ -40,6 +49,9 @@ public class BlendedController extends CommonPOSController {
         }
         System.out.println(CurrentOrderList.getInstance().getCurrentOrder());
     }
+    /**
+     * This button adds a mocha frap to order list of either size tall, grande, venti
+     */
     @FXML
     protected void clickMochaFrappuccino() {
         if (drinkSize == 0) {
@@ -51,6 +63,9 @@ public class BlendedController extends CommonPOSController {
         }
         System.out.println(CurrentOrderList.getInstance().getCurrentOrder());
     }
+    /**
+     * This button adds a white mocha frap to order list of either size tall, grande, venti
+     */
     @FXML
     protected void clickWhiteMochaFrappuccino() {
         if (drinkSize == 0) {
@@ -62,6 +77,9 @@ public class BlendedController extends CommonPOSController {
         }
         System.out.println(CurrentOrderList.getInstance().getCurrentOrder());
     }
+    /**
+     * This button adds a caramel frap to order list of either size tall, grande, venti
+     */
     @FXML
     protected void clickCaramelFrappuccino() {
         if (drinkSize == 0) {
@@ -73,6 +91,9 @@ public class BlendedController extends CommonPOSController {
         }
         System.out.println(CurrentOrderList.getInstance().getCurrentOrder());
     }
+    /**
+     * This button adds a java chip frap to order list of either size tall, grande, venti
+     */
     @FXML
     protected void clickJavaChipFrappuccino() {
         if (drinkSize == 0) {
@@ -84,6 +105,9 @@ public class BlendedController extends CommonPOSController {
         }
         System.out.println(CurrentOrderList.getInstance().getCurrentOrder());
     }
+    /**
+     * This button adds a vanilla bean creme frap to order list of either size tall, grande, venti
+     */
     @FXML
     protected void clickVanillaBeanCremeCrappuccino() {
         if (drinkSize == 0) {
@@ -95,6 +119,9 @@ public class BlendedController extends CommonPOSController {
         }
         System.out.println(CurrentOrderList.getInstance().getCurrentOrder());
     }
+    /**
+     * This button adds a strawberry creme frap to order list of either size tall, grande, venti
+     */
     @FXML
     protected void clickStrawberryCremeFrappuccino() {
         if (drinkSize == 0) {
@@ -106,6 +133,9 @@ public class BlendedController extends CommonPOSController {
         }
         System.out.println(CurrentOrderList.getInstance().getCurrentOrder());
     }
+    /**
+     * This button adds a double chocolate creme frap to order list of either size tall, grande, venti
+     */
     @FXML
     protected void clickDoubleChocolateCremeFrappuccino() {
         if (drinkSize == 0) {
@@ -117,6 +147,9 @@ public class BlendedController extends CommonPOSController {
         }
         System.out.println(CurrentOrderList.getInstance().getCurrentOrder());
     }
+    /**
+     * This button adds a matcha creme frap to order list of either size tall, grande, venti
+     */
     @FXML
     protected void clickMatchaCremeFrappuccino() {
         if (drinkSize == 0) {
@@ -128,16 +161,25 @@ public class BlendedController extends CommonPOSController {
         }
         System.out.println(CurrentOrderList.getInstance().getCurrentOrder());
     }
+    /**
+     * This button adds a blueberry smoothies to order list of either size tall, grande, venti
+     */
     @FXML
     protected void clickBlueberrySmoothie() {
         CurrentOrderList.getInstance().addItem("105028");
         System.out.println(CurrentOrderList.getInstance().getCurrentOrder());
     }
+    /**
+     * This button adds a pomegranate smoothies to order list of either size tall, grande, venti
+     */
     @FXML
     protected void clickPomegranateSmoothie() {
         CurrentOrderList.getInstance().addItem("105029");
         System.out.println(CurrentOrderList.getInstance().getCurrentOrder());
     }
+    /**
+     * This button adds a mango smoothies to order list of either size tall, grande, venti
+     */
     @FXML
     protected void clickMangoSmoothie() {
         CurrentOrderList.getInstance().addItem("105030");

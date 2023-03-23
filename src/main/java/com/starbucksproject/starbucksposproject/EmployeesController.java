@@ -22,6 +22,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 
+/**
+ * This class is the server controller. It contains all the privileges a regular starbucks barista would have.
+ */
 public class EmployeesController implements Initializable {
     Connection conn = null;
     private Stage stage;
@@ -30,6 +33,12 @@ public class EmployeesController implements Initializable {
 
     @FXML
     private TableView employeesTable;
+
+    /**
+     * @param event
+     * @throws IOException
+     * Activates the server screen (defaults to cofees)
+     */
     @FXML
     protected void clickServer(ActionEvent event) throws IOException {
         root = FXMLLoader.load(getClass().getResource("coffee-gui.fxml"));
@@ -38,6 +47,12 @@ public class EmployeesController implements Initializable {
         stage.setScene(scene);
         stage.show();
     }
+
+    /**
+     * @param event
+     * @throws IOException
+     * Opens the inventory scene that shows the current inventory status of all items in the database
+     */
     @FXML
     protected void clickInventory(ActionEvent event) throws IOException {
         root = FXMLLoader.load(getClass().getResource("inventory-gui.fxml"));
@@ -46,6 +61,11 @@ public class EmployeesController implements Initializable {
         stage.setScene(scene);
         stage.show();
     }
+
+    /**This button opens the restock report scene
+     * @param event
+     * @throws IOException
+     */
     @FXML
     protected void clickLowStockItems(ActionEvent event) throws IOException {
         root = FXMLLoader.load(getClass().getResource("low-stock-gui.fxml"));
@@ -54,6 +74,10 @@ public class EmployeesController implements Initializable {
         stage.setScene(scene);
         stage.show();
     }
+    /**This button opens the menu items scene
+     * @param event
+     * @throws IOException
+     */
     @FXML
     protected void clickMenuItems(ActionEvent event) throws IOException {
         root = FXMLLoader.load(getClass().getResource("menu-items-gui.fxml"));
@@ -62,6 +86,10 @@ public class EmployeesController implements Initializable {
         stage.setScene(scene);
         stage.show();
     }
+    /**This button opens the sales table scene
+     * @param event
+     * @throws IOException
+     */
     @FXML
     protected void clickSales(ActionEvent event) throws IOException {
         root = FXMLLoader.load(getClass().getResource("sales-gui.fxml"));
@@ -70,6 +98,10 @@ public class EmployeesController implements Initializable {
         stage.setScene(scene);
         stage.show();
     }
+    /**This button opens the transactions table scene
+     * @param event
+     * @throws IOException
+     */
     @FXML
     protected void clickTransactions(ActionEvent event) throws IOException {
         root = FXMLLoader.load(getClass().getResource("transactions-gui.fxml"));
@@ -78,6 +110,10 @@ public class EmployeesController implements Initializable {
         stage.setScene(scene);
         stage.show();
     }
+    /**This button opens the employee list scene
+     * @param event
+     * @throws IOException
+     */
     @FXML
     protected void clickEmployees(ActionEvent event) throws IOException {
         root = FXMLLoader.load(getClass().getResource("employees-gui.fxml"));
@@ -86,6 +122,10 @@ public class EmployeesController implements Initializable {
         stage.setScene(scene);
         stage.show();
     }
+    /**This button opens the Z-report scene
+     * @param event
+     * @throws IOException
+     */
     @FXML
     protected void clickZReport(ActionEvent event) throws IOException {
         root = FXMLLoader.load(getClass().getResource("z-report-gui.fxml"));
@@ -94,6 +134,10 @@ public class EmployeesController implements Initializable {
         stage.setScene(scene);
         stage.show();
     }
+    /**This button opens the excess report scene
+     * @param event
+     * @throws IOException
+     */
     @FXML
     protected void clickExcessReport(ActionEvent event) throws IOException {
         root = FXMLLoader.load(getClass().getResource("excess-report-gui.fxml"));
@@ -102,6 +146,10 @@ public class EmployeesController implements Initializable {
         stage.setScene(scene);
         stage.show();
     }
+    /**This button takes the user to the login scene
+     * @param event
+     * @throws IOException
+     */
     @FXML
     protected void clickBack(ActionEvent event) throws IOException {
         root = FXMLLoader.load(getClass().getResource("pos-view.fxml"));
@@ -111,6 +159,15 @@ public class EmployeesController implements Initializable {
         stage.show();
     }
 
+    /**
+     * Called to initialize a controller after its root element has been
+     * completely processed. Used in this context to set up the database and load list of employees.
+     *
+     * @param location  The location used to resolve relative paths for the root object, or
+     *                  {@code null} if the location is not known.
+     * @param resources The resources used to localize the root object, or {@code null} if
+     *                  the root object was not localized.
+     */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         conn = DBConnection.getInstance().getConnection();

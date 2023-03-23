@@ -43,6 +43,12 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.concurrent.atomic.AtomicBoolean;
 
+/**
+ * The ZReportController class implements functions for the buttons of the Z report page,
+ * notably those for showing a Z report for an individual date and showing the X report
+ * of all transactions summed since the last Z report, as well as being able to reset to see
+ * the full list of Z reports.
+ */
 public class ZReportController implements Initializable {
 	Connection conn = null;
 	private Stage stage;
@@ -60,7 +66,6 @@ public class ZReportController implements Initializable {
 	 *
 	 * @param event An ActionEvent that represents the button being clicked.
 	 * @throws IOException An exception caused if the input value is not expected.
-	 *
 	 */
 	@FXML
 	protected void clickServer(ActionEvent event) throws IOException {
@@ -86,6 +91,13 @@ public class ZReportController implements Initializable {
 		stage.setScene(scene);
 		stage.show();
 	}
+	/**
+	 * Changes the current page to the low stock items page.
+	 *
+	 * @param event An ActionEvent that represents the button being clicked.
+	 * @throws IOException An exception caused if the input value is not expected.
+	 *
+	 */
 	@FXML
 	protected void clickLowStockItems(ActionEvent event) throws IOException {
 		root = FXMLLoader.load(getClass().getResource("low-stock-gui.fxml"));
@@ -94,6 +106,14 @@ public class ZReportController implements Initializable {
 		stage.setScene(scene);
 		stage.show();
 	}
+
+	/**
+	 * Changes the current page to the sales page.
+	 *
+	 * @param event An ActionEvent that represents the button being clicked.
+	 * @throws IOException An exception caused if the input value is not expected.
+	 *
+	 */
 	@FXML
 	protected void clickSales(ActionEvent event) throws IOException {
 		root = FXMLLoader.load(getClass().getResource("sales-gui.fxml"));
@@ -102,6 +122,13 @@ public class ZReportController implements Initializable {
 		stage.setScene(scene);
 		stage.show();
 	}
+	/**
+	 * Changes the current page to the transactions page.
+	 *
+	 * @param event An ActionEvent that represents the button being clicked.
+	 * @throws IOException An exception caused if the input value is not expected.
+	 *
+	 */
 	@FXML
 	protected void clickTransactions(ActionEvent event) throws IOException {
 		root = FXMLLoader.load(getClass().getResource("transactions-gui.fxml"));
@@ -110,6 +137,14 @@ public class ZReportController implements Initializable {
 		stage.setScene(scene);
 		stage.show();
 	}
+
+	/**
+	 * Changes the current page to the menu itmes page.
+	 *
+	 * @param event An ActionEvent that represents the button being clicked.
+	 * @throws IOException An exception caused if the input value is not expected.
+	 *
+	 */
 	@FXML
 	protected void clickMenuItems(ActionEvent event) throws IOException {
 		root = FXMLLoader.load(getClass().getResource("menu-items-gui.fxml"));
@@ -118,6 +153,14 @@ public class ZReportController implements Initializable {
 		stage.setScene(scene);
 		stage.show();
 	}
+
+	/**
+	 * Changes the current page to the employees page.
+	 *
+	 * @param event An ActionEvent that represents the button being clicked.
+	 * @throws IOException An exception caused if the input value is not expected.
+	 *
+	 */
 	@FXML
 	protected void clickEmployees(ActionEvent event) throws IOException {
 		root = FXMLLoader.load(getClass().getResource("employees-gui.fxml"));
@@ -126,6 +169,14 @@ public class ZReportController implements Initializable {
 		stage.setScene(scene);
 		stage.show();
 	}
+
+	/**
+	 * Changes the current page to the main POS page.
+	 *
+	 * @param event An ActionEvent that represents the button being clicked.
+	 * @throws IOException An exception caused if the input value is not expected.
+	 *
+	 */
 	@FXML
 	protected void clickBack(ActionEvent event) throws IOException {
 		root = FXMLLoader.load(getClass().getResource("pos-view.fxml"));
@@ -134,6 +185,13 @@ public class ZReportController implements Initializable {
 		stage.setScene(scene);
 		stage.show();
 	}
+	/**
+	 * Changes the current page to the Z report page.
+	 *
+	 * @param event An ActionEvent that represents the button being clicked.
+	 * @throws IOException An exception caused if the input value is not expected.
+	 *
+	 */
 	@FXML
 	protected void clickZReport(ActionEvent event) throws IOException {
 		root = FXMLLoader.load(getClass().getResource("z-report-gui.fxml"));
@@ -142,6 +200,14 @@ public class ZReportController implements Initializable {
 		stage.setScene(scene);
 		stage.show();
 	}
+
+	/**
+	 * Changes the current page to the excess report page.
+	 *
+	 * @param event An ActionEvent that represents the button being clicked.
+	 * @throws IOException An exception caused if the input value is not expected.
+	 *
+	 */
 	@FXML
 	protected void clickExcessReport(ActionEvent event) throws IOException {
 		root = FXMLLoader.load(getClass().getResource("excess-report-gui.fxml"));
@@ -151,6 +217,12 @@ public class ZReportController implements Initializable {
 		stage.show();
 	}
 
+	/**
+	 * Searches for a Z report on a specific date, showing only that Z report.
+	 *
+	 * @param event An ActionEvent that represents the button being clicked.
+	 * @throws IOException An exception caused if the input value is not expected.
+	 */
 	protected void searchZDate(ActionEvent event){
 		String inputDate = zDate.getText();
 		conn = DBConnection.getInstance().getConnection();
@@ -205,6 +277,16 @@ public class ZReportController implements Initializable {
 		}
 
 	}
+
+	/**
+	 * Called to initialize a controller after its root element has been
+	 * completely processed.
+	 *
+	 * @param location  The location used to resolve relative paths for the root object, or
+	 *                  {@code null} if the location is not known.
+	 * @param resources The resources used to localize the root object, or {@code null} if
+	 *                  the root object was not localized.
+	 */
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		conn = DBConnection.getInstance().getConnection();
@@ -240,6 +322,12 @@ public class ZReportController implements Initializable {
 		}
 	}
 
+	/**
+	 * Resets the Z report table to show all Z reports.
+	 *
+	 * @param event An ActionEvent that represents the button being clicked.
+	 * @throws IOException An exception caused if the input value is not expected.
+	 */
 	@FXML
 	protected void clickReset(ActionEvent event) throws IOException {
 		conn = DBConnection.getInstance().getConnection();
@@ -284,7 +372,7 @@ public class ZReportController implements Initializable {
 	}
 
 	/**
-	 * Creates the most recent X report, adding all transactions
+	 * Creates the most recent X report, summing all transactions since the most recent Z report.
 	 *
 	 * @param event An ActionEvent that represents the button being clicked.
 	 * @throws IOException An exception caused if the input value is not expected.

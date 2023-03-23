@@ -20,6 +20,10 @@ import java.util.Arrays;
 import java.util.HexFormat;
 import javafx.scene.input.KeyEvent;
 
+/**
+ * The PointOfSaleController class adds functions pertaining to the main POS page, notably
+ * those that control the user ID and PIN and switch to the manager and server views.
+ */
 public class PointOfSaleController {
 //    Connection conn = null;
     private Stage stage;

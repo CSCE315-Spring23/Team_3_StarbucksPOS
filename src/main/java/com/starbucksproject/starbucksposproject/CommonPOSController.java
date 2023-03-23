@@ -51,6 +51,17 @@ public abstract class CommonPOSController implements Initializable {
 	@FXML
 	protected TextArea orderListField;
 
+	/**
+	 * Overload to the initialize function from the Initializable interface, runs when controller is called. Updated order list and special menu item buttons.
+	 * @author Devon Kelly
+	 * @param location
+	 * The location used to resolve relative paths for the root object, or
+	 * {@code null} if the location is not known.
+	 *
+	 * @param resources
+	 * The resources used to localize the root object, or {@code null} if
+	 * the root object was not localized.
+	 */
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		//Order list setup
@@ -137,6 +148,10 @@ public abstract class CommonPOSController implements Initializable {
 		}
 
 	}
+	/**This function moves the POS to the addons scene.
+	 * @param event
+	 * @throws IOException
+	 */
 	@FXML
 	public void clickAddons(ActionEvent event) throws IOException {
 		root = FXMLLoader.load(getClass().getResource("addons-gui.fxml"));
@@ -146,9 +161,12 @@ public abstract class CommonPOSController implements Initializable {
 		stage.show();
 	}
 	@FXML
-	protected void clickNextDrink() {
+	protected void clickNextDrink() {}
 
-	}
+	/**This function moves the POS to the manager-menu scene
+	 * @param event
+	 * @throws IOException
+	 */
 	@FXML
 	public void clickManagerMenu(ActionEvent event) throws IOException {
 		if(CurrentOrderList.getInstance().isManager()) {
@@ -166,6 +184,11 @@ public abstract class CommonPOSController implements Initializable {
 			stage.show();
 		}
 	}
+
+	/**This function moves the POS to the coffee menu scene
+	 * @param event
+	 * @throws IOException
+	 */
 	@FXML
 	public void clickCoffeeMenu(ActionEvent event) throws IOException {
 		root = FXMLLoader.load(getClass().getResource("coffee-gui.fxml"));
@@ -174,6 +197,11 @@ public abstract class CommonPOSController implements Initializable {
 		stage.setScene(scene);
 		stage.show();
 	}
+
+	/**This function moves the POS to the espresso menu scene
+	 * @param event
+	 * @throws IOException
+	 */
 	@FXML
 	public void clickEspressoMenu(ActionEvent event) throws IOException {
 		root = FXMLLoader.load(getClass().getResource("espresso-gui.fxml"));
@@ -182,6 +210,11 @@ public abstract class CommonPOSController implements Initializable {
 		stage.setScene(scene);
 		stage.show();
 	}
+
+	/**This function moves the POS to the blended beverage menu scene
+	 * @param event
+	 * @throws IOException
+	 */
 	@FXML
 	protected void clickBlendedMenu(ActionEvent event) throws IOException {
 		root = FXMLLoader.load(getClass().getResource("blended-gui.fxml"));
@@ -190,6 +223,11 @@ public abstract class CommonPOSController implements Initializable {
 		stage.setScene(scene);
 		stage.show();
 	}
+
+	/**This function moves the POS to the tea menu scene
+	 * @param event
+	 * @throws IOException
+	 */
 	@FXML
 	protected void clickTeasMenu(ActionEvent event) throws IOException {
 		root = FXMLLoader.load(getClass().getResource("tea-gui.fxml"));
@@ -199,6 +237,11 @@ public abstract class CommonPOSController implements Initializable {
 		stage.show();
 
 	}
+
+	/**This function moves the POS to the Coffee Alternatives Menu Scene
+	 * @param event
+	 * @throws IOException
+	 */
 	@FXML
 	protected void clickCoffeeAlternativesMenu(ActionEvent event) throws IOException {
 		root = FXMLLoader.load(getClass().getResource("coffee-alternative-gui.fxml"));
@@ -208,6 +251,11 @@ public abstract class CommonPOSController implements Initializable {
 		stage.show();
 
 	}
+
+	/**This function moves the POS to the food menu scene
+	 * @param event
+	 * @throws IOException
+	 */
 	@FXML
 	protected void clickFoodMenu(ActionEvent event) throws IOException {
 		root = FXMLLoader.load(getClass().getResource("food-gui.fxml"));
@@ -216,6 +264,11 @@ public abstract class CommonPOSController implements Initializable {
 		stage.setScene(scene);
 		stage.show();
 	}
+
+	/**This function will take the user back to the log-in scene.
+	 * @param event
+	 * @throws IOException
+	 */
 	@FXML
 	protected void clickLogout(ActionEvent event) throws IOException {
 		root = FXMLLoader.load(getClass().getResource("pos-view.fxml"));
@@ -224,65 +277,106 @@ public abstract class CommonPOSController implements Initializable {
 		stage.setScene(scene);
 		stage.show();
 	}
+	@FXML
+	protected void clickEditCustomerName() {}
 
+	/**
+	 * This function will remove the most recently added item from the order list
+	 */
 	@FXML
 	protected void clickVoidLastItem() {
 		if (CurrentOrderList.getInstance().getCurrentOrder().size() > 0)
 			CurrentOrderList.getInstance().getCurrentOrder().remove(CurrentOrderList.getInstance().getCurrentOrder().size()-1);
 	}
+
+	/**
+	 * This function completes the transaction by clearing the order list and changing the database.
+	 */
 	@FXML
 	protected void clickPay() {
 		CurrentOrderList.getInstance().completeTransaction();
 
 	}
+
+	/**
+	 * This button is the menu item button for special item 1
+	 */
 	@FXML
 	protected void clickSpecial1() {
 		CurrentOrderList.getInstance().addItem("999010");
 		System.out.println(CurrentOrderList.getInstance().getCurrentOrder());
 	}
+	/**
+	 * This button is the menu item button for special item 2
+	 */
 	@FXML
 	protected void clickSpecial2() {
 		CurrentOrderList.getInstance().addItem("999020");
 		System.out.println(CurrentOrderList.getInstance().getCurrentOrder());
 	}
+	/**
+	 * This button is the menu item button for special item 3
+	 */
 	@FXML
 	protected void clickSpecial3() {
 		CurrentOrderList.getInstance().addItem("999030");
 		System.out.println(CurrentOrderList.getInstance().getCurrentOrder());
 	}
+	/**
+	 * This button is the menu item button for special item 4
+	 */
 	@FXML
 	protected void clickSpecial4() {
 		CurrentOrderList.getInstance().addItem("999040");
 		System.out.println(CurrentOrderList.getInstance().getCurrentOrder());
 	}
+	/**
+	 * This button is the menu item button for special item 5
+	 */
 	@FXML
 	protected void clickSpecial5() {
 		CurrentOrderList.getInstance().addItem("999050");
 		System.out.println(CurrentOrderList.getInstance().getCurrentOrder());
 	}
+	/**
+	 * This button is the menu item button for special item 6
+	 */
 	@FXML
 	protected void clickSpecial6() {
 		CurrentOrderList.getInstance().addItem("999060");
 		System.out.println(CurrentOrderList.getInstance().getCurrentOrder());
 	}
+	/**
+	 * This button is the menu item button for special item 7
+	 */
 	@FXML
 	protected void clickSpecial7() {
 		CurrentOrderList.getInstance().addItem("999070");
 		System.out.println(CurrentOrderList.getInstance().getCurrentOrder());
 	}
+	/**
+	 * This button is the menu item button for special item 8
+	 */
 	@FXML
 	protected void clickSpecial8() {
 		CurrentOrderList.getInstance().addItem("999080");
 		System.out.println(CurrentOrderList.getInstance().getCurrentOrder());
 	}
+	/**
+	 * This button is the menu item button for special item 9
+	 */
 	@FXML
 	protected void clickSpecial9() {
 		CurrentOrderList.getInstance().addItem("999090");
 		System.out.println(CurrentOrderList.getInstance().getCurrentOrder());
 	}
+	/**
+	 * This button is the menu item button for special item 10
+	 */
 	@FXML
 	protected void clickSpecial10() {
 		CurrentOrderList.getInstance().addItem("999100");
 		System.out.println(CurrentOrderList.getInstance().getCurrentOrder());
 	}
+
 }
