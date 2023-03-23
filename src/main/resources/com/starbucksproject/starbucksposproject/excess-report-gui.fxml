@@ -10,7 +10,7 @@
 
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080" prefWidth="1920" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.starbucksproject.starbucksposproject.ExcessReportController">
    <children>
-      <VBox alignment="CENTER" prefHeight="800.0" prefWidth="1000.0">
+      <VBox alignment="CENTER" layoutX="389.0" layoutY="159.0" prefHeight="800.0" prefWidth="1106.0">
          <children>
             <HBox alignment="CENTER" prefHeight="62.0" prefWidth="1000.0" spacing="25.0">
                <children>
@@ -68,7 +68,7 @@
                      <columns>
                         <TableColumn prefWidth="162.5" text="Date" />
                         <TableColumn prefWidth="284.0" text="Inventory Name" />
-                        <TableColumn prefWidth="100.0" text="Quantity"/>
+                        <TableColumn prefWidth="100.0" text="Quantity" />
                      </columns>
                   </TableView>
                </children>
