@@ -17,6 +17,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.StackPane;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Pair;
 
@@ -317,7 +319,6 @@ public class SalesController implements Initializable {
         dialog.setTitle("Sales Report");
         dialog.setHeaderText("Select start date and end date:");
         dialog.getDialogPane().getButtonTypes().addAll(ButtonType.CLOSE);
-        ChoiceBox<String> inventoryChoiceBox = new ChoiceBox<>();
         TextField fromDate = new TextField();
         TextField toDate = new TextField();
         fromDate.setText("YYMMDD");
@@ -635,10 +636,65 @@ public class SalesController implements Initializable {
 
         return returnFloat;
     }
+    public class SalesReportItem{
+        public String item;
+        public Integer num;
 
+        public SalesReportItem(String item, Integer num) {
+            this.item = item;
+            this.num = num;
+        }
+
+        public String getItem() {
+            return item;
+        }
+
+        public void setItem(String item) {
+            this.item = item;
+        }
+
+        public Integer getNum() {
+            return num;
+        }
+
+        public void setNum(Integer num) {
+            this.num = num;
+        }
+    }
     public void clickSalesItemReport(ActionEvent event) throws IOException {
+        clickSalesBounded();
         HashMap<String, Integer> salesItemReport = getSalesItemReport(startDatePrivate, endDatePrivate);
+        ArrayList<String> items = new ArrayList<>(salesItemReport.keySet());
+        ArrayList<SalesReportItem> salesReportItems = new ArrayList<>(items.size());
+        for (String item : items) {
+            salesReportItems.add(new SalesReportItem(item, salesItemReport.get(item)));
+        }
+        ObservableList<SalesReportItem> observable = FXCollections.observableList(salesReportItems);
 
+        Dialog<Object> dialog = new Dialog<Object>();
+        dialog.setTitle("Sales Report");
+        dialog.getDialogPane().getButtonTypes().addAll(ButtonType.CLOSE);
+        GridPane grid = new GridPane();
+        TableView<SalesReportItem> tableView = new TableView<>();
+        TableColumn<SalesReportItem, String> itemNameCol = new TableColumn<>("Item Name");
+        itemNameCol.setCellValueFactory(new PropertyValueFactory<>("item"));
+        itemNameCol.prefWidthProperty().bind(tableView.widthProperty().multiply(0.7));
+        TableColumn<SalesReportItem, String> soldCol = new TableColumn<>("Amount Sold");
+        soldCol.setCellValueFactory(new PropertyValueFactory<>("num"));
+        soldCol.prefWidthProperty().bind(tableView.widthProperty().multiply(0.3));
+        tableView.getColumns().add(itemNameCol);
+        tableView.getColumns().add(soldCol);
+        tableView.setItems(observable);
+        grid.add(tableView, 0, 0);
+
+        dialog.getDialogPane().setContent(grid);
+
+        // Gets start date and end date from entered text strings
+        dialog.setResultConverter(dialogButton -> {
+            return null;
+        });
+
+        dialog.showAndWait();
 
     }
 }
