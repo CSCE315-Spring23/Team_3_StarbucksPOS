@@ -1,6 +1,8 @@
 package com.starbucksproject.starbucksposproject;
 
 import javafx.application.Platform;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -8,6 +10,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -29,6 +32,7 @@ import java.util.*;
 import java.util.Date;
 import java.util.concurrent.atomic.AtomicBoolean;
 
+
 /**
  * Sales Controller implements the buttons and other functions for the Sales page, including the
  * ability to look at all sales between two dates.
@@ -44,8 +48,10 @@ public class SalesController implements Initializable {
 
     @FXML
     private TextField fromDate;
+    private String startDatePrivate;
     @FXML
     private TextField toDate;
+    private String endDatePrivate;
 
     /**
      * Changes the current page to the main server page.
@@ -242,6 +248,8 @@ public class SalesController implements Initializable {
             if (dialogButton == selectButtonType) {
                 int startDate = Integer.parseInt(fromDate.getText());
                 int endDate = Integer.parseInt(toDate.getText());
+                startDatePrivate = fromDate.getText();
+                endDatePrivate = toDate.getText();
 
                 return new Pair<>(String.format("%d", startDate), String.format("%d", endDate));
             }
@@ -297,6 +305,120 @@ public class SalesController implements Initializable {
 //            System.exit(0);
             }
         });
+    }
+
+    @FXML
+    protected void clickPairSalesButton() {
+        // Creates the connection to the database
+        conn = DBConnection.getInstance().getConnection();
+
+        // Initialize the dialog for the sales report
+        Dialog<Object> dialog = new Dialog<Object>();
+        dialog.setTitle("Sales Report");
+        dialog.setHeaderText("Select start date and end date:");
+        dialog.getDialogPane().getButtonTypes().addAll(ButtonType.CLOSE);
+        ChoiceBox<String> inventoryChoiceBox = new ChoiceBox<>();
+        TextField fromDate = new TextField();
+        TextField toDate = new TextField();
+        fromDate.setText("YYMMDD");
+        toDate.setText("YYMMDD");
+        Button updateView = new Button("Update View");
+
+        // Creates the pop-up box
+        GridPane grid = new GridPane();
+        GridPane innerGrid = new GridPane();
+        grid.setAlignment(Pos.CENTER);
+        grid.setHgap(10);
+        grid.setVgap(10);
+        grid.setPadding(new Insets(20, 20, 10, 10));
+        innerGrid.setHgap(10);
+        innerGrid.setVgap(10);
+        innerGrid.setAlignment(Pos.CENTER);
+        innerGrid.setPadding(new Insets(20, 20, 10, 10));
+        innerGrid.add(new Label("Start date: (YYMMDD)"), 0, 0);
+        innerGrid.add(fromDate, 1, 0);
+        innerGrid.add(new Label("End date: (YYMMDD)"), 0, 1);
+        innerGrid.add(toDate, 1, 1);
+        grid.add(innerGrid,0,0);
+        grid.add(updateView, 0, 1);
+        TableView<PairSaleItem> tableView = new TableView<>();
+        tableView.prefWidthProperty().bind(tableView.widthProperty().multiply(2));
+
+
+        TableColumn<PairSaleItem, String> item1Col = new TableColumn<>("Item 1");
+        item1Col.setCellValueFactory(new PropertyValueFactory<>("item1"));
+        item1Col.prefWidthProperty().bind(tableView.widthProperty().multiply(0.4));
+
+        TableColumn<PairSaleItem, String> item2Col = new TableColumn<>("Item 2");
+        item2Col.setCellValueFactory(new PropertyValueFactory<>("item2"));
+        item2Col.prefWidthProperty().bind(tableView.widthProperty().multiply(0.4));
+
+
+        TableColumn<PairSaleItem, Integer> amountCol = new TableColumn<>("Amount");
+        amountCol.setCellValueFactory(new PropertyValueFactory<>("amount"));
+        amountCol.prefWidthProperty().bind(tableView.widthProperty().multiply(0.2));
+
+
+        tableView.getColumns().add(item1Col);
+        tableView.getColumns().add(item2Col);
+        tableView.getColumns().add(amountCol);
+
+        grid.add(tableView, 0, 2);
+        updateView.setOnAction((ActionEvent event) -> {
+            try{
+                HashMap<Integer, String> idToName = CurrentOrderList.getInstance().getIdToNameMap();
+                HashMap<ItemPair<String, String>, PairSaleItem> soldTogetherTracker = new HashMap<>();
+                Statement stmt = conn.createStatement();
+                ResultSet rs = stmt.executeQuery("SELECT * FROM transactions WHERE transaction_date >= " + fromDate.getText() + " and transaction_date <= " + toDate.getText());
+                while (rs.next()){
+                    Object[] array = (Object[]) rs.getArray("order_list").getArray();
+                    int[] intArray = new int[array.length];
+
+                    for (int i = 0; i < array.length; i++) {
+                        intArray[i] = (Integer) array[i];
+                    }
+
+                    for (int i = 0; i < intArray.length; i++) {
+                        for (int j = i+1; j < intArray.length; j++) {
+                            ItemPair<String, String> pair1 = new ItemPair<>(idToName.get(intArray[i]), idToName.get(intArray[j]));
+                            ItemPair<String, String> pair2 = new ItemPair<>(idToName.get(intArray[j]), idToName.get(intArray[i]));
+                            //If both null create for the first item
+                            if (soldTogetherTracker.get(pair1) == null && soldTogetherTracker.get(pair2) == null){
+                                soldTogetherTracker.put(pair1, new PairSaleItem(idToName.get(intArray[i]), idToName.get(intArray[j]), 1));
+                            }
+                            //Otherwise add to the one that is not null
+                            else if(soldTogetherTracker.get(pair1) != null){
+                                soldTogetherTracker.get(pair1).amount++;
+                            }
+                            else{
+                                soldTogetherTracker.get(pair2).amount++;
+                            }
+                        }
+                    }
+                }
+                rs.close();
+                stmt.close();
+                ObservableList<PairSaleItem> items = FXCollections.observableList(new ArrayList<PairSaleItem>(soldTogetherTracker.values()));
+                tableView.setItems(items);
+                tableView.getSortOrder().add(amountCol);
+                amountCol.setSortType(TableColumn.SortType.DESCENDING);
+                tableView.sort();
+            }
+            catch (Exception e){
+                System.out.println("Update Failed");
+            }
+        });
+
+        dialog.getDialogPane().setContent(grid);
+
+        // Gets start date and end date from entered text strings
+        Platform.runLater(() -> fromDate.requestFocus());
+        dialog.setResultConverter(dialogButton -> {
+            return null;
+        });
+
+        dialog.showAndWait();
+
     }
 
     /**
@@ -422,6 +544,8 @@ public class SalesController implements Initializable {
 
     private static ArrayList<Integer> splitOrderString(String str) {
         String[] strArr = str.split(","); // split the string on commas
+        strArr[0] = strArr[0].replace("{", "");
+        strArr[strArr.length-1] = strArr[strArr.length-1].replace("}", "");
         ArrayList<Integer> intList = new ArrayList<>(); // create a new ArrayList to store the integers
 
         for (String s : strArr) {
@@ -432,15 +556,13 @@ public class SalesController implements Initializable {
     }
 
     private static ArrayList<String> getOrderList(String beginDate, String endDate) {
-        String query = "SELECT order_list FROM transactions WHERE transaction_date BETWEEN ? AND ?";
+        String query = "SELECT order_list FROM transactions WHERE transaction_date BETWEEN "+ beginDate +" AND " + endDate;
         // Set 1 as beginDate and 2 as endDate
         ArrayList<String> orderLists = new ArrayList<>();
         try {
             Connection conn = DBConnection.getInstance().getConnection();
-            PreparedStatement pstmt = conn.prepareStatement(query);
-            pstmt.setString(1, beginDate);
-            pstmt.setString(2, endDate);
-            ResultSet rs = pstmt.executeQuery();
+            Statement statement = conn.createStatement();
+            ResultSet rs = statement.executeQuery(query);
 
             while (rs.next()) {
                 orderLists.add(rs.getString("order_list"));
@@ -515,6 +637,8 @@ public class SalesController implements Initializable {
     }
 
     public void clickSalesItemReport(ActionEvent event) throws IOException {
+        HashMap<String, Integer> salesItemReport = getSalesItemReport(startDatePrivate, endDatePrivate);
+
 
     }
 }
