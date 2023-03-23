@@ -367,6 +367,7 @@ public class FoodController implements Initializable {
         CurrentOrderList.getInstance().addItem("201016");
         System.out.println(CurrentOrderList.getInstance().getCurrentOrder());
     }
+
     @FXML
     protected void clickZoesCookie() {
         CurrentOrderList.getInstance().addItem("201020");
