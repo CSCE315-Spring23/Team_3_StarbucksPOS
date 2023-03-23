@@ -699,12 +699,70 @@ public class SalesController implements Initializable {
 
     }
 
+    public class ExcessReportItem{
+        public String item;
+        public Double num;
+
+        public ExcessReportItem(String item, Double num) {
+            this.item = item;
+            this.num = num;
+        }
+
+        public String getItem() {
+            return item;
+        }
+
+        public void setItem(String item) {
+            this.item = item;
+        }
+
+        public Double getNum() {
+            return num;
+        }
+
+        public void setNum(Double num) {
+            this.num = num;
+        }
+    }
     public void clickExcessReport(ActionEvent event) throws IOException {
         try {
-            HashMap<String, Float> excessReport = getExcessReport();
-            for (String key : excessReport.keySet()) {
-                System.out.println(key + ": " + excessReport.get(key));
+            clickSalesBounded();
+            HashMap<String, Double> excessReport = getExcessReport();
+//            for (String key : excessReport.keySet()) {
+//                System.out.println(key + ": " + excessReport.get(key));
+//            }
+            ArrayList<String> items = new ArrayList<>(excessReport.keySet());
+            ArrayList<ExcessReportItem> excessReportItem = new ArrayList<>(items.size());
+            for (String item : items) {
+                excessReportItem.add(new ExcessReportItem(item, excessReport.get(item)));
             }
+            ObservableList<ExcessReportItem> observable = FXCollections.observableList(excessReportItem);
+
+            Dialog<Object> dialog = new Dialog<Object>();
+            dialog.setTitle("Excess Report");
+            dialog.getDialogPane().getButtonTypes().addAll(ButtonType.CLOSE);
+            GridPane grid = new GridPane();
+            TableView<ExcessReportItem> tableView = new TableView<>();
+//            tableView.prefWidthProperty().bind(tableView.widthProperty().multiply(2));
+            TableColumn<ExcessReportItem, String> itemNameCol = new TableColumn<>("Item Name");
+            itemNameCol.setCellValueFactory(new PropertyValueFactory<>("item"));
+            itemNameCol.prefWidthProperty().bind(tableView.widthProperty().multiply(0.7));
+            TableColumn<ExcessReportItem, String> amoundCol = new TableColumn<>("Amount Excess");
+            amoundCol.setCellValueFactory(new PropertyValueFactory<>("num"));
+            amoundCol.prefWidthProperty().bind(tableView.widthProperty().multiply(0.3));
+            tableView.getColumns().add(itemNameCol);
+            tableView.getColumns().add(amoundCol);
+            tableView.setItems(observable);
+            grid.add(tableView, 0, 0);
+
+            dialog.getDialogPane().setContent(grid);
+
+            // Gets start date and end date from entered text strings
+            dialog.setResultConverter(dialogButton -> {
+                return null;
+            });
+
+            dialog.showAndWait();
         }
         catch (Exception e) {
             e.printStackTrace();
@@ -712,15 +770,18 @@ public class SalesController implements Initializable {
 
     }
 
-    public HashMap<String, Float> getExcessReport() throws ParseException {
-        String[] ingredientsList = getIngredientsList();
+    public HashMap<String, Double> getExcessReport() throws ParseException {
+        ArrayList<String> ingredientsList = getIngredientsList();
+        if (ingredientsList == null){
+            throw new ParseException("Failed to create ingredientsList", 0);
+        }
         double[] amountsList = getFloatArray(startDatePrivate, endDatePrivate);
 
-        HashMap<String, Float> hashMap = new HashMap<String, Float>();
+        HashMap<String, Double> hashMap = new HashMap<String, Double>();
 
-        for (int i = 0; i < ingredientsList.length; i++) {
-            String key = ingredientsList[i];
-            Float value = (float) amountsList[i];
+        for (int i = 0; i < Math.min(ingredientsList.size(), amountsList.length); i++) {
+            String key = ingredientsList.get(i);
+            Double value = amountsList[i];
             hashMap.put(key, value);
         }
 
@@ -735,13 +796,13 @@ public class SalesController implements Initializable {
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(startDate);
 
-        double[] returnAmount = new double[84];
+        double[] returnAmount = new double[getInventoryForDay(beginDate).length];
         Arrays.fill(returnAmount, 0.0f);
 
         while (calendar.getTime().before(endDateObj)) {
             Date currentDate = calendar.getTime();
             String dateString = dateFormat.format(currentDate);
-            double[] currAmount = getInventoryForDay(dateString);
+            Double[] currAmount = getInventoryForDay(dateString);
             returnAmount = addArrays(currAmount, returnAmount);
 
             calendar.add(Calendar.DATE, 1);
@@ -752,8 +813,7 @@ public class SalesController implements Initializable {
         return returnAmount;
     }
 
-    private String[] getIngredientsList() {
-        String[] inventoryArray = new String[84];
+    private ArrayList<String> getIngredientsList() {
         try {
             Statement stmt = conn.createStatement();
 
@@ -766,19 +826,18 @@ public class SalesController implements Initializable {
                 inventoryNames.add(inventoryName);
             }
 
-            inventoryArray = inventoryNames.toArray(new String[inventoryNames.size()]);
+            return inventoryNames;
 
 //            conn.close();
         } catch (SQLException e) {
             System.out.println(e.getMessage());
+            return null;
         }
-        return inventoryArray;
     }
 
-    public double[] getInventoryForDay(String day) {
+    public Double[] getInventoryForDay(String day) {
         conn = DBConnection.getInstance().getConnection();
-        double[] floatArray = new double[85];
-        Arrays.fill(floatArray, 0f);
+        Double[] floatArray;
         try {
             String sql = "SELECT ingredient_amounts FROM inventory_history WHERE date = " + day;
             Statement statement = conn.createStatement();
@@ -786,19 +845,24 @@ public class SalesController implements Initializable {
             ResultSet result = statement.executeQuery(sql);
             if (result.next()) {
                 Array ingredientArray = result.getArray("ingredient_amounts");
-                floatArray = (double[]) ingredientArray.getArray();
+                floatArray = (Double[]) ingredientArray.getArray();
+                statement.close();
+                return floatArray;
+            }
+            else{
+                statement.close();
+                throw new Exception("Blank line");
             }
 
-            statement.close();
         } catch (Exception e) {
             e.printStackTrace();
             System.err.println(e.getClass().getName() + ": " + e.getMessage());
             System.exit(0);
         }
-        return floatArray;
+        return null;
     }
 
-    private static double[] addArrays(double[] arr1, double[] arr2) {
+    private static double[] addArrays(Double[] arr1, double[] arr2) {
         if (arr1.length != arr2.length) {
             throw new IllegalArgumentException("Input arrays must have the same length");
         }
