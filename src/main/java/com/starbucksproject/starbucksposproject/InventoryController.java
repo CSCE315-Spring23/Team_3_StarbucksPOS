@@ -28,6 +28,9 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.concurrent.atomic.AtomicBoolean;
 
+/**
+ * This class defines functions used for the Inventory page.
+ */
 public class InventoryController implements Initializable {
     Connection conn = null;
     private Stage stage;
