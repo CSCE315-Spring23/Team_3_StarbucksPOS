@@ -34,6 +34,7 @@ public class CoffeeController extends CommonPOSController {
         } else {
             CurrentOrderList.getInstance().addItem("101003");
         }
+        UpdateOrderList();
         System.out.println(CurrentOrderList.getInstance().getCurrentOrder());
     }
 
@@ -43,6 +44,7 @@ public class CoffeeController extends CommonPOSController {
     @FXML
     protected void clickCoffeeTraveller() {
         CurrentOrderList.getInstance().addItem("101014");
+        UpdateOrderList();
         System.out.println(CurrentOrderList.getInstance().getCurrentOrder());
     }
     /**
@@ -57,6 +59,7 @@ public class CoffeeController extends CommonPOSController {
         } else {
             CurrentOrderList.getInstance().addItem("101006");
         }
+        UpdateOrderList();
         System.out.println(CurrentOrderList.getInstance().getCurrentOrder());
     }
 
@@ -72,6 +75,7 @@ public class CoffeeController extends CommonPOSController {
         } else {
             CurrentOrderList.getInstance().addItem("101009");
         }
+        UpdateOrderList();
         System.out.println(CurrentOrderList.getInstance().getCurrentOrder());
     }
     /**
@@ -86,6 +90,7 @@ public class CoffeeController extends CommonPOSController {
         } else {
             CurrentOrderList.getInstance().addItem("101012");
         }
+        UpdateOrderList();
         System.out.println(CurrentOrderList.getInstance().getCurrentOrder());
     }
 
@@ -95,6 +100,7 @@ public class CoffeeController extends CommonPOSController {
     @FXML
     protected void clickCoffeeRefill() {
         CurrentOrderList.getInstance().addItem("101013");
+        UpdateOrderList();
         System.out.println(CurrentOrderList.getInstance().getCurrentOrder());
 
     }

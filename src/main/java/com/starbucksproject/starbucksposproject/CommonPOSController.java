@@ -75,6 +75,7 @@ public abstract class CommonPOSController implements Initializable {
 				curr.forEach(item -> {
 					stringBuilder.append(idToName.get(Integer.parseInt(item))).append("\n");
 				});
+				orderListField.setText(stringBuilder.toString());
 			} catch (SQLException e){
 				e.printStackTrace();
 			}
@@ -147,6 +148,21 @@ public abstract class CommonPOSController implements Initializable {
 
 		}
 
+	}
+
+	public void UpdateOrderList(){
+		try {
+			ArrayList<String> curr = CurrentOrderList.getInstance().getCurrentOrder();
+			HashMap<Integer, String> idToName = CurrentOrderList.getInstance().getIdToNameMap();
+			StringBuilder stringBuilder = new StringBuilder();
+			curr.forEach(item -> {
+				stringBuilder.append(idToName.get(Integer.parseInt(item))).append("\n");
+			});
+			orderListField.setText(stringBuilder.toString());
+		}
+		catch (SQLException e){
+			//do nothing since won't throw guaranteed by initialize guaranteed to have completed successfully
+		}
 	}
 	/**This function moves the POS to the addons scene.
 	 * @param event
@@ -304,6 +320,7 @@ public abstract class CommonPOSController implements Initializable {
 	@FXML
 	protected void clickSpecial1() {
 		CurrentOrderList.getInstance().addItem("999010");
+		UpdateOrderList();
 		System.out.println(CurrentOrderList.getInstance().getCurrentOrder());
 	}
 	/**
@@ -312,6 +329,7 @@ public abstract class CommonPOSController implements Initializable {
 	@FXML
 	protected void clickSpecial2() {
 		CurrentOrderList.getInstance().addItem("999020");
+		UpdateOrderList();
 		System.out.println(CurrentOrderList.getInstance().getCurrentOrder());
 	}
 	/**
@@ -320,6 +338,7 @@ public abstract class CommonPOSController implements Initializable {
 	@FXML
 	protected void clickSpecial3() {
 		CurrentOrderList.getInstance().addItem("999030");
+		UpdateOrderList();
 		System.out.println(CurrentOrderList.getInstance().getCurrentOrder());
 	}
 	/**
@@ -328,6 +347,7 @@ public abstract class CommonPOSController implements Initializable {
 	@FXML
 	protected void clickSpecial4() {
 		CurrentOrderList.getInstance().addItem("999040");
+		UpdateOrderList();
 		System.out.println(CurrentOrderList.getInstance().getCurrentOrder());
 	}
 	/**
@@ -336,6 +356,7 @@ public abstract class CommonPOSController implements Initializable {
 	@FXML
 	protected void clickSpecial5() {
 		CurrentOrderList.getInstance().addItem("999050");
+		UpdateOrderList();
 		System.out.println(CurrentOrderList.getInstance().getCurrentOrder());
 	}
 	/**
@@ -344,6 +365,7 @@ public abstract class CommonPOSController implements Initializable {
 	@FXML
 	protected void clickSpecial6() {
 		CurrentOrderList.getInstance().addItem("999060");
+		UpdateOrderList();
 		System.out.println(CurrentOrderList.getInstance().getCurrentOrder());
 	}
 	/**
@@ -352,6 +374,7 @@ public abstract class CommonPOSController implements Initializable {
 	@FXML
 	protected void clickSpecial7() {
 		CurrentOrderList.getInstance().addItem("999070");
+		UpdateOrderList();
 		System.out.println(CurrentOrderList.getInstance().getCurrentOrder());
 	}
 	/**
@@ -360,6 +383,7 @@ public abstract class CommonPOSController implements Initializable {
 	@FXML
 	protected void clickSpecial8() {
 		CurrentOrderList.getInstance().addItem("999080");
+		UpdateOrderList();
 		System.out.println(CurrentOrderList.getInstance().getCurrentOrder());
 	}
 	/**
@@ -368,6 +392,7 @@ public abstract class CommonPOSController implements Initializable {
 	@FXML
 	protected void clickSpecial9() {
 		CurrentOrderList.getInstance().addItem("999090");
+		UpdateOrderList();
 		System.out.println(CurrentOrderList.getInstance().getCurrentOrder());
 	}
 	/**
@@ -376,6 +401,7 @@ public abstract class CommonPOSController implements Initializable {
 	@FXML
 	protected void clickSpecial10() {
 		CurrentOrderList.getInstance().addItem("999100");
+		UpdateOrderList();
 		System.out.println(CurrentOrderList.getInstance().getCurrentOrder());
 	}
 

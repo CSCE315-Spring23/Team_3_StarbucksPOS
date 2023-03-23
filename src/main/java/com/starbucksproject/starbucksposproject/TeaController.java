@@ -43,6 +43,7 @@ public class TeaController extends CommonPOSController {
         } else {
             CurrentOrderList.getInstance().addItem("104003");
         }
+        UpdateOrderList();
         System.out.println(CurrentOrderList.getInstance().getCurrentOrder());
     }
     @FXML
@@ -54,6 +55,7 @@ public class TeaController extends CommonPOSController {
         } else {
             CurrentOrderList.getInstance().addItem("104006");
         }
+        UpdateOrderList();
         System.out.println(CurrentOrderList.getInstance().getCurrentOrder());
     }
     @FXML
@@ -65,6 +67,7 @@ public class TeaController extends CommonPOSController {
         } else {
             CurrentOrderList.getInstance().addItem("104009");
         }
+        UpdateOrderList();
         System.out.println(CurrentOrderList.getInstance().getCurrentOrder());
     }
     @FXML
@@ -76,6 +79,7 @@ public class TeaController extends CommonPOSController {
         } else {
             CurrentOrderList.getInstance().addItem("104012");
         }
+        UpdateOrderList();
         System.out.println(CurrentOrderList.getInstance().getCurrentOrder());
     }
     @FXML
@@ -87,6 +91,7 @@ public class TeaController extends CommonPOSController {
         } else {
             CurrentOrderList.getInstance().addItem("104018");
         }
+        UpdateOrderList();
         System.out.println(CurrentOrderList.getInstance().getCurrentOrder());
     }
     @FXML
@@ -98,6 +103,7 @@ public class TeaController extends CommonPOSController {
         } else {
             CurrentOrderList.getInstance().addItem("104015");
         }
+        UpdateOrderList();
         System.out.println(CurrentOrderList.getInstance().getCurrentOrder());
     }
     @FXML
@@ -109,6 +115,7 @@ public class TeaController extends CommonPOSController {
         } else {
             CurrentOrderList.getInstance().addItem("104042");
         }
+        UpdateOrderList();
         System.out.println(CurrentOrderList.getInstance().getCurrentOrder());
     }
     @FXML
@@ -120,6 +127,7 @@ public class TeaController extends CommonPOSController {
         } else {
             CurrentOrderList.getInstance().addItem("104045");
         }
+        UpdateOrderList();
         System.out.println(CurrentOrderList.getInstance().getCurrentOrder());
     }
     @FXML
@@ -131,6 +139,7 @@ public class TeaController extends CommonPOSController {
         } else {
             CurrentOrderList.getInstance().addItem("104027");
         }
+        UpdateOrderList();
         System.out.println(CurrentOrderList.getInstance().getCurrentOrder());
     }
     @FXML
@@ -142,6 +151,7 @@ public class TeaController extends CommonPOSController {
         } else {
             CurrentOrderList.getInstance().addItem("104024");
         }
+        UpdateOrderList();
         System.out.println(CurrentOrderList.getInstance().getCurrentOrder());
     }
     @FXML
@@ -153,6 +163,7 @@ public class TeaController extends CommonPOSController {
         } else {
             CurrentOrderList.getInstance().addItem("104021");
         }
+        UpdateOrderList();
         System.out.println(CurrentOrderList.getInstance().getCurrentOrder());
     }
     @FXML
@@ -164,6 +175,7 @@ public class TeaController extends CommonPOSController {
         } else {
             CurrentOrderList.getInstance().addItem("104036");
         }
+        UpdateOrderList();
         System.out.println(CurrentOrderList.getInstance().getCurrentOrder());
     }
     @FXML
@@ -175,6 +187,7 @@ public class TeaController extends CommonPOSController {
         } else {
             CurrentOrderList.getInstance().addItem("104033");
         }
+        UpdateOrderList();
         System.out.println(CurrentOrderList.getInstance().getCurrentOrder());
     }
     @FXML
@@ -186,6 +199,7 @@ public class TeaController extends CommonPOSController {
         } else {
             CurrentOrderList.getInstance().addItem("104030");
         }
+        UpdateOrderList();
         System.out.println(CurrentOrderList.getInstance().getCurrentOrder());
     }
     @FXML
@@ -197,6 +211,7 @@ public class TeaController extends CommonPOSController {
         } else {
             CurrentOrderList.getInstance().addItem("104039");
         }
+        UpdateOrderList();
         System.out.println(CurrentOrderList.getInstance().getCurrentOrder());
     }
 

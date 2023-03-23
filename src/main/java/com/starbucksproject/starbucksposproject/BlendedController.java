@@ -33,6 +33,7 @@ public class BlendedController extends CommonPOSController {
         } else {
             CurrentOrderList.getInstance().addItem("105003");
         }
+        UpdateOrderList();
         System.out.println(CurrentOrderList.getInstance().getCurrentOrder());
     }
     /**
@@ -47,6 +48,7 @@ public class BlendedController extends CommonPOSController {
         } else {
             CurrentOrderList.getInstance().addItem("105006");
         }
+        UpdateOrderList();
         System.out.println(CurrentOrderList.getInstance().getCurrentOrder());
     }
     /**
@@ -61,6 +63,7 @@ public class BlendedController extends CommonPOSController {
         } else {
             CurrentOrderList.getInstance().addItem("105009");
         }
+        UpdateOrderList();
         System.out.println(CurrentOrderList.getInstance().getCurrentOrder());
     }
     /**
@@ -75,6 +78,7 @@ public class BlendedController extends CommonPOSController {
         } else {
             CurrentOrderList.getInstance().addItem("105027");
         }
+        UpdateOrderList();
         System.out.println(CurrentOrderList.getInstance().getCurrentOrder());
     }
     /**
@@ -89,6 +93,7 @@ public class BlendedController extends CommonPOSController {
         } else {
             CurrentOrderList.getInstance().addItem("105012");
         }
+        UpdateOrderList();
         System.out.println(CurrentOrderList.getInstance().getCurrentOrder());
     }
     /**
@@ -103,6 +108,7 @@ public class BlendedController extends CommonPOSController {
         } else {
             CurrentOrderList.getInstance().addItem("105021");
         }
+        UpdateOrderList();
         System.out.println(CurrentOrderList.getInstance().getCurrentOrder());
     }
     /**
@@ -117,6 +123,7 @@ public class BlendedController extends CommonPOSController {
         } else {
             CurrentOrderList.getInstance().addItem("105018");
         }
+        UpdateOrderList();
         System.out.println(CurrentOrderList.getInstance().getCurrentOrder());
     }
     /**
@@ -131,6 +138,7 @@ public class BlendedController extends CommonPOSController {
         } else {
             CurrentOrderList.getInstance().addItem("105015");
         }
+        UpdateOrderList();
         System.out.println(CurrentOrderList.getInstance().getCurrentOrder());
     }
     /**
@@ -145,6 +153,7 @@ public class BlendedController extends CommonPOSController {
         } else {
             CurrentOrderList.getInstance().addItem("105024");
         }
+        UpdateOrderList();
         System.out.println(CurrentOrderList.getInstance().getCurrentOrder());
     }
     /**
@@ -159,6 +168,7 @@ public class BlendedController extends CommonPOSController {
         } else {
             CurrentOrderList.getInstance().addItem("105033");
         }
+        UpdateOrderList();
         System.out.println(CurrentOrderList.getInstance().getCurrentOrder());
     }
     /**
@@ -167,6 +177,7 @@ public class BlendedController extends CommonPOSController {
     @FXML
     protected void clickBlueberrySmoothie() {
         CurrentOrderList.getInstance().addItem("105028");
+        UpdateOrderList();
         System.out.println(CurrentOrderList.getInstance().getCurrentOrder());
     }
     /**
@@ -175,6 +186,7 @@ public class BlendedController extends CommonPOSController {
     @FXML
     protected void clickPomegranateSmoothie() {
         CurrentOrderList.getInstance().addItem("105029");
+        UpdateOrderList();
         System.out.println(CurrentOrderList.getInstance().getCurrentOrder());
     }
     /**
@@ -183,6 +195,7 @@ public class BlendedController extends CommonPOSController {
     @FXML
     protected void clickMangoSmoothie() {
         CurrentOrderList.getInstance().addItem("105030");
+        UpdateOrderList();
         System.out.println(CurrentOrderList.getInstance().getCurrentOrder());
     }
 

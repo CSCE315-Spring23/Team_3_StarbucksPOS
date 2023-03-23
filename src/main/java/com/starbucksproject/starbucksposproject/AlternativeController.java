@@ -40,10 +40,11 @@ public class AlternativeController extends CommonPOSController {
         }
         else if(drinkSize == 1){
 
-                CurrentOrderList.getInstance().addItem("106014");
+            CurrentOrderList.getInstance().addItem("106014");
         } else{
-                CurrentOrderList.getInstance().addItem("106015");
+            CurrentOrderList.getInstance().addItem("106015");
         }
+        UpdateOrderList();
         System.out.println(CurrentOrderList.getInstance().getCurrentOrder());
     }
     /**
@@ -58,6 +59,7 @@ public class AlternativeController extends CommonPOSController {
         } else {
             CurrentOrderList.getInstance().addItem("106003");
         }
+        UpdateOrderList();
         System.out.println(CurrentOrderList.getInstance().getCurrentOrder());
     }
     /**
@@ -72,6 +74,7 @@ public class AlternativeController extends CommonPOSController {
         } else {
             CurrentOrderList.getInstance().addItem("106006");
         }
+        UpdateOrderList();
         System.out.println(CurrentOrderList.getInstance().getCurrentOrder());
     }
     /**
@@ -86,6 +89,7 @@ public class AlternativeController extends CommonPOSController {
         } else {
             CurrentOrderList.getInstance().addItem("106009");
         }
+        UpdateOrderList();
         System.out.println(CurrentOrderList.getInstance().getCurrentOrder());
     }
     /**
@@ -100,6 +104,7 @@ public class AlternativeController extends CommonPOSController {
         } else {
             CurrentOrderList.getInstance().addItem("106012");
         }
+        UpdateOrderList();
         System.out.println(CurrentOrderList.getInstance().getCurrentOrder());
     }
 

@@ -33,6 +33,7 @@ public class EspressoController extends CommonPOSController {
         } else {
             CurrentOrderList.getInstance().addItem("103003");
         }
+        UpdateOrderList();
         System.out.println(CurrentOrderList.getInstance().getCurrentOrder());
     }
     /**
@@ -47,6 +48,7 @@ public class EspressoController extends CommonPOSController {
         } else {
             CurrentOrderList.getInstance().addItem("103043");
         }
+        UpdateOrderList();
         System.out.println(CurrentOrderList.getInstance().getCurrentOrder());
     }
     /**
@@ -61,6 +63,7 @@ public class EspressoController extends CommonPOSController {
         } else {
             CurrentOrderList.getInstance().addItem("103006");
         }
+        UpdateOrderList();
         System.out.println(CurrentOrderList.getInstance().getCurrentOrder());
     }
     /**
@@ -75,6 +78,7 @@ public class EspressoController extends CommonPOSController {
         } else {
             CurrentOrderList.getInstance().addItem("103009");
         }
+        UpdateOrderList();
         System.out.println(CurrentOrderList.getInstance().getCurrentOrder());
     }
     /**
@@ -89,6 +93,7 @@ public class EspressoController extends CommonPOSController {
         } else {
             CurrentOrderList.getInstance().addItem("103009");
         }
+        UpdateOrderList();
         System.out.println(CurrentOrderList.getInstance().getCurrentOrder());
     }
     /**
@@ -103,6 +108,7 @@ public class EspressoController extends CommonPOSController {
         } else {
             CurrentOrderList.getInstance().addItem("103021");
         }
+        UpdateOrderList();
         System.out.println(CurrentOrderList.getInstance().getCurrentOrder());
     }
     /**
@@ -117,6 +123,7 @@ public class EspressoController extends CommonPOSController {
         } else {
             CurrentOrderList.getInstance().addItem("103021");
         }
+        UpdateOrderList();
         System.out.println(CurrentOrderList.getInstance().getCurrentOrder());
     }
     /**
@@ -131,6 +138,7 @@ public class EspressoController extends CommonPOSController {
         } else {
             CurrentOrderList.getInstance().addItem("103012");
         }
+        UpdateOrderList();
         System.out.println(CurrentOrderList.getInstance().getCurrentOrder());
     }
     /**
@@ -145,6 +153,7 @@ public class EspressoController extends CommonPOSController {
         } else {
             CurrentOrderList.getInstance().addItem("103012");
         }
+        UpdateOrderList();
         System.out.println(CurrentOrderList.getInstance().getCurrentOrder());
     }
     /**
@@ -159,6 +168,7 @@ public class EspressoController extends CommonPOSController {
         } else {
             CurrentOrderList.getInstance().addItem("103027");
         }
+        UpdateOrderList();
         System.out.println(CurrentOrderList.getInstance().getCurrentOrder());
     }
     /**
@@ -173,6 +183,7 @@ public class EspressoController extends CommonPOSController {
         } else {
             CurrentOrderList.getInstance().addItem("103027");
         }
+        UpdateOrderList();
         System.out.println(CurrentOrderList.getInstance().getCurrentOrder());
     }
     /**
@@ -187,6 +198,7 @@ public class EspressoController extends CommonPOSController {
         } else {
             CurrentOrderList.getInstance().addItem("103015");
         }
+        UpdateOrderList();
         System.out.println(CurrentOrderList.getInstance().getCurrentOrder());
     }
     /**
@@ -201,6 +213,7 @@ public class EspressoController extends CommonPOSController {
         } else {
             CurrentOrderList.getInstance().addItem("103015");
         }
+        UpdateOrderList();
         System.out.println(CurrentOrderList.getInstance().getCurrentOrder());
     }
     /**
@@ -215,6 +228,7 @@ public class EspressoController extends CommonPOSController {
         } else {
             CurrentOrderList.getInstance().addItem("103018");
         }
+        UpdateOrderList();
         System.out.println(CurrentOrderList.getInstance().getCurrentOrder());
     }
     /**
@@ -229,6 +243,7 @@ public class EspressoController extends CommonPOSController {
         } else {
             CurrentOrderList.getInstance().addItem("103018");
         }
+        UpdateOrderList();
         System.out.println(CurrentOrderList.getInstance().getCurrentOrder());
     }
     /**
@@ -243,6 +258,7 @@ public class EspressoController extends CommonPOSController {
         } else {
             CurrentOrderList.getInstance().addItem("103037");
         }
+        UpdateOrderList();
         System.out.println(CurrentOrderList.getInstance().getCurrentOrder());
     }
     /**
@@ -257,6 +273,7 @@ public class EspressoController extends CommonPOSController {
         } else {
             CurrentOrderList.getInstance().addItem("103037");
         }
+        UpdateOrderList();
         System.out.println(CurrentOrderList.getInstance().getCurrentOrder());
     }
     /**
@@ -271,6 +288,7 @@ public class EspressoController extends CommonPOSController {
         } else {
             CurrentOrderList.getInstance().addItem("103040");
         }
+        UpdateOrderList();
         System.out.println(CurrentOrderList.getInstance().getCurrentOrder());
     }
     /**
@@ -285,6 +303,7 @@ public class EspressoController extends CommonPOSController {
         } else {
             CurrentOrderList.getInstance().addItem("103040");
         }
+        UpdateOrderList();
         System.out.println(CurrentOrderList.getInstance().getCurrentOrder());
     }
     /**
@@ -293,6 +312,7 @@ public class EspressoController extends CommonPOSController {
     @FXML
     protected void clickSolo() {
         CurrentOrderList.getInstance().addItem("103031");
+        UpdateOrderList();
         System.out.println(CurrentOrderList.getInstance().getCurrentOrder());
     }
     /**
@@ -301,6 +321,7 @@ public class EspressoController extends CommonPOSController {
     @FXML
     protected void clickDouble() {
         CurrentOrderList.getInstance().addItem("103032");
+        UpdateOrderList();
         System.out.println(CurrentOrderList.getInstance().getCurrentOrder());
     }
     /**
@@ -309,6 +330,7 @@ public class EspressoController extends CommonPOSController {
     @FXML
     protected void clickTriple() {
         CurrentOrderList.getInstance().addItem("103033");
+        UpdateOrderList();
         System.out.println(CurrentOrderList.getInstance().getCurrentOrder());
     }
     /**
@@ -317,6 +339,7 @@ public class EspressoController extends CommonPOSController {
     @FXML
     protected void clickQuad() {
         CurrentOrderList.getInstance().addItem("103034");
+        UpdateOrderList();
         System.out.println(CurrentOrderList.getInstance().getCurrentOrder());
     }
 
