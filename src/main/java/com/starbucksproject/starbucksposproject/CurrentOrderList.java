@@ -108,8 +108,12 @@ public class CurrentOrderList {
 		String dateString = dateFormat.format(date);
 		String getLatestDateQuery = "SELECT MAX(date) FROM inventory_history";
 		String latestDate = requestQuery(getLatestDateQuery, "max");
-		if (latestDate.equals(dateString) == false) {
-			String createNewDateQuery = "INSERT INTO inventory_history (date) VALUES (" + latestDate + ')';
+		if (latestDate.equals(dateString)) {
+
+		} else {
+			String createNewDateQuery = "INSERT INTO inventory_history (date) VALUES (" + dateString + ')';
+
+			processQuery(createNewDateQuery);
 		}
 
 		float currAmt = getAmtFromIndex(latestDate, index);
