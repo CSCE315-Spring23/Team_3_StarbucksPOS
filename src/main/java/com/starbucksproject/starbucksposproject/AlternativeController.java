@@ -18,6 +18,9 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ResourceBundle;
 
+/**
+ * THe AlternativeController.java function implements javafx buttons for the alternative menu items in our database
+ */
 public class AlternativeController implements Initializable {
     Connection conn = null;
     private Stage stage;
@@ -46,18 +49,34 @@ public class AlternativeController implements Initializable {
     @FXML
     private Button menuItemSpecial10;
 
+    /**
+     * Assign drink size variable to 0 to indicate tall
+     */
     @FXML
     protected void clickTall() {
         drinkSize = 0;
     }
+
+    /**
+     * Assign drink size variable to 1 to indicate grande
+     */
     @FXML
     protected void clickGrande() {
         drinkSize = 1;
     }
+
+    /**
+     * Assign drink size variable to 2 to indicate venti
+     */
     @FXML
     protected void clickVenti() {
         drinkSize = 2;
     }
+
+    /**This button changes the scene to the addons scene where the user can add addons to the drink
+     * @param event
+     * @throws IOException
+     */
     @FXML
     public void clickAddons(ActionEvent event) throws IOException {
         root = FXMLLoader.load(getClass().getResource("addons-gui.fxml"));
@@ -67,9 +86,12 @@ public class AlternativeController implements Initializable {
         stage.show();
     }
     @FXML
-    protected void clickNextDrink() {
+    protected void clickNextDrink() {}
 
-    }
+    /** This function changes the scene to the manager-view scene
+     * @param event
+     * @throws IOException
+     */
     @FXML
     public void clickManagerMenu(ActionEvent event) throws IOException {
         if(CurrentOrderList.getInstance().isManager()) {
@@ -87,6 +109,11 @@ public class AlternativeController implements Initializable {
             stage.show();
         }
     }
+
+    /**This function changes the scene to the coffee menu scene
+     * @param event
+     * @throws IOException
+     */
     @FXML
     public void clickCoffeeMenu(ActionEvent event) throws IOException {
         root = FXMLLoader.load(getClass().getResource("coffee-gui.fxml"));
@@ -95,6 +122,11 @@ public class AlternativeController implements Initializable {
         stage.setScene(scene);
         stage.show();
     }
+
+    /**This function changes the scene to the espresso menu scene
+     * @param event
+     * @throws IOException
+     */
     @FXML
     public void clickEspressoMenu(ActionEvent event) throws IOException {
         root = FXMLLoader.load(getClass().getResource("espresso-gui.fxml"));
@@ -103,6 +135,11 @@ public class AlternativeController implements Initializable {
         stage.setScene(scene);
         stage.show();
     }
+
+    /**This function changes the scene to the blended beverage scene
+     * @param event
+     * @throws IOException
+     */
     @FXML
     protected void clickBlendedMenu(ActionEvent event) throws IOException {
         root = FXMLLoader.load(getClass().getResource("blended-gui.fxml"));
@@ -111,6 +148,11 @@ public class AlternativeController implements Initializable {
         stage.setScene(scene);
         stage.show();
     }
+
+    /**This function changes the scene to the Tea drink scene
+     * @param event
+     * @throws IOException
+     */
     @FXML
     protected void clickTeasMenu(ActionEvent event) throws IOException {
         root = FXMLLoader.load(getClass().getResource("tea-gui.fxml"));
@@ -120,6 +162,11 @@ public class AlternativeController implements Initializable {
         stage.show();
 
     }
+
+    /**This button changes the scene to the coffee alternative scene
+     * @param event
+     * @throws IOException
+     */
     @FXML
     protected void clickCoffeeAlternativesMenu(ActionEvent event) throws IOException {
         root = FXMLLoader.load(getClass().getResource("coffee-alternative-gui.fxml"));
@@ -129,6 +176,11 @@ public class AlternativeController implements Initializable {
         stage.show();
 
     }
+
+    /**This button changes the scene to the food menu scene
+     * @param event
+     * @throws IOException
+     */
     @FXML
     protected void clickFoodMenu(ActionEvent event) throws IOException {
         root = FXMLLoader.load(getClass().getResource("food-gui.fxml"));
@@ -137,6 +189,11 @@ public class AlternativeController implements Initializable {
         stage.setScene(scene);
         stage.show();
     }
+
+    /**This button takes the user to login scene
+     * @param event
+     * @throws IOException
+     */
     @FXML
     protected void clickLogout(ActionEvent event) throws IOException {
         root = FXMLLoader.load(getClass().getResource("pos-view.fxml"));
@@ -146,19 +203,29 @@ public class AlternativeController implements Initializable {
         stage.show();
     }
     @FXML
-    protected void clickEditCustomerName() {
+    protected void clickEditCustomerName() {}
 
-    }
+    /**
+     * This button removes the most recently added item in the order list
+     */
     @FXML
     protected void clickVoidLastItem() {
         if (CurrentOrderList.getInstance().getCurrentOrder().size() > 0)
             CurrentOrderList.getInstance().getCurrentOrder().remove(CurrentOrderList.getInstance().getCurrentOrder().size()-1);
     }
+
+    /**
+     * This button processes the payment by clearing order list and changing database
+     */
     @FXML
     protected void clickPay() {
         CurrentOrderList.getInstance().completeTransaction();
 
     }
+
+    /**
+     * This button adds special item 1 to the orderlist
+     */
     @FXML
     protected void clickSpecial1() {
         if (drinkSize == 0) {
@@ -172,6 +239,9 @@ public class AlternativeController implements Initializable {
         }
         System.out.println(CurrentOrderList.getInstance().getCurrentOrder());
     }
+    /**
+     * This button adds special item 2 to the orderlist
+     */
     @FXML
     protected void clickSpecial2() {
         if (drinkSize == 0) {
@@ -185,6 +255,9 @@ public class AlternativeController implements Initializable {
         }
         System.out.println(CurrentOrderList.getInstance().getCurrentOrder());
     }
+    /**
+     * This button adds special item 3 to the orderlist
+     */
     @FXML
     protected void clickSpecial3() {
         if (drinkSize == 0) {
@@ -198,6 +271,9 @@ public class AlternativeController implements Initializable {
         }
         System.out.println(CurrentOrderList.getInstance().getCurrentOrder());
     }
+    /**
+     * This button adds special item 4 to the orderlist
+     */
     @FXML
     protected void clickSpecial4() {
         if (drinkSize == 0) {
@@ -211,6 +287,9 @@ public class AlternativeController implements Initializable {
         }
         System.out.println(CurrentOrderList.getInstance().getCurrentOrder());
     }
+    /**
+     * This button adds special item 5 to the orderlist
+     */
     @FXML
     protected void clickSpecial5() {
         if (drinkSize == 0) {
@@ -224,6 +303,9 @@ public class AlternativeController implements Initializable {
         }
         System.out.println(CurrentOrderList.getInstance().getCurrentOrder());
     }
+    /**
+     * This button adds special item 6 to the orderlist
+     */
     @FXML
     protected void clickSpecial6() {
         if (drinkSize == 0) {
@@ -237,6 +319,9 @@ public class AlternativeController implements Initializable {
         }
         System.out.println(CurrentOrderList.getInstance().getCurrentOrder());
     }
+    /**
+     * This button adds special item 7 to the orderlist
+     */
     @FXML
     protected void clickSpecial7() {
         if (drinkSize == 0) {
@@ -250,6 +335,9 @@ public class AlternativeController implements Initializable {
         }
         System.out.println(CurrentOrderList.getInstance().getCurrentOrder());
     }
+    /**
+     * This button adds special item 8 to the orderlist
+     */
     @FXML
     protected void clickSpecial8() {
         if (drinkSize == 0) {
@@ -263,6 +351,9 @@ public class AlternativeController implements Initializable {
         }
         System.out.println(CurrentOrderList.getInstance().getCurrentOrder());
     }
+    /**
+     * This button adds special item 9 to the orderlist
+     */
     @FXML
     protected void clickSpecial9() {
         if (drinkSize == 0) {
@@ -276,6 +367,9 @@ public class AlternativeController implements Initializable {
         }
         System.out.println(CurrentOrderList.getInstance().getCurrentOrder());
     }
+    /**
+     * This button adds special item 10 to the orderlist
+     */
     @FXML
     protected void clickSpecial10() {
         if (drinkSize == 0) {
@@ -289,6 +383,9 @@ public class AlternativeController implements Initializable {
         }
         System.out.println(CurrentOrderList.getInstance().getCurrentOrder());
     }
+    /**
+     * This button adds steamed milk to the orderlist
+     */
     @FXML
     protected void clickSteamedMilk() {
         if (drinkSize == 0) {
@@ -302,6 +399,9 @@ public class AlternativeController implements Initializable {
         }
         System.out.println(CurrentOrderList.getInstance().getCurrentOrder());
     }
+    /**
+     * This button adds cold milk to the orderlist
+     */
     @FXML
     protected void clickColdMilk() {
         if (drinkSize == 0) {
@@ -313,6 +413,9 @@ public class AlternativeController implements Initializable {
         }
         System.out.println(CurrentOrderList.getInstance().getCurrentOrder());
     }
+    /**
+     * This button adds hot chocolate to the orderlist
+     */
     @FXML
     protected void clickHotChocolate() {
         if (drinkSize == 0) {
@@ -324,6 +427,9 @@ public class AlternativeController implements Initializable {
         }
         System.out.println(CurrentOrderList.getInstance().getCurrentOrder());
     }
+    /**
+     * This button adds hot white chocolate to the orderlist
+     */
     @FXML
     protected void clickHotWhiteChocolate() {
         if (drinkSize == 0) {
@@ -335,6 +441,9 @@ public class AlternativeController implements Initializable {
         }
         System.out.println(CurrentOrderList.getInstance().getCurrentOrder());
     }
+    /**
+     * This button adds soda to the orderlist
+     */
     @FXML
     protected void clickSoda() {
         if (drinkSize == 0) {

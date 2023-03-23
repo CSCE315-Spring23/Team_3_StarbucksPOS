@@ -18,6 +18,9 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ResourceBundle;
 
+/**
+ * This class implements javafx button functionality for the blended beverages
+ */
 public class BlendedController implements Initializable {
     Connection conn = null;
     private Stage stage;
@@ -46,18 +49,33 @@ public class BlendedController implements Initializable {
     private Button menuItemSpecial9;
     @FXML
     private Button menuItemSpecial10;
+
+    /**
+     * This button makes a drink tall size
+     */
     @FXML
     protected void clickTall() {
         drinkSize = 0;
     }
+    /**
+     * This button makes a drink grande size
+     */
     @FXML
     protected void clickGrande() {
         drinkSize = 1;
     }
+    /**
+     * This button makes a venti tall size
+     */
     @FXML
     protected void clickVenti() {
         drinkSize = 2;
     }
+
+    /** This button takes you to the addons scene
+     * @param event
+     * @throws IOException
+     */
     @FXML
     public void clickAddons(ActionEvent event) throws IOException {
         root = FXMLLoader.load(getClass().getResource("addons-gui.fxml"));
@@ -66,10 +84,13 @@ public class BlendedController implements Initializable {
         stage.setScene(scene);
         stage.show();
     }
-    @FXML
-    protected void clickNextDrink() {
 
-    }
+    @FXML
+    protected void clickNextDrink() {}
+    /** This button takes you to the manager view scene
+     * @param event
+     * @throws IOException
+     */
     @FXML
     public void clickManagerMenu(ActionEvent event) throws IOException {
         if(CurrentOrderList.getInstance().isManager()) {
@@ -87,6 +108,10 @@ public class BlendedController implements Initializable {
             stage.show();
         }
     }
+    /** This button takes you to the coffee menu scene
+     * @param event
+     * @throws IOException
+     */
     @FXML
     public void clickCoffeeMenu(ActionEvent event) throws IOException {
         root = FXMLLoader.load(getClass().getResource("coffee-gui.fxml"));
@@ -95,6 +120,10 @@ public class BlendedController implements Initializable {
         stage.setScene(scene);
         stage.show();
     }
+    /** This button takes you to the espresso menu scene
+     * @param event
+     * @throws IOException
+     */
     @FXML
     public void clickEspressoMenu(ActionEvent event) throws IOException {
         root = FXMLLoader.load(getClass().getResource("espresso-gui.fxml"));
@@ -103,6 +132,10 @@ public class BlendedController implements Initializable {
         stage.setScene(scene);
         stage.show();
     }
+    /** This button takes you to the blended menu scene
+     * @param event
+     * @throws IOException
+     */
     @FXML
     protected void clickBlendedMenu(ActionEvent event) throws IOException {
         root = FXMLLoader.load(getClass().getResource("blended-gui.fxml"));
@@ -111,6 +144,10 @@ public class BlendedController implements Initializable {
         stage.setScene(scene);
         stage.show();
     }
+    /** This button takes you to the tea menu scene
+     * @param event
+     * @throws IOException
+     */
     @FXML
     protected void clickTeasMenu(ActionEvent event) throws IOException {
         root = FXMLLoader.load(getClass().getResource("tea-gui.fxml"));
@@ -120,6 +157,10 @@ public class BlendedController implements Initializable {
         stage.show();
 
     }
+    /** This button takes you to the alternative menu scene
+     * @param event
+     * @throws IOException
+     */
     @FXML
     protected void clickCoffeeAlternativesMenu(ActionEvent event) throws IOException {
         root = FXMLLoader.load(getClass().getResource("coffee-alternative-gui.fxml"));
@@ -129,6 +170,10 @@ public class BlendedController implements Initializable {
         stage.show();
 
     }
+    /** This button takes you to the food menu scene
+     * @param event
+     * @throws IOException
+     */
     @FXML
     protected void clickFoodMenu(ActionEvent event) throws IOException {
         root = FXMLLoader.load(getClass().getResource("food-gui.fxml"));
@@ -137,6 +182,10 @@ public class BlendedController implements Initializable {
         stage.setScene(scene);
         stage.show();
     }
+    /** This button takes you to the login scene
+     * @param event
+     * @throws IOException
+     */
     @FXML
     protected void clickLogout(ActionEvent event) throws IOException {
         root = FXMLLoader.load(getClass().getResource("pos-view.fxml"));
@@ -146,20 +195,29 @@ public class BlendedController implements Initializable {
         stage.show();
     }
     @FXML
-    protected void clickEditCustomerName() {
+    protected void clickEditCustomerName() {}
 
-    }
+    /**
+     * This button removes the last item added to the order list
+     */
     @FXML
     protected void clickVoidLastItem() {
         if (CurrentOrderList.getInstance().getCurrentOrder().size() > 0)
             CurrentOrderList.getInstance().getCurrentOrder().remove(CurrentOrderList.getInstance().getCurrentOrder().size()-1);
     }
+
+    /**
+     * This button processes a transaction and clears the order list
+     */
     @FXML
     protected void clickPay() {
         CurrentOrderList.getInstance().completeTransaction();
 
     }
 
+    /**
+     * This button adds a special drink 1 to order list of either size tall, grande, venti
+     */
     @FXML
     protected void clickSpecial1() {
         if (drinkSize == 0) {
@@ -173,6 +231,9 @@ public class BlendedController implements Initializable {
         }
         System.out.println(CurrentOrderList.getInstance().getCurrentOrder());
     }
+    /**
+     * This button adds a special drink 2 to order list of either size tall, grande, venti
+     */
     @FXML
     protected void clickSpecial2() {
         if (drinkSize == 0) {
@@ -186,6 +247,9 @@ public class BlendedController implements Initializable {
         }
         System.out.println(CurrentOrderList.getInstance().getCurrentOrder());
     }
+    /**
+     * This button adds a special drink 3 to order list of either size tall, grande, venti
+     */
     @FXML
     protected void clickSpecial3() {
         if (drinkSize == 0) {
@@ -199,6 +263,9 @@ public class BlendedController implements Initializable {
         }
         System.out.println(CurrentOrderList.getInstance().getCurrentOrder());
     }
+    /**
+     * This button adds a special drink 4 to order list of either size tall, grande, venti
+     */
     @FXML
     protected void clickSpecial4() {
         if (drinkSize == 0) {
@@ -212,6 +279,9 @@ public class BlendedController implements Initializable {
         }
         System.out.println(CurrentOrderList.getInstance().getCurrentOrder());
     }
+    /**
+     * This button adds a special drink 5 to order list of either size tall, grande, venti
+     */
     @FXML
     protected void clickSpecial5() {
         if (drinkSize == 0) {
@@ -225,6 +295,9 @@ public class BlendedController implements Initializable {
         }
         System.out.println(CurrentOrderList.getInstance().getCurrentOrder());
     }
+    /**
+     * This button adds a special drink 6 to order list of either size tall, grande, venti
+     */
     @FXML
     protected void clickSpecial6() {
         if (drinkSize == 0) {
@@ -238,6 +311,9 @@ public class BlendedController implements Initializable {
         }
         System.out.println(CurrentOrderList.getInstance().getCurrentOrder());
     }
+    /**
+     * This button adds a special drink 7 to order list of either size tall, grande, venti
+     */
     @FXML
     protected void clickSpecial7() {
         if (drinkSize == 0) {
@@ -251,6 +327,9 @@ public class BlendedController implements Initializable {
         }
         System.out.println(CurrentOrderList.getInstance().getCurrentOrder());
     }
+    /**
+     * This button adds a special drink 8 to order list of either size tall, grande, venti
+     */
     @FXML
     protected void clickSpecial8() {
         if (drinkSize == 0) {
@@ -264,6 +343,9 @@ public class BlendedController implements Initializable {
         }
         System.out.println(CurrentOrderList.getInstance().getCurrentOrder());
     }
+    /**
+     * This button adds a special drink 9 to order list of either size tall, grande, venti
+     */
     @FXML
     protected void clickSpecial9() {
         if (drinkSize == 0) {
@@ -277,6 +359,9 @@ public class BlendedController implements Initializable {
         }
         System.out.println(CurrentOrderList.getInstance().getCurrentOrder());
     }
+    /**
+     * This button adds a special drink 10 to order list of either size tall, grande, venti
+     */
     @FXML
     protected void clickSpecial10() {
         if (drinkSize == 0) {
@@ -290,6 +375,9 @@ public class BlendedController implements Initializable {
         }
         System.out.println(CurrentOrderList.getInstance().getCurrentOrder());
     }
+    /**
+     * This button adds a coffee frap to order list of either size tall, grande, venti
+     */
     @FXML
     protected void clickCoffeeFrappuccino() {
         if (drinkSize == 0) {
@@ -301,6 +389,9 @@ public class BlendedController implements Initializable {
         }
         System.out.println(CurrentOrderList.getInstance().getCurrentOrder());
     }
+    /**
+     * This button adds a espresso frap to order list of either size tall, grande, venti
+     */
     @FXML
     protected void  clickEspressoFrappuccino() {
         if (drinkSize == 0) {
@@ -312,6 +403,9 @@ public class BlendedController implements Initializable {
         }
         System.out.println(CurrentOrderList.getInstance().getCurrentOrder());
     }
+    /**
+     * This button adds a mocha frap to order list of either size tall, grande, venti
+     */
     @FXML
     protected void clickMochaFrappuccino() {
         if (drinkSize == 0) {
@@ -323,6 +417,9 @@ public class BlendedController implements Initializable {
         }
         System.out.println(CurrentOrderList.getInstance().getCurrentOrder());
     }
+    /**
+     * This button adds a white mocha frap to order list of either size tall, grande, venti
+     */
     @FXML
     protected void clickWhiteMochaFrappuccino() {
         if (drinkSize == 0) {
@@ -334,6 +431,9 @@ public class BlendedController implements Initializable {
         }
         System.out.println(CurrentOrderList.getInstance().getCurrentOrder());
     }
+    /**
+     * This button adds a caramel frap to order list of either size tall, grande, venti
+     */
     @FXML
     protected void clickCaramelFrappuccino() {
         if (drinkSize == 0) {
@@ -345,6 +445,9 @@ public class BlendedController implements Initializable {
         }
         System.out.println(CurrentOrderList.getInstance().getCurrentOrder());
     }
+    /**
+     * This button adds a java chip frap to order list of either size tall, grande, venti
+     */
     @FXML
     protected void clickJavaChipFrappuccino() {
         if (drinkSize == 0) {
@@ -356,6 +459,9 @@ public class BlendedController implements Initializable {
         }
         System.out.println(CurrentOrderList.getInstance().getCurrentOrder());
     }
+    /**
+     * This button adds a vanilla bean creme frap to order list of either size tall, grande, venti
+     */
     @FXML
     protected void clickVanillaBeanCremeCrappuccino() {
         if (drinkSize == 0) {
@@ -367,6 +473,9 @@ public class BlendedController implements Initializable {
         }
         System.out.println(CurrentOrderList.getInstance().getCurrentOrder());
     }
+    /**
+     * This button adds a strawberry creme frap to order list of either size tall, grande, venti
+     */
     @FXML
     protected void clickStrawberryCremeFrappuccino() {
         if (drinkSize == 0) {
@@ -378,6 +487,9 @@ public class BlendedController implements Initializable {
         }
         System.out.println(CurrentOrderList.getInstance().getCurrentOrder());
     }
+    /**
+     * This button adds a double chocolate creme frap to order list of either size tall, grande, venti
+     */
     @FXML
     protected void clickDoubleChocolateCremeFrappuccino() {
         if (drinkSize == 0) {
@@ -389,6 +501,9 @@ public class BlendedController implements Initializable {
         }
         System.out.println(CurrentOrderList.getInstance().getCurrentOrder());
     }
+    /**
+     * This button adds a matcha creme frap to order list of either size tall, grande, venti
+     */
     @FXML
     protected void clickMatchaCremeFrappuccino() {
         if (drinkSize == 0) {
@@ -400,22 +515,40 @@ public class BlendedController implements Initializable {
         }
         System.out.println(CurrentOrderList.getInstance().getCurrentOrder());
     }
+    /**
+     * This button adds a blueberry smoothies to order list of either size tall, grande, venti
+     */
     @FXML
     protected void clickBlueberrySmoothie() {
         CurrentOrderList.getInstance().addItem("105028");
         System.out.println(CurrentOrderList.getInstance().getCurrentOrder());
     }
+    /**
+     * This button adds a pomegranate smoothies to order list of either size tall, grande, venti
+     */
     @FXML
     protected void clickPomegranateSmoothie() {
         CurrentOrderList.getInstance().addItem("105029");
         System.out.println(CurrentOrderList.getInstance().getCurrentOrder());
     }
+    /**
+     * This button adds a mango smoothies to order list of either size tall, grande, venti
+     */
     @FXML
     protected void clickMangoSmoothie() {
         CurrentOrderList.getInstance().addItem("105030");
         System.out.println(CurrentOrderList.getInstance().getCurrentOrder());
     }
 
+    /**
+     * Called to initialize a controller after its root element has been
+     * completely processed. Used in this context to set up the database and load blended beverages.
+     *
+     * @param location  The location used to resolve relative paths for the root object, or
+     *                  {@code null} if the location is not known.
+     * @param resources The resources used to localize the root object, or {@code null} if
+     *                  the root object was not localized.
+     */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         menuItemSpecial1.setDisable(true);

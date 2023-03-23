@@ -10,12 +10,10 @@ import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Date;
 
-//Use this class as a shared list between controllers. Load and save to it when swapping
+/**
+ *Use this class as a shared list between controllers. Load and save to it when swapping
+ */
 public class CurrentOrderList {
-	/**
-	 * @Author: Devon Kelly
-	 * @Param:
-	 */
 	private static CurrentOrderList instance;
 	private ArrayList<String> currentOrder;
 
@@ -24,6 +22,9 @@ public class CurrentOrderList {
 
 	private float TotalPrice = 0.0F;
 
+	/**
+	 * This function creates a array list for the current order
+	 */
 	private CurrentOrderList(){
 		currentOrder = new ArrayList<String>();
 	}
@@ -32,6 +33,11 @@ public class CurrentOrderList {
 	private Connection conn = DBConnection.getInstance().getConnection();
 
 
+	/**This function will return a string which is the resultSet of the query
+	 * @param query
+	 * @param columnName
+	 * @return
+	 */
 	private String requestQuery(String query, String columnName) {
 		String returnString = "";
 		try {
@@ -50,6 +56,9 @@ public class CurrentOrderList {
 		return returnString;
 	}
 
+	/**This function will execute out the SQL query
+	 * @param query
+	 */
 	private void processQuery(String query) {
 		try {
 			Statement stmt = conn.createStatement();
@@ -65,7 +74,7 @@ public class CurrentOrderList {
 	 * @param ingredients_list
 	 * @param ingredients_amt
 	 *
-	 * Takes all the
+	 * Takes all the items in the ingredient lists and subtracts the proper amount of that ingredient from the inventory DB table
 	 */
 	private boolean UpdateDBForInventory(String[] ingredients_list, String[] ingredients_amt) {
 		for (int i=0; i < ingredients_list.length && i < ingredients_amt.length; i++) {
@@ -97,6 +106,10 @@ public class CurrentOrderList {
 		return true;
 	}
 
+	/**This function will return the primary key of the ingredient item
+	 * @param ingredient_name
+	 * @return int id
+	 */
 	private int getIngredientID(String ingredient_name) {
 		int id = 0;
 		try(Statement statement = conn.createStatement()) {
@@ -113,6 +126,10 @@ public class CurrentOrderList {
 		return id;
 	}
 
+	/**This function will update the inventory history date.
+	 * @param index
+	 * @param amt
+	 */
 	private void updateInventoryHistory(int index, double amt) {
 		Date date = new Date();
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyMMdd");
@@ -128,6 +145,11 @@ public class CurrentOrderList {
 		updateAmtAtIndex(latestDate, index, newAmt);
 	}
 
+	/**This function returns the amount of an ingredient based off the date and index in the inventory_history array
+	 * @param date
+	 * @param index
+	 * @return float
+	 */
 	private float getAmtFromIndex(String date, int index) {
 		// SELECT my_array[i] FROM my_table WHERE id = row_id;
 		//table called inventory_history array called ingredient_amounts column date given by date.
@@ -135,12 +157,20 @@ public class CurrentOrderList {
 
 	}
 
+	/**This function changes the amount of the ingredient in the inventory_history by using date, index, and taking in the amount
+	 * @param date
+	 * @param index
+	 * @param amt
+	 */
 	private void updateAmtAtIndex(String date, int index, double amt) {
 		// UPDATE my_table SET my_array[i] = new_value WHERE id = row_id;
 		String query = "UPDATE inventory_history SET ingredient_amounts[" + index + "] = " + amt + " WHERE date=" + date;
 		processQuery(query);
 	}
 
+	/**This function adds a menu items primary key to the current order if it is in stock
+	 * @param menuID
+	 */
 	public void addItem(String menuID) {
 		if (CheckItemAvailability(menuID)) {
 			currentOrder.add(menuID);
@@ -150,6 +180,10 @@ public class CurrentOrderList {
 		}
 	}
 
+	/**This function will make sure that an item is not out of stock. Returns a boolean whether it is in stock or not
+	 * @param order
+	 * @return bool
+	 */
 	private boolean CheckItemAvailability(String order) {
 		try {
 			String[] ingredientsList = GetList("ingredients", Integer.parseInt(order));
@@ -166,6 +200,13 @@ public class CurrentOrderList {
 		return true;
 	}
 
+	/** This function will check the inventory to see if the amount required for an order exceeds the amount in the inventory
+	 * @param ingredient
+	 * @param amt
+	 * @return bool
+	 *
+	 * @throws SQLException
+	 */
 	private boolean CheckIngredientInventory(String ingredient, double amt) throws SQLException {
 		String sql = "SELECT quantity FROM inventory WHERE inventory_name=" + '\'' + ingredient + '\'';
 		try (Statement stat = conn.createStatement()) {
@@ -182,6 +223,13 @@ public class CurrentOrderList {
 		return false;
 	}
 
+	/**This function will return a list of the ingredients that go into a specific menu item (id to determine the menu item)
+	 * @param columnName
+	 * @param id
+	 * @return string array
+	 *
+	 * @throws SQLException
+	 */
 	private String[] GetList(String columnName, int id) throws SQLException {
 		String query = "SELECT " + columnName + " FROM menu_items WHERE item_id = " + id;
 		try (Statement statement = conn.createStatement()) {
@@ -195,6 +243,9 @@ public class CurrentOrderList {
 	}
 
 
+	/**
+	 * This function makes sure that the inventory is changed according to what is in the order list
+	 */
 	private void UpdateInventory() {
 		try {
 			for (String order : currentOrder) {
@@ -214,6 +265,9 @@ public class CurrentOrderList {
 	}
 
 
+	/**This function returns the order list
+	 * @return order list
+	 */
 	public static CurrentOrderList getInstance(){
 		if (instance == null){
 			instance = new CurrentOrderList();
@@ -278,9 +332,9 @@ public class CurrentOrderList {
 	public void setCurrentEmployee(String currentEmployee){
 		this.CurrentEmployee = currentEmployee;
 	}
-	public void setCurrentOrder(ArrayList<String> currentOrder){
-		this.currentOrder = currentOrder;
-	}
+//	public void setCurrentOrder(ArrayList<String> currentOrder){
+//		this.currentOrder = currentOrder;
+//	}
 	public void resetOrder(){
 		currentOrder.clear();
 	}

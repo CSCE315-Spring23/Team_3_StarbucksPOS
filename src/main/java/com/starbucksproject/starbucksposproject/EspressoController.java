@@ -18,6 +18,9 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ResourceBundle;
 
+/**
+ * This class is the controller for the espresso beverages. It has buttons that let the server choose espress based drinks
+ */
 public class EspressoController implements Initializable {
 
     Connection conn = null;
@@ -47,25 +50,38 @@ public class EspressoController implements Initializable {
     private Button menuItemSpecial9;
     @FXML
     private Button menuItemSpecial10;
+
+    /**
+     * This button sets the drink size to tall
+     */
     @FXML
     protected void clickTall() {
         drinkSize = 0;
     }
+    /**
+     * This button sets the drink size to grande
+     */
     @FXML
     protected void clickGrande() {
         drinkSize = 1;
     }
+    /**
+     * This button sets the drink size to venti
+     */
     @FXML
     protected void clickVenti() {
         drinkSize = 2;
     }
+
     @FXML
-    protected void clickAddons() {
+    protected void clickAddons() {}
+    @FXML
+    protected void clickNextDrink() {}
 
-    }@FXML
-    protected void clickNextDrink() {
-
-    }
+    /**This button takes the user to the manager scene
+     * @param event
+     * @throws IOException
+     */
     @FXML
     public void clickManagerMenu(ActionEvent event) throws IOException {
         if(CurrentOrderList.getInstance().isManager()) {
@@ -83,6 +99,11 @@ public class EspressoController implements Initializable {
             stage.show();
         }
     }
+
+    /**This button takes the user to the coffee menu scene
+     * @param event
+     * @throws IOException
+     */
     @FXML
     public void clickCoffeeMenu(ActionEvent event) throws IOException {
         root = FXMLLoader.load(getClass().getResource("coffee-gui.fxml"));
@@ -91,6 +112,11 @@ public class EspressoController implements Initializable {
         stage.setScene(scene);
         stage.show();
     }
+
+    /**This button takes the user to the espresso menu scene
+     * @param event
+     * @throws IOException
+     */
     @FXML
     public void clickEspressoMenu(ActionEvent event) throws IOException {
         root = FXMLLoader.load(getClass().getResource("espresso-gui.fxml"));
@@ -99,6 +125,10 @@ public class EspressoController implements Initializable {
         stage.setScene(scene);
         stage.show();
     }
+    /**This button takes the user to the blended coffee menu scene
+     * @param event
+     * @throws IOException
+     */
     @FXML
     protected void clickBlendedMenu(ActionEvent event) throws IOException {
         root = FXMLLoader.load(getClass().getResource("blended-gui.fxml"));
@@ -107,6 +137,10 @@ public class EspressoController implements Initializable {
         stage.setScene(scene);
         stage.show();
     }
+    /**This button takes the user to the tea menu scene
+     * @param event
+     * @throws IOException
+     */
     @FXML
     protected void clickTeasMenu(ActionEvent event) throws IOException {
         root = FXMLLoader.load(getClass().getResource("tea-gui.fxml"));
@@ -116,6 +150,10 @@ public class EspressoController implements Initializable {
         stage.show();
 
     }
+    /**This button takes the user to the alternative menu scene
+     * @param event
+     * @throws IOException
+     */
     @FXML
     protected void clickCoffeeAlternativesMenu(ActionEvent event) throws IOException {
         root = FXMLLoader.load(getClass().getResource("coffee-alternative-gui.fxml"));
@@ -125,6 +163,10 @@ public class EspressoController implements Initializable {
         stage.show();
 
     }
+    /**This button takes the user to the food menu scene
+     * @param event
+     * @throws IOException
+     */
     @FXML
     protected void clickFoodMenu(ActionEvent event) throws IOException {
         root = FXMLLoader.load(getClass().getResource("food-gui.fxml"));
@@ -133,6 +175,10 @@ public class EspressoController implements Initializable {
         stage.setScene(scene);
         stage.show();
     }
+    /**This button takes the user to the login scene
+     * @param event
+     * @throws IOException
+     */
     @FXML
     protected void clickLogout(ActionEvent event) throws IOException {
         root = FXMLLoader.load(getClass().getResource("pos-view.fxml"));
@@ -142,20 +188,29 @@ public class EspressoController implements Initializable {
         stage.show();
     }
     @FXML
-    protected void clickEditCustomerName() {
+    protected void clickEditCustomerName() {}
 
-    }
+    /**
+     * This function removes the latest item in the order list
+     */
     @FXML
     protected void clickVoidLastItem() {
         if (CurrentOrderList.getInstance().getCurrentOrder().size() > 0)
             CurrentOrderList.getInstance().getCurrentOrder().remove(CurrentOrderList.getInstance().getCurrentOrder().size()-1);
     }
+
+    /**
+     * This function processes the transaction, clears order, updates database
+     */
     @FXML
     protected void clickPay() {
         CurrentOrderList.getInstance().completeTransaction();
 
     }
 
+    /**
+     * This button adds the special drink 1 to the order list in either size tall, grande, or venti
+     */
     @FXML
     protected void clickSpecial1() {
         if (drinkSize == 0) {
@@ -169,6 +224,9 @@ public class EspressoController implements Initializable {
         }
         System.out.println(CurrentOrderList.getInstance().getCurrentOrder());
     }
+    /**
+     * This button adds the special drink 2 to the order list in either size tall, grande, or venti
+     */
     @FXML
     protected void clickSpecial2() {
         if (drinkSize == 0) {
@@ -182,6 +240,9 @@ public class EspressoController implements Initializable {
         }
         System.out.println(CurrentOrderList.getInstance().getCurrentOrder());
     }
+    /**
+     * This button adds the special drink 3 to the order list in either size tall, grande, or venti
+     */
     @FXML
     protected void clickSpecial3() {
         if (drinkSize == 0) {
@@ -195,6 +256,9 @@ public class EspressoController implements Initializable {
         }
         System.out.println(CurrentOrderList.getInstance().getCurrentOrder());
     }
+    /**
+     * This button adds the special drink 4 to the order list in either size tall, grande, or venti
+     */
     @FXML
     protected void clickSpecial4() {
         if (drinkSize == 0) {
@@ -208,6 +272,9 @@ public class EspressoController implements Initializable {
         }
         System.out.println(CurrentOrderList.getInstance().getCurrentOrder());
     }
+    /**
+     * This button adds the special drink 5 to the order list in either size tall, grande, or venti
+     */
     @FXML
     protected void clickSpecial5() {
         if (drinkSize == 0) {
@@ -221,6 +288,9 @@ public class EspressoController implements Initializable {
         }
         System.out.println(CurrentOrderList.getInstance().getCurrentOrder());
     }
+    /**
+     * This button adds the special drink 6 to the order list in either size tall, grande, or venti
+     */
     @FXML
     protected void clickSpecial6() {
         if (drinkSize == 0) {
@@ -234,6 +304,9 @@ public class EspressoController implements Initializable {
         }
         System.out.println(CurrentOrderList.getInstance().getCurrentOrder());
     }
+    /**
+     * This button adds the special drink 7 to the order list in either size tall, grande, or venti
+     */
     @FXML
     protected void clickSpecial7() {
         if (drinkSize == 0) {
@@ -247,6 +320,9 @@ public class EspressoController implements Initializable {
         }
         System.out.println(CurrentOrderList.getInstance().getCurrentOrder());
     }
+    /**
+     * This button adds the special drink 8 to the order list in either size tall, grande, or venti
+     */
     @FXML
     protected void clickSpecial8() {
         if (drinkSize == 0) {
@@ -260,6 +336,9 @@ public class EspressoController implements Initializable {
         }
         System.out.println(CurrentOrderList.getInstance().getCurrentOrder());
     }
+    /**
+     * This button adds the special drink 9 to the order list in either size tall, grande, or venti
+     */
     @FXML
     protected void clickSpecial9() {
         if (drinkSize == 0) {
@@ -273,6 +352,9 @@ public class EspressoController implements Initializable {
         }
         System.out.println(CurrentOrderList.getInstance().getCurrentOrder());
     }
+    /**
+     * This button adds the special drink 10 to the order list in either size tall, grande, or venti
+     */
     @FXML
     protected void clickSpecial10() {
         if (drinkSize == 0) {
@@ -286,6 +368,9 @@ public class EspressoController implements Initializable {
         }
         System.out.println(CurrentOrderList.getInstance().getCurrentOrder());
     }
+    /**
+     * This button adds americano to the order list in either size tall, grande, or venti
+     */
     @FXML
     protected void clickAmericano() {
         if (drinkSize == 0) {
@@ -297,6 +382,9 @@ public class EspressoController implements Initializable {
         }
         System.out.println(CurrentOrderList.getInstance().getCurrentOrder());
     }
+    /**
+     * This button adds iced americano to the order list in either size tall, grande, or venti
+     */
     @FXML
     protected void clickIcedAmericano() {
         if (drinkSize == 0) {
@@ -308,6 +396,9 @@ public class EspressoController implements Initializable {
         }
         System.out.println(CurrentOrderList.getInstance().getCurrentOrder());
     }
+    /**
+     * This button adds cappuccino to the order list in either size tall, grande, or venti
+     */
     @FXML
     protected void clickCappuccino() {
         if (drinkSize == 0) {
@@ -319,6 +410,9 @@ public class EspressoController implements Initializable {
         }
         System.out.println(CurrentOrderList.getInstance().getCurrentOrder());
     }
+    /**
+     * This button adds latte to the order list in either size tall, grande, or venti
+     */
     @FXML
     protected void clickLatte() {
         if (drinkSize == 0) {
@@ -330,6 +424,9 @@ public class EspressoController implements Initializable {
         }
         System.out.println(CurrentOrderList.getInstance().getCurrentOrder());
     }
+    /**
+     * This button adds iced latte to the order list in either size tall, grande, or venti
+     */
     @FXML
     protected void clickIcedLatte() {
         if (drinkSize == 0) {
@@ -341,6 +438,9 @@ public class EspressoController implements Initializable {
         }
         System.out.println(CurrentOrderList.getInstance().getCurrentOrder());
     }
+    /**
+     * This button adds cinnamon dolce latte to the order list in either size tall, grande, or venti
+     */
     @FXML
     protected void clickCinnamonDolceLatte() {
         if (drinkSize == 0) {
@@ -352,6 +452,9 @@ public class EspressoController implements Initializable {
         }
         System.out.println(CurrentOrderList.getInstance().getCurrentOrder());
     }
+    /**
+     * This button adds iced cinnamon dolce latte to the order list in either size tall, grande, or venti
+     */
     @FXML
     protected void clickIcedCinnamonDolceLatte() {
         if (drinkSize == 0) {
@@ -363,6 +466,9 @@ public class EspressoController implements Initializable {
         }
         System.out.println(CurrentOrderList.getInstance().getCurrentOrder());
     }
+    /**
+     * This button adds caramel macchiato to the order list in either size tall, grande, or venti
+     */
     @FXML
     protected void clickCaramelMacchiato() {
         if (drinkSize == 0) {
@@ -374,6 +480,9 @@ public class EspressoController implements Initializable {
         }
         System.out.println(CurrentOrderList.getInstance().getCurrentOrder());
     }
+    /**
+     * This button adds iced caramel macchiato to the order list in either size tall, grande, or venti
+     */
     @FXML
     protected void clickIcedCaramelMacchiato() {
         if (drinkSize == 0) {
@@ -385,6 +494,9 @@ public class EspressoController implements Initializable {
         }
         System.out.println(CurrentOrderList.getInstance().getCurrentOrder());
     }
+    /**
+     * This button adds coconut macchiato to the order list in either size tall, grande, or venti
+     */
     @FXML
     protected void clickCoconutMacchiato() {
         if (drinkSize == 0) {
@@ -396,6 +508,9 @@ public class EspressoController implements Initializable {
         }
         System.out.println(CurrentOrderList.getInstance().getCurrentOrder());
     }
+    /**
+     * This button adds iced cocounut macchiato to the order list in either size tall, grande, or venti
+     */
     @FXML
     protected void clickIcedCoconutMacchiato() {
         if (drinkSize == 0) {
@@ -407,6 +522,9 @@ public class EspressoController implements Initializable {
         }
         System.out.println(CurrentOrderList.getInstance().getCurrentOrder());
     }
+    /**
+     * This button adds mocha drink to the order list in either size tall, grande, or venti
+     */
     @FXML
     protected void clickMocha() {
         if (drinkSize == 0) {
@@ -418,6 +536,9 @@ public class EspressoController implements Initializable {
         }
         System.out.println(CurrentOrderList.getInstance().getCurrentOrder());
     }
+    /**
+     * This button adds iced mocha drink to the order list in either size tall, grande, or venti
+     */
     @FXML
     protected void clickIcedMocha() {
         if (drinkSize == 0) {
@@ -429,6 +550,9 @@ public class EspressoController implements Initializable {
         }
         System.out.println(CurrentOrderList.getInstance().getCurrentOrder());
     }
+    /**
+     * This button adds white mocha drink to the order list in either size tall, grande, or venti
+     */
     @FXML
     protected void clickWhiteMocha() {
         if (drinkSize == 0) {
@@ -440,6 +564,9 @@ public class EspressoController implements Initializable {
         }
         System.out.println(CurrentOrderList.getInstance().getCurrentOrder());
     }
+    /**
+     * This button adds iced white mocha drink to the order list in either size tall, grande, or venti
+     */
     @FXML
     protected void clickIcedWhiteMocha() {
         if (drinkSize == 0) {
@@ -451,6 +578,9 @@ public class EspressoController implements Initializable {
         }
         System.out.println(CurrentOrderList.getInstance().getCurrentOrder());
     }
+    /**
+     * This button adds coconut mocha to the order list in either size tall, grande, or venti
+     */
     @FXML
     protected void clickCoconutMocha() {
         if (drinkSize == 0) {
@@ -462,6 +592,9 @@ public class EspressoController implements Initializable {
         }
         System.out.println(CurrentOrderList.getInstance().getCurrentOrder());
     }
+    /**
+     * This button adds iced coconut mocha to the order list in either size tall, grande, or venti
+     */
     @FXML
     protected void clickIcedCoconutMocha() {
         if (drinkSize == 0) {
@@ -473,6 +606,9 @@ public class EspressoController implements Initializable {
         }
         System.out.println(CurrentOrderList.getInstance().getCurrentOrder());
     }
+    /**
+     * This button adds black white mocha to the order list in either size tall, grande, or venti
+     */
     @FXML
     protected void clickBlackWhiteMocha() {
         if (drinkSize == 0) {
@@ -484,6 +620,9 @@ public class EspressoController implements Initializable {
         }
         System.out.println(CurrentOrderList.getInstance().getCurrentOrder());
     }
+    /**
+     * This button adds iced black white mocha to the order list in either size tall, grande, or venti
+     */
     @FXML
     protected void clickIcedBlackWhiteMocha() {
         if (drinkSize == 0) {
@@ -495,27 +634,47 @@ public class EspressoController implements Initializable {
         }
         System.out.println(CurrentOrderList.getInstance().getCurrentOrder());
     }
+    /**
+     * This button adds solo espresso to the order list
+     */
     @FXML
     protected void clickSolo() {
         CurrentOrderList.getInstance().addItem("103031");
         System.out.println(CurrentOrderList.getInstance().getCurrentOrder());
     }
+    /**
+     * This button adds double espresso to the order list
+     */
     @FXML
     protected void clickDouble() {
         CurrentOrderList.getInstance().addItem("103032");
         System.out.println(CurrentOrderList.getInstance().getCurrentOrder());
     }
+    /**
+     * This button adds triple espresso to the order list
+     */
     @FXML
     protected void clickTriple() {
         CurrentOrderList.getInstance().addItem("103033");
         System.out.println(CurrentOrderList.getInstance().getCurrentOrder());
     }
+    /**
+     * This button adds quad espresso to the order list
+     */
     @FXML
     protected void clickQuad() {
         CurrentOrderList.getInstance().addItem("103034");
         System.out.println(CurrentOrderList.getInstance().getCurrentOrder());
     }
-
+    /**
+     * Called to initialize a controller after its root element has been
+     * completely processed. Used in this context to set up the database and load espresso beverages.
+     *
+     * @param location  The location used to resolve relative paths for the root object, or
+     *                  {@code null} if the location is not known.
+     * @param resources The resources used to localize the root object, or {@code null} if
+     *                  the root object was not localized.
+     */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         menuItemSpecial1.setDisable(true);

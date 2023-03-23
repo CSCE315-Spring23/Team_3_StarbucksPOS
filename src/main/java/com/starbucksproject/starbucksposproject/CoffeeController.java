@@ -26,6 +26,9 @@ import java.util.ResourceBundle;
 
 import javafx.scene.input.KeyEvent;
 
+/**
+ * This class implements buttons for the coffee menu
+ */
 public class CoffeeController implements Initializable {
 
     Connection conn = null;
@@ -55,21 +58,33 @@ public class CoffeeController implements Initializable {
     private Button menuItemSpecial9;
     @FXML
     private Button menuItemSpecial10;
+
+    /**
+     * This button makes the drink size tall
+     */
     @FXML
     protected void clickTall() {
         drinkSize = 0;
     }
-
+    /**
+     * This button makes the drink size grande
+     */
     @FXML
     protected void clickGrande() {
         drinkSize = 1;
     }
-
+    /**
+     * This button makes the drink size venti
+     */
     @FXML
     protected void clickVenti() {
         drinkSize = 2;
     }
 
+    /**This button changes the scene to the addons scene
+     * @param event
+     * @throws IOException
+     */
     @FXML
     public void clickAddons(ActionEvent event) throws IOException {
         root = FXMLLoader.load(getClass().getResource("addons-gui.fxml"));
@@ -80,10 +95,11 @@ public class CoffeeController implements Initializable {
     }
 
     @FXML
-    protected void clickNextDrink() {
-
-    }
-
+    protected void clickNextDrink() {}
+    /**This button changes the scene to the manager menu scene
+     * @param event
+     * @throws IOException
+     */
     @FXML
     public void clickManagerMenu(ActionEvent event) throws IOException {
         if(CurrentOrderList.getInstance().isManager()) {
@@ -101,7 +117,10 @@ public class CoffeeController implements Initializable {
             stage.show();
         }
     }
-
+    /**This button changes the scene to the coffee menu scene
+     * @param event
+     * @throws IOException
+     */
     @FXML
     public void clickCoffeeMenu(ActionEvent event) throws IOException {
         root = FXMLLoader.load(getClass().getResource("coffee-gui.fxml"));
@@ -110,7 +129,10 @@ public class CoffeeController implements Initializable {
         stage.setScene(scene);
         stage.show();
     }
-
+    /**This button changes the scene to the espresso menu scene
+     * @param event
+     * @throws IOException
+     */
     @FXML
     public void clickEspressoMenu(ActionEvent event) throws IOException {
         root = FXMLLoader.load(getClass().getResource("espresso-gui.fxml"));
@@ -119,7 +141,10 @@ public class CoffeeController implements Initializable {
         stage.setScene(scene);
         stage.show();
     }
-
+    /**This button changes the scene to the blended menu scene
+     * @param event
+     * @throws IOException
+     */
     @FXML
     protected void clickBlendedMenu(ActionEvent event) throws IOException {
         root = FXMLLoader.load(getClass().getResource("blended-gui.fxml"));
@@ -128,7 +153,10 @@ public class CoffeeController implements Initializable {
         stage.setScene(scene);
         stage.show();
     }
-
+    /**This button changes the scene to the tea menu scene
+     * @param event
+     * @throws IOException
+     */
     @FXML
     protected void clickTeasMenu(ActionEvent event) throws IOException {
         root = FXMLLoader.load(getClass().getResource("tea-gui.fxml"));
@@ -138,7 +166,10 @@ public class CoffeeController implements Initializable {
         stage.show();
 
     }
-
+    /**This button changes the scene to the alternative menu scene
+     * @param event
+     * @throws IOException
+     */
     @FXML
     protected void clickCoffeeAlternativesMenu(ActionEvent event) throws IOException {
         root = FXMLLoader.load(getClass().getResource("coffee-alternative-gui.fxml"));
@@ -148,7 +179,10 @@ public class CoffeeController implements Initializable {
         stage.show();
 
     }
-
+    /**This button changes the scene to the food menu scene
+     * @param event
+     * @throws IOException
+     */
     @FXML
     protected void clickFoodMenu(ActionEvent event) throws IOException {
         root = FXMLLoader.load(getClass().getResource("food-gui.fxml"));
@@ -157,7 +191,10 @@ public class CoffeeController implements Initializable {
         stage.setScene(scene);
         stage.show();
     }
-
+    /**This button changes the scene to the login scene
+     * @param event
+     * @throws IOException
+     */
     @FXML
     protected void clickLogout(ActionEvent event) throws IOException {
         root = FXMLLoader.load(getClass().getResource("pos-view.fxml"));
@@ -168,16 +205,20 @@ public class CoffeeController implements Initializable {
     }
 
     @FXML
-    protected void clickEditCustomerName() {
+    protected void clickEditCustomerName() {}
 
-    }
-
+    /**
+     * This button removes the latest item in the order list
+     */
     @FXML
     protected void clickVoidLastItem() {
         if (CurrentOrderList.getInstance().getCurrentOrder().size() > 0)
             CurrentOrderList.getInstance().getCurrentOrder().remove(CurrentOrderList.getInstance().getCurrentOrder().size()-1);
     }
 
+    /**
+     * This button processes the transaction, clears order list, updates the database
+     */
     @FXML
     protected void clickPay() {
 //        DateTime dateTime = new DateTime(); // current date and time
@@ -187,6 +228,9 @@ public class CoffeeController implements Initializable {
         CurrentOrderList.getInstance().completeTransaction();
     }
 
+    /**
+     * This button adds special drink 1 to the order list in either tall, grande, or venti
+     */
     @FXML
     protected void clickSpecial1() {
         if (drinkSize == 0) {
@@ -200,6 +244,9 @@ public class CoffeeController implements Initializable {
         }
         System.out.println(CurrentOrderList.getInstance().getCurrentOrder());
     }
+    /**
+     * This button adds special drink 2 to the order list in either tall, grande, or venti
+     */
     @FXML
     protected void clickSpecial2() {
         if (drinkSize == 0) {
@@ -213,6 +260,9 @@ public class CoffeeController implements Initializable {
         }
         System.out.println(CurrentOrderList.getInstance().getCurrentOrder());
     }
+    /**
+     * This button adds special drink 3 to the order list in either tall, grande, or venti
+     */
     @FXML
     protected void clickSpecial3() {
         if (drinkSize == 0) {
@@ -226,6 +276,9 @@ public class CoffeeController implements Initializable {
         }
         System.out.println(CurrentOrderList.getInstance().getCurrentOrder());
     }
+    /**
+     * This button adds special drink 4 to the order list in either tall, grande, or venti
+     */
     @FXML
     protected void clickSpecial4() {
         if (drinkSize == 0) {
@@ -239,6 +292,9 @@ public class CoffeeController implements Initializable {
         }
         System.out.println(CurrentOrderList.getInstance().getCurrentOrder());
     }
+    /**
+     * This button adds special drink 5 to the order list in either tall, grande, or venti
+     */
     @FXML
     protected void clickSpecial5() {
         if (drinkSize == 0) {
@@ -252,6 +308,9 @@ public class CoffeeController implements Initializable {
         }
         System.out.println(CurrentOrderList.getInstance().getCurrentOrder());
     }
+    /**
+     * This button adds special drink 6 to the order list in either tall, grande, or venti
+     */
     @FXML
     protected void clickSpecial6() {
         if (drinkSize == 0) {
@@ -265,6 +324,9 @@ public class CoffeeController implements Initializable {
         }
         System.out.println(CurrentOrderList.getInstance().getCurrentOrder());
     }
+    /**
+     * This button adds special drink 7 to the order list in either tall, grande, or venti
+     */
     @FXML
     protected void clickSpecial7() {
         if (drinkSize == 0) {
@@ -278,6 +340,9 @@ public class CoffeeController implements Initializable {
         }
         System.out.println(CurrentOrderList.getInstance().getCurrentOrder());
     }
+    /**
+     * This button adds special drink 8 to the order list in either tall, grande, or venti
+     */
     @FXML
     protected void clickSpecial8() {
         if (drinkSize == 0) {
@@ -291,6 +356,9 @@ public class CoffeeController implements Initializable {
         }
         System.out.println(CurrentOrderList.getInstance().getCurrentOrder());
     }
+    /**
+     * This button adds special drink 9 to the order list in either tall, grande, or venti
+     */
     @FXML
     protected void clickSpecial9() {
         if (drinkSize == 0) {
@@ -304,6 +372,9 @@ public class CoffeeController implements Initializable {
         }
         System.out.println(CurrentOrderList.getInstance().getCurrentOrder());
     }
+    /**
+     * This button adds special drink 10 to the order list in either tall, grande, or venti
+     */
     @FXML
     protected void clickSpecial10() {
         if (drinkSize == 0) {
@@ -318,6 +389,9 @@ public class CoffeeController implements Initializable {
         System.out.println(CurrentOrderList.getInstance().getCurrentOrder());
     }
 
+    /**
+     * This button adds coffee to the order list in either tall, grande, or venti
+     */
     @FXML
     protected void clickCoffee() {
         if (drinkSize == 0) {
@@ -330,12 +404,17 @@ public class CoffeeController implements Initializable {
         System.out.println(CurrentOrderList.getInstance().getCurrentOrder());
     }
 
+    /**
+     * This button adds coffee traveller to the order list
+     */
     @FXML
     protected void clickCoffeeTraveller() {
         CurrentOrderList.getInstance().addItem("101014");
         System.out.println(CurrentOrderList.getInstance().getCurrentOrder());
     }
-
+    /**
+     * This button adds iced coffee to the order list in either tall, grande, or venti
+     */
     @FXML
     protected void clickIcedCoffee() {
         if (drinkSize == 0) {
@@ -348,6 +427,9 @@ public class CoffeeController implements Initializable {
         System.out.println(CurrentOrderList.getInstance().getCurrentOrder());
     }
 
+    /**
+     * This button adds cafe lait to the order list in either tall, grande, or venti
+     */
     @FXML
     protected void clickCafeLait() {
         if (drinkSize == 0) {
@@ -359,7 +441,9 @@ public class CoffeeController implements Initializable {
         }
         System.out.println(CurrentOrderList.getInstance().getCurrentOrder());
     }
-
+    /**
+     * This button adds cold brew to the order list in either tall, grande, or venti
+     */
     @FXML
     protected void clickColdBrew() {
         if (drinkSize == 0) {
@@ -372,13 +456,24 @@ public class CoffeeController implements Initializable {
         System.out.println(CurrentOrderList.getInstance().getCurrentOrder());
     }
 
+    /**
+     * This button adds coffee refill to the order list
+     */
     @FXML
     protected void clickCoffeeRefill() {
         CurrentOrderList.getInstance().addItem("101013");
         System.out.println(CurrentOrderList.getInstance().getCurrentOrder());
 
     }
-
+    /**
+     * Called to initialize a controller after its root element has been
+     * completely processed. Used in this context to set up the database and load coffee beverages.
+     *
+     * @param location  The location used to resolve relative paths for the root object, or
+     *                  {@code null} if the location is not known.
+     * @param resources The resources used to localize the root object, or {@code null} if
+     *                  the root object was not localized.
+     */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         menuItemSpecial1.setDisable(true);
