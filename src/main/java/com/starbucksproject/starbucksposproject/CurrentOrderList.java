@@ -392,14 +392,27 @@ public class CurrentOrderList {
 		isManager = manager;
 	}
 
+	/**
+	 *
+	 * @return Returns HashMap containing pairs between menu item ids and menu item names (not display names since they don't distinguish sizes)
+	 * @throws SQLException
+	 */
 	public HashMap<Integer, String> getIdToNameMap() throws SQLException{
 		if (idToName == null){
 			Statement stmt = conn.createStatement();
-			ResultSet rs = stmt.executeQuery("SELECT inventory_id,inventory_name FROM inventory");
+			ResultSet rs = stmt.executeQuery("SELECT item_id,item_name FROM menu_items");
 			idToName = new HashMap<>();
 //			HashMap<String, Integer> nameToId = new HashMap<>();
 			while (rs.next()){
-				idToName.put(rs.getInt("inventory_id"), rs.getString("inventory_name"));
+				idToName.put(rs.getInt("item_id"), rs.getString("item_name"));
+				//can also do opposite
+			}
+			rs.close();
+			stmt.close();
+			stmt = conn.createStatement();
+			rs = stmt.executeQuery("SELECT item_id,inventory_name FROM special_menu_items");
+			while (rs.next()){
+				idToName.put(rs.getInt("item_id"), rs.getString("inventory_name"));
 				//can also do opposite
 			}
 		}
