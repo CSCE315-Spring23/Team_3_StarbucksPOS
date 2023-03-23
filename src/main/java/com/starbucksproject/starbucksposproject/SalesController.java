@@ -1,6 +1,8 @@
 package com.starbucksproject.starbucksposproject;
 
 import javafx.application.Platform;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -29,6 +31,7 @@ import java.util.*;
 import java.util.Date;
 import java.util.concurrent.atomic.AtomicBoolean;
 
+
 /**
  * Sales Controller implements the buttons and other functions for the Sales page, including the
  * ability to look at all sales between two dates.
@@ -44,8 +47,10 @@ public class SalesController implements Initializable {
 
     @FXML
     private TextField fromDate;
+    private String startDatePrivate;
     @FXML
     private TextField toDate;
+    private String endDatePrivate;
 
     /**
      * Changes the current page to the main server page.
@@ -242,6 +247,8 @@ public class SalesController implements Initializable {
             if (dialogButton == selectButtonType) {
                 int startDate = Integer.parseInt(fromDate.getText());
                 int endDate = Integer.parseInt(toDate.getText());
+                startDatePrivate = fromDate.getText();
+                endDatePrivate = toDate.getText();
 
                 return new Pair<>(String.format("%d", startDate), String.format("%d", endDate));
             }
@@ -515,7 +522,7 @@ public class SalesController implements Initializable {
     }
 
     public void clickSalesItemReport(ActionEvent event) throws IOException {
-        HashMap<String, Integer> salesItemReport = getSalesItemReport("221101", "221201");
+        HashMap<String, Integer> salesItemReport = getSalesItemReport(startDatePrivate, endDatePrivate);
 
 
     }
