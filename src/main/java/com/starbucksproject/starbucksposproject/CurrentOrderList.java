@@ -32,11 +32,12 @@ public class CurrentOrderList {
 
 	private Connection conn = DBConnection.getInstance().getConnection();
 
-
-	/**This function will return a string which is the resultSet of the query
-	 * @param query
-	 * @param columnName
-	 * @return
+	/**
+	 * Executes the query in the  and grabs the first entry of the column provided.
+	 * @param query Full SQL query to be requested
+	 * @param columnName The column to be grabbed by the query
+	 * @return Returns the first String from the query provided or a blank string if not found
+	 * @see Statement
 	 */
 	private String requestQuery(String query, String columnName) {
 		String returnString = "";
@@ -51,13 +52,13 @@ public class CurrentOrderList {
 		} catch (SQLException e) {
 			e.printStackTrace();
 			System.err.println(e.getClass().getName() + ": " + e.getMessage());
-			System.exit(0);
 		}
 		return returnString;
 	}
 
-	/**This function will execute out the SQL query
-	 * @param query
+	/**
+	 * Executes the query in parameter name and grabs the first entry of the column provided.
+	 * @param query Full SQL query to be processed
 	 */
 	private void processQuery(String query) {
 		try {
@@ -66,65 +67,60 @@ public class CurrentOrderList {
 		} catch (SQLException e) {
 			e.printStackTrace();
 			System.err.println(e.getClass().getName() + ": " + e.getMessage());
-			System.exit(0);
 		}
 	}
-	/**
-	 *
-	 * @param ingredients_list
-	 * @param ingredients_amt
-	 *
-	 * Takes all the items in the ingredient lists and subtracts the proper amount of that ingredient from the inventory DB table
-	 */
-	private boolean UpdateDBForInventory(String[] ingredients_list, String[] ingredients_amt) {
-		for (int i=0; i < ingredients_list.length && i < ingredients_amt.length; i++) {
-			double amt = Double.parseDouble(ingredients_amt[i]);
-			String ingredient = ingredients_list[i];
-			try (Statement statement = conn.createStatement()) {
-//				PreparedStatement prepped = conn.prepareStatement("SELECT inventory_name,quantity FROM inventory where inventory_name=?");
-//				prepped.setString(1, ingredient);
-//				ResultSet amountResult = prepped.executeQuery();
-//				amountResult.next();
-//				double currAmount = amountResult.getDouble("quantity");
-//				String currName = amountResult.getString("inventory_name");
-//				amountResult.close();
-//				prepped.close();
-//				if (currAmount < amt){
-//					throw new IllegalArgumentException("Ran out of " + currName);
-//				}
-				System.out.println("Calling the sql to update the DBInventory");
-				String sql = "UPDATE inventory SET quantity = quantity - " + amt + " WHERE inventory_name = " + '\'' + ingredient + '\'';
-				int index = getIngredientID(ingredient) - 999;
-				updateInventoryHistory(index, amt);
-				statement.executeUpdate(sql);
-			} catch (SQLException e) {
-				e.printStackTrace();
-				System.err.println(e.getClass().getName() + ": " + e.getMessage());
-				System.exit(0);
-			}
-		}
-		return true;
-	}
+//	/**
+//	 *
+//	 * @param ingredients_list
+//	 * @param ingredients_amt
+//	 *
+//	 * Takes all the
+//	 */
+//	private boolean UpdateDBForInventory(String[] ingredients_list, String[] ingredients_amt) {
+//		for (int i=0; i < ingredients_list.length && i < ingredients_amt.length; i++) {
+//			double amt = Double.parseDouble(ingredients_amt[i]);
+//			String ingredient = ingredients_list[i];
+//			try (Statement statement = conn.createStatement()) {
+////				PreparedStatement prepped = conn.prepareStatement("SELECT inventory_name,quantity FROM inventory where inventory_name=?");
+////				prepped.setString(1, ingredient);
+////				ResultSet amountResult = prepped.executeQuery();
+////				amountResult.next();
+////				double currAmount = amountResult.getDouble("quantity");
+////				String currName = amountResult.getString("inventory_name");
+////				amountResult.close();
+////				prepped.close();
+////				if (currAmount < amt){
+////					throw new IllegalArgumentException("Ran out of " + currName);
+////				}
+//				System.out.println("Calling the sql to update the DBInventory");
+//				String sql = "UPDATE inventory SET quantity = quantity - " + amt + " WHERE inventory_name = " + '\'' + ingredient + '\'';
+//				int index = getIngredientID(ingredient) - 1000;
+//				updateInventoryHistory(index, amt);
+//				statement.executeUpdate(sql);
+//			} catch (SQLException e) {
+//				e.printStackTrace();
+//				System.err.println(e.getClass().getName() + ": " + e.getMessage());
+//				System.exit(0);
+//			}
+//		}
+//		return true;
+//	}
 
-	/**This function will return the primary key of the ingredient item
-	 * @param ingredient_name
-	 * @return int id
-	 */
-	private int getIngredientID(String ingredient_name) {
-		int id = 0;
-		try(Statement statement = conn.createStatement()) {
-			String sql = "SELECT inventory_id FROM inventory WHERE inventory_name=" + '\'' + ingredient_name + '\'';
-			ResultSet result = statement.executeQuery(sql);
-			result.next();
-			id = Integer.parseInt(result.getString("inventory_id"));
-			result.next();
-		} catch (Exception e) {
-			e.printStackTrace();
-			System.err.println(e.getClass().getName() + ": " + e.getMessage());
-			System.exit(0);
-		}
-		return id;
-	}
+//	private int getIngredientID(String ingredient_name) {
+//		int id = 0;
+//		try(Statement statement = conn.createStatement()) {
+//			String sql = "SELECT inventory_id FROM inventory WHERE inventory_name='" + ingredient_name + "'";
+//			ResultSet result = statement.executeQuery(sql);
+//			result.next();
+//			id = Integer.parseInt(result.getString("inventory_id"));
+//			result.next();
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//			System.err.println(e.getClass().getName() + ": " + e.getMessage());
+//			System.exit(0);
+//		}
+//		return id;
+//	}
 
 	/**This function will update the inventory history date.
 	 * @param index
@@ -136,37 +132,55 @@ public class CurrentOrderList {
 		String dateString = dateFormat.format(date);
 		String getLatestDateQuery = "SELECT MAX(date) FROM inventory_history";
 		String latestDate = requestQuery(getLatestDateQuery, "max");
-		if (latestDate.equals(dateString) == false) {
-			String createNewDateQuery = "INSERT INTO inventory_history (date) VALUES (" + latestDate + ')';
+		if (!latestDate.equals(dateString)) {
+			try {
+				Statement stmt = conn.createStatement();
+				ResultSet rs = stmt.executeQuery("SELECT quantity FROM inventory ORDER BY inventory_id");
+				ArrayList<Double> doubleArrayList = new ArrayList<>();
+				while (rs.next()){
+					doubleArrayList.add(rs.getDouble("quantity"));
+				}
+//				Array array = rs.getArray("quantity");
+				Array array = conn.createArrayOf("double", doubleArrayList.toArray());
+				PreparedStatement prepped = conn.prepareStatement("INSERT INTO inventory_history (date, ingredient_amounts) VALUES (?, ?)");
+				prepped.setInt(1, Integer.parseInt(dateString));
+				prepped.setArray(2, array);
+				prepped.executeUpdate();
+			}
+			catch (SQLException e){
+				e.printStackTrace();
+			}
+		}
+		else{
+			try{
+				PreparedStatement prepped = conn.prepareStatement("UPDATE inventory_history SET ingredient_amounts[?]=? WHERE date=?");
+				prepped.setInt(1, index);
+				prepped.setDouble(2, amt);
+				prepped.setInt(3, Integer.parseInt(dateString));
+				prepped.executeUpdate();
+			}
+			catch (SQLException e){
+				e.printStackTrace();
+			}
 		}
 
-		double currAmt = getAmtFromIndex(latestDate, index);
-		double newAmt = currAmt + amt;
-		updateAmtAtIndex(latestDate, index, newAmt);
+//		double currAmt = getAmtFromIndex(latestDate, index);
+//		double newAmt = currAmt + amt;
+//		updateAmtAtIndex(latestDate, index, newAmt);
 	}
 
-	/**This function returns the amount of an ingredient based off the date and index in the inventory_history array
-	 * @param date
-	 * @param index
-	 * @return float
-	 */
-	private float getAmtFromIndex(String date, int index) {
-		// SELECT my_array[i] FROM my_table WHERE id = row_id;
-		//table called inventory_history array called ingredient_amounts column date given by date.
-		return Float.parseFloat(requestQuery("SELECT ingredient_amounts["+index+"] FROM inventory_history WHERE date="+date, "ingredient_amounts"));
+//	private float getAmtFromIndex(String date, int index) {
+//		// SELECT my_array[i] FROM my_table WHERE id = row_id;
+//		//table called inventory_history array called ingredient_amounts column date given by date.
+//		return Float.parseFloat(requestQuery("SELECT ingredient_amounts["+index+"] FROM inventory_history WHERE date="+date, "ingredient_amounts"));
+//
+//	}
 
-	}
-
-	/**This function changes the amount of the ingredient in the inventory_history by using date, index, and taking in the amount
-	 * @param date
-	 * @param index
-	 * @param amt
-	 */
-	private void updateAmtAtIndex(String date, int index, double amt) {
-		// UPDATE my_table SET my_array[i] = new_value WHERE id = row_id;
-		String query = "UPDATE inventory_history SET ingredient_amounts[" + index + "] = " + amt + " WHERE date=" + date;
-		processQuery(query);
-	}
+//	private void updateAmtAtIndex(String date, int index, double amt) {
+//		// UPDATE my_table SET my_array[i] = new_value WHERE id = row_id;
+//		String query = "UPDATE inventory_history SET ingredient_amounts[" + index + "] = " + amt + " WHERE date=" + date;
+//		processQuery(query);
+//	}
 
 	/**This function adds a menu items primary key to the current order if it is in stock
 	 * @param menuID
@@ -189,7 +203,7 @@ public class CurrentOrderList {
 			String[] ingredientsList = GetList("ingredients", Integer.parseInt(order));
 			String[] amountsList = GetList("amounts", Integer.parseInt(order));
 			for (int i=0; i < ingredientsList.length && i < amountsList.length; i++) {
-				if (CheckIngredientInventory(ingredientsList[i], Double.parseDouble(amountsList[i])) == false) {
+				if (!CheckIngredientInventory(ingredientsList[i], Double.parseDouble(amountsList[i]))) {
 					return false;
 				}
 			}
@@ -249,16 +263,28 @@ public class CurrentOrderList {
 	private void UpdateInventory() {
 		try {
 			for (String order : currentOrder) {
-				String[] ingredientsList = GetList("ingredients", Integer.parseInt(order));
-				String[] amountsList = GetList("amounts", Integer.parseInt(order));
+				int id = Integer.parseInt(order);
+				String[] ingredientsList = GetList("ingredients", id);
+				String[] amountsList = GetList("amounts", id);
 				System.out.println("ingredients list: " + Arrays.toString(ingredientsList));
-				System.out.println("Amounts list: " + Arrays.toString(amountsList));
-				UpdateDBForInventory(ingredientsList, amountsList);
+//				System.out.println("Amounts list: " + Arrays.toString(amountsList));
+//				UpdateDBForInventory(ingredientsList, amountsList);
+				for (int i = 0; i < ingredientsList.length; i++) {
+					Statement stmt = conn.createStatement();
+					stmt.executeUpdate("UPDATE inventory SET quantity=quantity - " + amountsList[i] + " WHERE inventory_name='" + ingredientsList[i] + "'");
+					stmt.close();
+					stmt = conn.createStatement();
+					ResultSet rs = stmt.executeQuery("SELECT quantity,inventory_id FROM inventory WHERE inventory_name='" + ingredientsList[i] + "'");
+					rs.next();
+					double amt = rs.getDouble("quantity");
+					int inventoryId = rs.getInt("inventory_id");
+					updateInventoryHistory(inventoryId-1000, amt);
+				}
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.err.println(e.getClass().getName() + ": " + e.getMessage());
-			System.exit(0);
+//			System.exit(0);
 		}
 
 		System.out.println("Updated inventory");
@@ -325,25 +351,21 @@ public class CurrentOrderList {
 	/**
 	 * @author Devon Kelly
 	 * @param currentEmployee
-	 * @return N/A
 	 *
 	 * The function sets the CurrentEmployee object within the class to the parameter value currentEmployee.
 	 */
 	public void setCurrentEmployee(String currentEmployee){
 		this.CurrentEmployee = currentEmployee;
 	}
-//	public void setCurrentOrder(ArrayList<String> currentOrder){
-//		this.currentOrder = currentOrder;
-//	}
+	public void setCurrentOrder(ArrayList<String> currentOrder){
+		this.currentOrder = currentOrder;
+	}
 	public void resetOrder(){
 		currentOrder.clear();
 	}
 
 	/**
 	 * @Author: David Liu
-	 * @Param: N/A
-	 * @Return: N/A
-	 * @Throws: N/A
 	 * The function takes all the orders within the CurrentOrder Array, and
 	 * updates them to the transaction table listed within the SQL.
 	 * Process: Gets the date of the transaction, gets the employee name,
@@ -439,7 +461,6 @@ public class CurrentOrderList {
 
 	/**
 	 * @author: Devon Kelly
-	 * @return N/A
 	 * The function sets the manager status of CurrentEmployee.
 	 */
 	public void setManager(boolean manager) {

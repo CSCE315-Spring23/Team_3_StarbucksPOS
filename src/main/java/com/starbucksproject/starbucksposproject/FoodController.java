@@ -44,6 +44,14 @@ public class FoodController implements Initializable {
     private Button menuItemSpecial9;
     @FXML
     private Button menuItemSpecial10;
+
+    /**
+     * Changes the current page to the addons page.
+     *
+     * @param event An ActionEvent that represents the button being clicked.
+     * @throws IOException An exception caused if the input value is not expected.
+     *
+     */
     @FXML
     public void clickAddons(ActionEvent event) throws IOException {
         root = FXMLLoader.load(getClass().getResource("addons-gui.fxml"));
@@ -56,6 +64,14 @@ public class FoodController implements Initializable {
     protected void clickNextDrink() {
 
     }
+
+    /**
+     * Changes the current page to the manager page if user is manager, otherwise logs out.
+     *
+     * @param event An ActionEvent that represents the button being clicked.
+     * @throws IOException An exception caused if the input value is not expected.
+     *
+     */
     @FXML
     public void clickManagerMenu(ActionEvent event) throws IOException {
         if(CurrentOrderList.getInstance().isManager()) {
@@ -73,6 +89,14 @@ public class FoodController implements Initializable {
             stage.show();
         }
     }
+
+    /**
+     * Changes the current page to the coffee page.
+     *
+     * @param event An ActionEvent that represents the button being clicked.
+     * @throws IOException An exception caused if the input value is not expected.
+     *
+     */
     @FXML
     public void clickCoffeeMenu(ActionEvent event) throws IOException {
         root = FXMLLoader.load(getClass().getResource("coffee-gui.fxml"));
@@ -81,6 +105,14 @@ public class FoodController implements Initializable {
         stage.setScene(scene);
         stage.show();
     }
+
+    /**
+     * Changes the current page to the espresso page.
+     *
+     * @param event An ActionEvent that represents the button being clicked.
+     * @throws IOException An exception caused if the input value is not expected.
+     *
+     */
     @FXML
     public void clickEspressoMenu(ActionEvent event) throws IOException {
         root = FXMLLoader.load(getClass().getResource("espresso-gui.fxml"));
@@ -89,6 +121,14 @@ public class FoodController implements Initializable {
         stage.setScene(scene);
         stage.show();
     }
+
+    /**
+     * Changes the current page to the blended page.
+     *
+     * @param event An ActionEvent that represents the button being clicked.
+     * @throws IOException An exception caused if the input value is not expected.
+     *
+     */
     @FXML
     protected void clickBlendedMenu(ActionEvent event) throws IOException {
         root = FXMLLoader.load(getClass().getResource("blended-gui.fxml"));
@@ -97,6 +137,14 @@ public class FoodController implements Initializable {
         stage.setScene(scene);
         stage.show();
     }
+
+    /**
+     * Changes the current page to the teas page.
+     *
+     * @param event An ActionEvent that represents the button being clicked.
+     * @throws IOException An exception caused if the input value is not expected.
+     *
+     */
     @FXML
     protected void clickTeasMenu(ActionEvent event) throws IOException {
         root = FXMLLoader.load(getClass().getResource("tea-gui.fxml"));
@@ -106,6 +154,13 @@ public class FoodController implements Initializable {
         stage.show();
 
     }
+    /**
+     * Changes the current page to the coffee alternatives page.
+     *
+     * @param event An ActionEvent that represents the button being clicked.
+     * @throws IOException An exception caused if the input value is not expected.
+     *
+     */
     @FXML
     protected void clickCoffeeAlternativesMenu(ActionEvent event) throws IOException {
         root = FXMLLoader.load(getClass().getResource("coffee-alternative-gui.fxml"));
@@ -115,6 +170,14 @@ public class FoodController implements Initializable {
         stage.show();
 
     }
+
+    /**
+     * Changes the current page to the food page.
+     *
+     * @param event An ActionEvent that represents the button being clicked.
+     * @throws IOException An exception caused if the input value is not expected.
+     *
+     */
     @FXML
     protected void clickFoodMenu(ActionEvent event) throws IOException {
         root = FXMLLoader.load(getClass().getResource("food-gui.fxml"));
@@ -123,6 +186,14 @@ public class FoodController implements Initializable {
         stage.setScene(scene);
         stage.show();
     }
+
+    /**
+     * Logs out current user, taking them back to the main POS login page.
+     *
+     * @param event An ActionEvent that represents the button being clicked.
+     * @throws IOException An exception caused if the input value is not expected.
+     *
+     */
     @FXML
     protected void clickLogout(ActionEvent event) throws IOException {
         root = FXMLLoader.load(getClass().getResource("pos-view.fxml"));
@@ -135,16 +206,28 @@ public class FoodController implements Initializable {
     protected void clickEditCustomerName() {
 
     }
+
+    /**
+     * Removes the last added item from the current order list.
+     */
     @FXML
     protected void clickVoidLastItem() {
         if (CurrentOrderList.getInstance().getCurrentOrder().size() > 0)
             CurrentOrderList.getInstance().getCurrentOrder().remove(CurrentOrderList.getInstance().getCurrentOrder().size()-1);
     }
+
+    /**
+     * Completes the current transaction.
+     */
     @FXML
     protected void clickPay() {
         CurrentOrderList.getInstance().completeTransaction();
 
     }
+
+    /**
+     * Buttons for special menu items.
+     */
     @FXML
     protected void clickSpecial1() {
         CurrentOrderList.getInstance().addItem("999010");
@@ -195,6 +278,10 @@ public class FoodController implements Initializable {
         CurrentOrderList.getInstance().addItem("999100");
         System.out.println(CurrentOrderList.getInstance().getCurrentOrder());
     }
+
+    /**
+     * Buttons for standard menu items
+     */
     @FXML
     protected void clickBagel() {
         CurrentOrderList.getInstance().addItem("201003");
@@ -280,6 +367,7 @@ public class FoodController implements Initializable {
         CurrentOrderList.getInstance().addItem("201016");
         System.out.println(CurrentOrderList.getInstance().getCurrentOrder());
     }
+
     @FXML
     protected void clickZoesCookie() {
         CurrentOrderList.getInstance().addItem("201020");
