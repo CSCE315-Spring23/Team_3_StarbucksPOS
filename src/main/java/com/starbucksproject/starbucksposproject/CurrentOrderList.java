@@ -1,21 +1,19 @@
 package com.starbucksproject.starbucksposproject;
 
-import javafx.scene.control.CheckMenuItem;
-
-import java.util.ArrayList;
-
 import java.sql.*;
-
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
+import java.util.HashMap;
 
 //Use this class as a shared list between controllers. Load and save to it when swapping
+
+
+/**
+ * Static class that holds the current order list for quick loading and saving when swapping menus.
+ */
 public class CurrentOrderList {
-	/**
-	 * @Author: Devon Kelly
-	 * @Param:
-	 */
 	private static CurrentOrderList instance;
 	private ArrayList<String> currentOrder;
 
@@ -23,13 +21,16 @@ public class CurrentOrderList {
 	private boolean isManager = false;
 
 	private float TotalPrice = 0.0F;
+	private HashMap<Integer, String> idToName = null;
+	private Connection conn = null;
+
 
 	private CurrentOrderList(){
 		currentOrder = new ArrayList<String>();
+		conn = DBConnection.getInstance().getConnection();
 	}
 	//Menu item button click -> Add menu item to array list
 
-	private Connection conn = DBConnection.getInstance().getConnection();
 
 	/**
 	 * Executes the query in the  and grabs the first entry of the column provided.
@@ -270,35 +271,28 @@ public class CurrentOrderList {
 	}
 
 	/**
-	 * @Author: David Liu
-	 * @Param: N/A
-	 * @return: N/A
-	 * @throws: N/A
 	 * The function returns the CurrentOrderList as a string array.
+	 * @return Returns an ArrayList of Strings containing the current order, will not be null due to instantiation through getInstance
 	 */
 	public ArrayList<String> getCurrentOrder(){
 		return currentOrder;
 	}
 
 	/**
-	 * @Author: David Liu
-	 * @Param: N/A
-	 * @return: CurrentEmployee
-	 * @throws: N/A
 	 * The function returns the CurrentEmployee as a string.
+	 * @return CurrentEmployee Returns current employee ID
+	 *
 	 */
 	public String getCurrentEmployee() {
 		return CurrentEmployee;
 	}
 
 	/**
-	 /**
-	 * @Author: David Liu
-	 * @param employeeID
-	 * @return: N/A
-	 * @throws: N/A
+	 *
 	 * The function takes in an employee ID, translates it to the employee name,
 	 * and then stores the employee name within the code.
+	 * @param employeeID Employee ID given by login system
+	 *
 	 */
 	public void setCurrentEmployee(int employeeID) {
 		try {
@@ -318,7 +312,7 @@ public class CurrentOrderList {
 
 	/**
 	 * @author Devon Kelly
-	 * @param currentEmployee
+	 * @param currentEmployee Name of the current employee
 	 *
 	 * The function sets the CurrentEmployee object within the class to the parameter value currentEmployee.
 	 */
@@ -333,7 +327,6 @@ public class CurrentOrderList {
 	}
 
 	/**
-	 * @Author: David Liu
 	 * The function takes all the orders within the CurrentOrder Array, and
 	 * updates them to the transaction table listed within the SQL.
 	 * Process: Gets the date of the transaction, gets the employee name,
@@ -420,18 +413,30 @@ public class CurrentOrderList {
 	}
 
 	/**
-	 * @author: Devon Kelly
-	 * @return a boolean of whether the current employee is a manager or not.
+	 * @return A boolean of whether the current employee is a manager or not.
 	 */
 	public boolean isManager() {
 		return isManager;
 	}
 
 	/**
-	 * @author: Devon Kelly
 	 * The function sets the manager status of CurrentEmployee.
 	 */
 	public void setManager(boolean manager) {
 		isManager = manager;
+	}
+
+	public HashMap<Integer, String> getIdToNameMap() throws SQLException{
+		if (idToName == null){
+			Statement stmt = conn.createStatement();
+			ResultSet rs = stmt.executeQuery("SELECT inventory_id,inventory_name FROM inventory");
+			idToName = new HashMap<>();
+//			HashMap<String, Integer> nameToId = new HashMap<>();
+			while (rs.next()){
+				idToName.put(rs.getInt("inventory_id"), rs.getString("inventory_name"));
+				//can also do opposite
+			}
+		}
+		return idToName;
 	}
 }
