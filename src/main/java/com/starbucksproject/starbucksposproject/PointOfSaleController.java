@@ -116,7 +116,6 @@ public class PointOfSaleController {
 
     /**
      * @author Sam Hirvilampi, Devon Kelly
-     * @returns n/a
      * @param event
      * @throws NoSuchAlgorithmException
      *
