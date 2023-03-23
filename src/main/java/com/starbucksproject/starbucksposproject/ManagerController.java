@@ -196,19 +196,4 @@ public class ManagerController {
         stage.show();
     }
 
-    /**
-     * Changes the current page to the Excess Report page.
-     *
-     * @param event An ActionEvent that represents the button being clicked.
-     * @throws IOException An exception caused if the input value is not expected.
-     *
-     */
-    @FXML
-    protected void clickExcessReport(ActionEvent event) throws IOException {
-        root = FXMLLoader.load(getClass().getResource("excess-report-gui.fxml"));
-        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-        scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
-    }
 }
