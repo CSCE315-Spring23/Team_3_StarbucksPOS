@@ -512,6 +512,9 @@ public class SalesController implements Initializable {
         }
 
         return returnFloat;
+    }
+
+    public void clickSalesItemReport(ActionEvent event) throws IOException {
 
     }
 }
