@@ -26,6 +26,7 @@ import java.io.IOException;
 import java.net.Inet4Address;
 import java.net.URL;
 import java.sql.*;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -187,14 +188,14 @@ public class SalesController implements Initializable {
      * @throws IOException An exception caused if the input value is not expected.
      *
      */
-    @FXML
-    protected void clickExcessReport(ActionEvent event) throws IOException {
-        root = FXMLLoader.load(getClass().getResource("excess-report-gui.fxml"));
-        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-        scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
-    }
+//    @FXML
+//    protected void clickExcessReport(ActionEvent event) throws IOException {
+//        root = FXMLLoader.load(getClass().getResource("excess-report-gui.fxml"));
+//        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+//        scene = new Scene(root);
+//        stage.setScene(scene);
+//        stage.show();
+//    }
     /**
      * Changes the current page to the main POS page.
      *
@@ -697,4 +698,118 @@ public class SalesController implements Initializable {
         dialog.showAndWait();
 
     }
+
+    public void clickExcessReport(ActionEvent event) throws IOException {
+        try {
+            HashMap<String, Float> excessReport = getExcessReport();
+            for (String key : excessReport.keySet()) {
+                System.out.println(key + ": " + excessReport.get(key));
+            }
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    public HashMap<String, Float> getExcessReport() throws ParseException {
+        String[] ingredientsList = getIngredientsList();
+        double[] amountsList = getFloatArray(startDatePrivate, endDatePrivate);
+
+        HashMap<String, Float> hashMap = new HashMap<String, Float>();
+
+        for (int i = 0; i < ingredientsList.length; i++) {
+            String key = ingredientsList[i];
+            Float value = (float) amountsList[i];
+            hashMap.put(key, value);
+        }
+
+        return hashMap;
+    }
+
+    private double[] getFloatArray(String beginDate, String endDate) throws ParseException {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyMMdd");
+        Date startDate = dateFormat.parse(beginDate);
+        Date endDateObj = dateFormat.parse(endDate);
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(startDate);
+
+        double[] returnAmount = new double[84];
+        Arrays.fill(returnAmount, 0.0f);
+
+        while (calendar.getTime().before(endDateObj)) {
+            Date currentDate = calendar.getTime();
+            String dateString = dateFormat.format(currentDate);
+            double[] currAmount = getInventoryForDay(dateString);
+            returnAmount = addArrays(currAmount, returnAmount);
+
+            calendar.add(Calendar.DATE, 1);
+        }
+
+        System.out.println(dateFormat.format(endDateObj));
+
+        return returnAmount;
+    }
+
+    private String[] getIngredientsList() {
+        String[] inventoryArray = new String[84];
+        try {
+            Statement stmt = conn.createStatement();
+
+            String sql = "SELECT inventory_name FROM inventory";
+            ResultSet rs = stmt.executeQuery(sql);
+
+            ArrayList<String> inventoryNames = new ArrayList<String>();
+            while (rs.next()) {
+                String inventoryName = rs.getString("inventory_name");
+                inventoryNames.add(inventoryName);
+            }
+
+            inventoryArray = inventoryNames.toArray(new String[inventoryNames.size()]);
+
+//            conn.close();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return inventoryArray;
+    }
+
+    public double[] getInventoryForDay(String day) {
+        conn = DBConnection.getInstance().getConnection();
+        double[] floatArray = new double[85];
+        Arrays.fill(floatArray, 0f);
+        try {
+            String sql = "SELECT ingredient_amounts FROM inventory_history WHERE date = " + day;
+            Statement statement = conn.createStatement();
+
+            ResultSet result = statement.executeQuery(sql);
+            if (result.next()) {
+                Array ingredientArray = result.getArray("ingredient_amounts");
+                floatArray = (double[]) ingredientArray.getArray();
+            }
+
+            statement.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.err.println(e.getClass().getName() + ": " + e.getMessage());
+            System.exit(0);
+        }
+        return floatArray;
+    }
+
+    private static double[] addArrays(double[] arr1, double[] arr2) {
+        if (arr1.length != arr2.length) {
+            throw new IllegalArgumentException("Input arrays must have the same length");
+        }
+
+        double[] result = new double[arr1.length];
+        for (int i = 0; i < arr1.length; i++) {
+            result[i] = arr1[i] + arr2[i];
+        }
+
+        return result;
+    }
+
+
 }
