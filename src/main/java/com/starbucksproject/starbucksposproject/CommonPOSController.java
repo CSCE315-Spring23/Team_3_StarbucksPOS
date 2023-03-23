@@ -95,7 +95,7 @@ public abstract class CommonPOSController implements Initializable {
 		menuItemSpecial10.setDisable(true);
 		try {
 			Statement stmt = conn.createStatement();
-			ResultSet rs = stmt.executeQuery("SELECT * FROM special_menu_items WHERE enabled=true and category='add-on'");
+			ResultSet rs = stmt.executeQuery("SELECT * FROM special_menu_items WHERE enabled=true");
 			while(rs.next()){
 				switch((rs.getInt("item_id")/10)%100){
 					case 1:
