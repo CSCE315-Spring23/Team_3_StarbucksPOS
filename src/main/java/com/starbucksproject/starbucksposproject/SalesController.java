@@ -675,6 +675,32 @@ public class SalesController implements Initializable {
             this.num = num;
         }
     }
+
+    public class excessReportItem{
+        public String item;
+        public Float num;
+
+        public excessReportItem(String item, Float num) {
+            this.item = item;
+            this.num = num;
+        }
+
+        public String getItem() {
+            return item;
+        }
+
+        public void setItem(String item) {
+            this.item = item;
+        }
+
+        public Float getNum() {
+            return num;
+        }
+
+        public void setNum(Float num) {
+            this.num = num;
+        }
+    }
     public void clickSalesItemReport(ActionEvent event) throws IOException {
         clickSalesBounded();
         HashMap<String, Integer> salesItemReport = getSalesItemReport(startDatePrivate, endDatePrivate);
@@ -713,19 +739,43 @@ public class SalesController implements Initializable {
     }
 
     public void clickExcessReport(ActionEvent event) throws IOException {
-        try {
-            HashMap<String, Float> excessReport = getExcessReport();
-            for (String key : excessReport.keySet()) {
-                System.out.println(key + ": " + excessReport.get(key));
-            }
+        clickSalesBounded();
+        HashMap<String, Float> excessReport = getExcessReport();
+        ArrayList<String> items = new ArrayList<>(excessReport.keySet());
+        ArrayList<excessReportItem> excessReportItems = new ArrayList<>(items.size());
+        for (String item : items) {
+            excessReportItems.add(new excessReportItem(item, excessReport.get(item)));
         }
-        catch (Exception e) {
-            e.printStackTrace();
-        }
+        ObservableList<excessReportItem> observable = FXCollections.observableList(excessReportItems);
+
+        Dialog<Object> dialog = new Dialog<Object>();
+        dialog.setTitle("Excess Report");
+        dialog.getDialogPane().getButtonTypes().addAll(ButtonType.CLOSE);
+        GridPane grid = new GridPane();
+        TableView<excessReportItem> tableView = new TableView<>();
+        TableColumn<excessReportItem, String> itemNameCol = new TableColumn<>("Inventory Name");
+        itemNameCol.setCellValueFactory(new PropertyValueFactory<>("inventory"));
+        itemNameCol.prefWidthProperty().bind(tableView.widthProperty().multiply(0.7));
+        TableColumn<excessReportItem, String> soldCol = new TableColumn<>("Amount Usec");
+        soldCol.setCellValueFactory(new PropertyValueFactory<>("num"));
+        soldCol.prefWidthProperty().bind(tableView.widthProperty().multiply(0.3));
+        tableView.getColumns().add(itemNameCol);
+        tableView.getColumns().add(soldCol);
+        tableView.setItems(observable);
+        grid.add(tableView, 0, 0);
+
+        dialog.getDialogPane().setContent(grid);
+
+        // Gets start date and end date from entered text strings
+        dialog.setResultConverter(dialogButton -> {
+            return null;
+        });
+
+        dialog.showAndWait();
 
     }
 
-    public HashMap<String, Float> getExcessReport() throws ParseException {
+    public HashMap<String, Float> getExcessReport() {
         ArrayList<String> ingredientsList = getIngredientsList();
         HashMap<String, Float> hashMap = new HashMap<>();
         String key;
