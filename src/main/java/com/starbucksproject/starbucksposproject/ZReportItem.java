@@ -1,28 +1,38 @@
 package com.starbucksproject.starbucksposproject;
 
 public class ZReportItem {
-	private int date;
-	private double sales;
+	private int last_transaction_id;
+	private int last_transaction_date;
+	private double total;
 
-	public int getDate() {
-		return date;
+	public int getLast_transaction_id() {
+		return last_transaction_id;
 	}
 
-	public void setDate(int date) {
-		this.date = date;
+	public void setLast_transaction_id(int last_transaction_id) {
+		this.last_transaction_id = last_transaction_id;
 	}
 
-	public double getSales() {
-		return sales;
+	public int getLast_transaction_date() {
+		return last_transaction_date;
 	}
 
-	public void setSales(double sales) {
-		this.sales = sales;
+	public void setLast_transaction_date(int last_transaction_date) {
+		this.last_transaction_date = last_transaction_date;
 	}
 
-	public ZReportItem(int date, double sales) {
-		this.date = date;
-		this.sales = sales;
+	public double getTotal() {
+		return total;
+	}
+
+	public void setTotal(double total) {
+		this.total = total;
+	}
+
+	public ZReportItem(int last_transaction_id, int last_transaction_date, double total) {
+		this.last_transaction_id = last_transaction_id;
+		this.last_transaction_date = last_transaction_date;
+		this.total = total;
 	}
 }
 
