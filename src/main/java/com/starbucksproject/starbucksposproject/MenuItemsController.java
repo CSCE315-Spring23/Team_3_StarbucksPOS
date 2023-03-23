@@ -28,6 +28,9 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.Date;
 
+/**
+ * This class implements functions for the menu items page.
+ */
 public class MenuItemsController implements Initializable {
     Connection conn = null;
     private Stage stage;
