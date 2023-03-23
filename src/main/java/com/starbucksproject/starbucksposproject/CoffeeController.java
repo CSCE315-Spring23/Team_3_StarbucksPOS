@@ -4,7 +4,6 @@ import javafx.fxml.FXML;
 
 public class CoffeeController extends CommonPOSController {
 
-    int drinkSize = 0;
 
     @FXML
     protected void clickTall() {

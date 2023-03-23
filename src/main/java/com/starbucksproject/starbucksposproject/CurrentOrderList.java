@@ -180,7 +180,13 @@ public class CurrentOrderList {
 	 * @throws SQLException
 	 */
 	private String[] GetList(String columnName, int id) throws SQLException {
-		String query = "SELECT " + columnName + " FROM menu_items WHERE item_id = " + id;
+		String query;
+		if(id/1000 == 999) {
+			query = "SELECT " + columnName + " FROM special_menu_items WHERE item_id = " + id;
+		}
+		else{
+			query = "SELECT " + columnName + " FROM menu_items WHERE item_id = " + id;
+		}
 		try (Statement statement = conn.createStatement()) {
 			ResultSet resultSet = statement.executeQuery(query);
 			resultSet.next();
