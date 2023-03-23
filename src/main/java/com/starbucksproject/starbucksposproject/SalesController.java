@@ -422,6 +422,8 @@ public class SalesController implements Initializable {
 
     private static ArrayList<Integer> splitOrderString(String str) {
         String[] strArr = str.split(","); // split the string on commas
+        strArr[0] = strArr[0].replace("{", "");
+        strArr[strArr.length-1] = strArr[strArr.length-1].replace("}", "");
         ArrayList<Integer> intList = new ArrayList<>(); // create a new ArrayList to store the integers
 
         for (String s : strArr) {
@@ -432,15 +434,13 @@ public class SalesController implements Initializable {
     }
 
     private static ArrayList<String> getOrderList(String beginDate, String endDate) {
-        String query = "SELECT order_list FROM transactions WHERE transaction_date BETWEEN ? AND ?";
+        String query = "SELECT order_list FROM transactions WHERE transaction_date BETWEEN "+ beginDate +" AND " + endDate;
         // Set 1 as beginDate and 2 as endDate
         ArrayList<String> orderLists = new ArrayList<>();
         try {
             Connection conn = DBConnection.getInstance().getConnection();
-            PreparedStatement pstmt = conn.prepareStatement(query);
-            pstmt.setString(1, beginDate);
-            pstmt.setString(2, endDate);
-            ResultSet rs = pstmt.executeQuery();
+            Statement statement = conn.createStatement();
+            ResultSet rs = statement.executeQuery(query);
 
             while (rs.next()) {
                 orderLists.add(rs.getString("order_list"));
@@ -515,6 +515,8 @@ public class SalesController implements Initializable {
     }
 
     public void clickSalesItemReport(ActionEvent event) throws IOException {
+        HashMap<String, Integer> salesItemReport = getSalesItemReport("221101", "221201");
+
 
     }
 }
